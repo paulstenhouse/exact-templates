@@ -24,4 +24,4 @@ A clothing store with a searchable catalogue, product photos and pinch zoom, inv
 
 Keywords: store, shop, shopping, ecommerce, clothing, apparel, catalogue, catalog, product, inventory, stock, size, colour, filters, search, bag, cart, checkout, promo code, account, sign-in, password, bearer token, orders, favorites, photo gallery, pinch zoom, native module, REST, backend, Quickback, Cloudflare Workers, D1, Better Auth, server rendering, tabs.
 
-Hosts tested: web (30 UI tests pass) and iOS 27 on an iPhone simulator (6 UI tests pass), both against the backend; `softwear/TEMPLATE.md` says what was not run. Built on Exact `1cbce180d4` (`softwear/exact.json`).
+Hosts tested: web (30 UI tests pass) and iOS 27 on an iPhone simulator (6 UI tests pass), both against the backend, and macOS by a driven order; `softwear/TEMPLATE.md` says what was not run. Built on Exact `1cbce180d4` (`softwear/exact.json`).

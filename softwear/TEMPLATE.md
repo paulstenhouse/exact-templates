@@ -53,8 +53,9 @@ With the Quickback backend, on the pinned Exact, in `softwear/app` made runnable
 - `bun exact.mjs test web`: 30 UI tests pass (22 in `app.test.contract`, 8 in `regressions.test.contract`).
 - `bun exact.mjs test ios app.test.contract` on an iPhone 17 Pro simulator, iOS 27.0: 6 tests pass, among them a sign-up, a bag, WELCOME15, a checkout and the order read back, all against the backend.
 - `bun test tools/server.test.ts tools/data.test.ts`: 8 tests pass. `tools/browser.test.ts`: 4 pass.
+- macOS (`bun exact.mjs mac`, then `bun exact.mjs agent macos …`): the same sign-up, bag, WELCOME15, checkout and order, driven by hand against the backend; `docs/macos-*.png`. Its test file has not been run there.
 
-Not run since the backend replaced the Bun server: `bun exact.mjs verify` and `verify ios`, the regression file on iOS, Android, and an app made by `new.mjs` rather than `--develop`. The backend has been run only locally, under `wrangler dev`; it has not been deployed.
+Not run since the backend replaced the Bun server: `bun exact.mjs verify` and `verify ios`, the tests on macOS, Android, and an app made by `new.mjs` rather than `--develop`. The backend has been run only locally, under `wrangler dev`; it has not been deployed.
 
 ## Needs
 
