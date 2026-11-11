@@ -20,8 +20,8 @@ Hosts verified: iOS 27.1 on the iPhone Duo, open and closed (1 of 4 tests passes
 
 ## softwear
 
-A clothing store with a searchable catalogue, product photos and pinch zoom, inventory-aware bag, promo codes, checkout and accounts. A Bun and SQLite demo API serves the web and installed apps.
+A clothing store with a searchable catalogue, product photos and pinch zoom, inventory-aware bag, promo codes, checkout and accounts. Its backend is a Quickback project (`softwear/backend`): a Cloudflare Worker with D1 and Better Auth that serves the web and installed apps.
 
-Keywords: store, shop, shopping, ecommerce, clothing, apparel, catalogue, catalog, product, inventory, stock, size, colour, filters, search, bag, cart, checkout, promo code, account, orders, favorites, photo gallery, pinch zoom, native module, REST, SQLite, server rendering, tabs.
+Keywords: store, shop, shopping, ecommerce, clothing, apparel, catalogue, catalog, product, inventory, stock, size, colour, filters, search, bag, cart, checkout, promo code, account, sign-in, password, bearer token, orders, favorites, photo gallery, pinch zoom, native module, REST, backend, Quickback, Cloudflare Workers, D1, Better Auth, server rendering, tabs.
 
-Hosts tested: web (28 UI tests pass; full verification has findings listed in `softwear/TEMPLATE.md`). Built on Exact `1cbce180d4` (`softwear/exact.json`).
+Hosts tested: web (30 UI tests pass) and iOS 27 on an iPhone simulator (6 UI tests pass), both against the backend; `softwear/TEMPLATE.md` says what was not run. Built on Exact `1cbce180d4` (`softwear/exact.json`).
