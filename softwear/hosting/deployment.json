@@ -1,6 +1,6 @@
 {
   "site": "https://softwear.examples.quickback.dev",
-  "recordedAt": "2026-11-11T18:07:10.182591+00:00",
+  "recordedAt": "2026-11-11T18:32:02.160569+00:00",
   "accountId": "19cf1906ef35218176ea7a01fb1032f7",
   "zoneId": "c71a556b78630ce3ffb88f229ba11e75",
   "workers": {
@@ -10,7 +10,7 @@
     },
     "backend": {
       "name": "softwear",
-      "versionId": "afad1562-3990-4b99-856e-7ba06fb01396",
+      "versionId": "35bb52df-f672-4610-ba96-39e033bed94c",
       "ingress": "Service binding only; workers.dev and preview URLs disabled"
     }
   },
@@ -24,8 +24,8 @@
   },
   "compiler": {
     "version": "0.72.7",
-    "gitSha": "e7f14d086",
-    "image": "quickback-compiler:cms-platform-controls"
+    "gitSha": "8d528cb96",
+    "image": "quickback-compiler:cms-sidebar-groups"
   },
   "certificate": {
     "packId": "aaefaefa-5b62-46e9-b33a-caa2f87dc1d0",
@@ -52,7 +52,14 @@
     "pinnedOrganizationAndOwnerMembership": true,
     "browserStockCreate": true,
     "browserProductEditWithUnchangedEmptyField": true,
-    "browserProductNameRestored": true
+    "browserProductNameRestored": true,
+    "cmsNavigationGroups": [
+      "Catalogue",
+      "Shopping",
+      "Orders",
+      "Marketing"
+    ],
+    "cmsNavigationTables": 10
   },
   "notes": [
     "Secrets are stored in Cloudflare and are not included here.",

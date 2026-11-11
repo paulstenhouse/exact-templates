@@ -18,7 +18,15 @@ export default {
     template: "hono",
     build: publicOrigin ? { outputDir: "../.deploy" } : undefined,
     bindings: { vars: publicOrigin ? { BETTER_AUTH_URL: publicOrigin } : {} },
-    cms: { sysadmin: true },
+    cms: {
+        sysadmin: true,
+        navigation: [
+            { label: "Catalogue", tables: ["products", "stock"] },
+            { label: "Shopping", tables: ["bagItems", "savedStyles"] },
+            { label: "Orders", tables: ["orders", "orderLines"] },
+            { label: "Marketing", tables: ["promoCodes", "promoRedemptions", "subscribers", "restockRequests"] },
+        ],
+    },
     features: publicOrigin ? { pinnedOrganizationId: "softwear-demo-store" } : undefined,
     account: { name: "Softwear demo", auth: { password: true, organizations: false, admin: false, passkey: false } },
     client: {
