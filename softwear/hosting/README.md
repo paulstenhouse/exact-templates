@@ -28,7 +28,7 @@ cd softwear/backend && npm install
 cd ../hosting && npm ci
 ```
 
-The current prototype requires Quickback's Exact target, automatic grants and generated bindings (#836–#838), plus the Wrangler KV naming compatibility fix found during this deployment. Until those changes are released, build the CLI from the Quickback checkout and run its compiler with Docker. Never replace the Docker compiler with a host Bun server.
+The current prototype requires Quickback's Exact target, automatic grants and generated bindings (#836–#838), plus the Wrangler KV naming compatibility fix and CMS platform-role/edit-validation fixes (#840) found during this deployment. Until those changes are released, build the CLI from the Quickback checkout and run its compiler with Docker. Never replace the Docker compiler with a host Bun server.
 
 ```sh
 # In the Quickback checkout:
@@ -74,5 +74,7 @@ Local development keeps using `app/`, the backend's normal local output and the 
 - Exact's Bun renderer is not running in Workers. Request-time product SSR is therefore not part of this static deployment.
 
 The custom domain is attached through Cloudflare Workers Custom Domains, which issues a certificate for the nested hostname. The quickback.dev zone hold remains enabled with subdomains excluded; it was not changed for this deployment. Fresh DNS records can be negatively cached by a local resolver during rollout; compare a public resolver and the certificate status before treating that as a failed deployment.
+
+Live browser checks also created a stock row and edited/restored a product name with its empty Weight field unchanged. The stock test row is disposable and disappears at the next scheduled reset.
 
 See `deployment.json` for the deployed resource identities and versions. No permanent local agent or development server is required after deployment.
