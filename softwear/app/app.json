@@ -28,7 +28,8 @@
       "deviceFamily": [
         "iphone",
         "ipad"
-      ]
+      ],
+      "localNetworking": true
     },
     "android": {},
     "macos": {

@@ -14,6 +14,7 @@ test "joining while signed in refreshes membership without reloading" on web
   at "/account"
   clock data
   type "signin-email" "regression-subscriber@example.com"
+  type "signin-password" "softwear-demo"
   tap "signin"
   clock data
   type "account-join-email" "regression-subscriber@example.com"
@@ -26,6 +27,7 @@ test "an existing member sees a newly placed order immediately" on web
   at "/account"
   clock data
   type "signin-email" "regression-order@example.com"
+  type "signin-password" "softwear-demo"
   tap "signin"
   clock data
   tap "nav-shop"
@@ -57,6 +59,7 @@ test "a saved name can be cleared, saved empty and loaded again" on web
   at "/account"
   clock data
   type "signin-email" "regression-name@example.com"
+  type "signin-password" "softwear-demo"
   tap "signin"
   clock data
   type "name" "Original"
@@ -77,7 +80,7 @@ test "a failed stock request does not use the previous product's sizes" on web
   at "/p/challenger-eco-fleece-hoodie"
   clock data
   expect disabled "size-3XL"
-  fail fetch "/stock/rocky-eco-fleece-zip-hoodie"
+  fail fetch "/api/v1/stock?limit=100&productSlug=rocky-eco-fleece-zip-hoodie"
   tap "card-rocky-eco-fleece-zip-hoodie"
   clock data
   clock settle
@@ -85,12 +88,18 @@ test "a failed stock request does not use the previous product's sizes" on web
   expect text "stock-note" == "Stock isn't available right now; we'll check when you order."
 
 test "an unavailable order can be retried and a real 404 is distinct" on web
-  at "/order/SW-no-such-order"
-  fail fetch "/orders/SW-no-such-order"
+  at "/account"
+  clock data
+  type "signin-email" "regression-missing@example.com"
+  type "signin-password" "softwear-demo"
+  tap "signin"
+  clock data
+  fail fetch "/api/v1/orders?limit=100&number=SW-no-such-order"
+  type "app" "/order/SW-no-such-order"
   clock data
   expect tree has "order-retry"
   expect tree missing "order-missing-account"
-  pass fetch "/orders/SW-no-such-order"
+  pass fetch "/api/v1/orders?limit=100&number=SW-no-such-order"
   tap "order-retry"
   clock data
   expect tree missing "order-retry"
@@ -121,12 +130,17 @@ test "stock updates immediately after purchasing the last units" on web
   tap "size-2XL"
   type "qty" "3"
   tap "add-to-bag"
+  tap "nav-account"
+  clock settle
+  type "signin-email" "last-stock@example.com"
+  type "signin-password" "softwear-demo"
+  tap "signin"
+  clock data
   tap "nav-bag"
   clock settle
   clock data
   tap "checkout"
   clock settle
-  type "co-email" "last-stock@example.com"
   type "co-name" "Review"
   type "co-address" "1 Test St"
   type "co-city" "Test"

@@ -3,8 +3,9 @@
 // The site: pages at URLs. The home page, the shop and the story are the catalog's own, fixed when the site is
 // built, so they render ahead (`render=build`) and arrive whole, as a static site's pages do. A product page shows
 // what is left of each size, which changes after a build, so `serve` renders it per request (`render=request`);
-// the bag, checkout, account and search are the reader's own and render in the browser. The catalog is app.ts's
-// (catalog.ts); stock, the mailing list, accounts and orders are server.ts's, the API.
+// the bag, checkout, account and search are the reader's own and render in the browser. The catalog, stock, the
+// mailing list, accounts, bags, saved styles and orders are the API's: the Quickback backend in ../backend, which
+// app.ts calls. A build has no server to ask, so the pages it renders ahead show catalog.ts, the backend's seed.
 //
 // The app: the same routes under four tabs. In the installed app (iOS, Android) each route's `header` is the
 // platform's bar and the root `tablist` its tab bar; in a browser those are hidden and the site's own header and
@@ -12,8 +13,8 @@
 // build keeps the build's reading, so what must differ by width is CSS's (`flex-wrap`, a grid's `minmax`). The app's
 // toast alone reads the fold, and it only ever shows after a press.
 //
-// The bag is the person's, kept on the device (`persist`): each line is `slug|colour|size|qty`, which the server
-// reads again when the order is placed. No payment is taken and nothing ships.
+// The bag is the person's, kept on the device (`persist`): each line is `slug|colour|size|qty`. Signed in, it is
+// also kept on the server, which is what an order is made from. No payment is taken and nothing ships.
 use EmptyState from "exact:content"
 
 routes nav
@@ -107,6 +108,18 @@ shape Placed
 shape Promo
   code: string
   pct: number
+  used: bool
+
+// What signing in answers: who, and the bag and saved styles they kept on the server.
+shape SignedIn
+  ok: bool
+  error: string
+  email: string
+  bag: string[]
+  saved: string[]
+
+shape Done
+  ok: bool
 
 shape LineStock
   key: string
@@ -248,6 +261,7 @@ component App
   state joinDraft = ""
   state promoDraft = ""
   state signinDraft = ""
+  state passwordDraft = ""
   state nameDraft = ""
   state nameEdited = false
   // The address is kept on the device, so a second order needs no retyping.
@@ -279,15 +293,16 @@ component App
   derive bagCount = countAll(bag)
   derive subtotal = subtotalOf(catalog, bag)
   // A code's worth is the server's answer: the store's codes and every member's own.
-  resource promoInfo = checkPromo(promo) as shape Promo else empty()
+  resource promoInfo = checkPromo(promo, member) as shape Promo else empty()
   derive promoPct = promoInfo.code == promo ? promoInfo.pct : 0
   derive discount = round(subtotal * promoPct / 100)
   derive afterDiscount = subtotal - discount
   derive shippingCents = shippingFor(coShip, afterDiscount)
   derive total = afterDiscount + shippingCents
-  derive promoNote = promo == "" ? "" : promoPct > 0 ? `${promo} applied: ${promoPct}% off.` : pending(promoInfo) ? `Checking ${promo}…` : failed(promoInfo) ? `Can't check ${promo} right now; it is checked again when you order.` : `${promo} isn't a code we know.`
+  derive promoUsed = promoInfo.code == promo and promoInfo.used
+  derive promoNote = promo == "" ? "" : member == "" ? `Sign in to use ${promo}: codes are checked against your account.` : promoUsed ? `${promo} is for a first order, and you have used it.` : promoPct > 0 ? `${promo} applied: ${promoPct}% off.` : pending(promoInfo) ? `Checking ${promo}…` : failed(promoInfo) ? `Can't check ${promo} right now; it is checked again when you order.` : `${promo} isn't a code we know.`
   // What is left of each line in the bag, so a shopper learns of a shortfall there, not at Place order.
-  resource bagStock = loadBagStock(bag.map(l => keyOf(l))) as shape LineStock[] else empty()
+  resource bagStock = loadBagStock(bag, member) as shape LineStock[] else empty()
   derive bagShort = bag.filter(l => leftOf(bagStock, keyOf(l)) < demandFor(bag, l)).length
 
   // The shop's filters are its location's query, so Back, a reload and a shared link keep them.
@@ -320,12 +335,14 @@ component App
   resource account = loadAccount(member) as shape Account else empty()
   resource orders = loadOrders(member) as shape Order[] else empty()
   derive orderId = match stack(nav).filter(e => e.name == "order").at(-1) { case some(e) => e.params.id, case none => "" }
-  resource order = loadOrder(orderId) as shape Order else empty()
+  resource order = loadOrder(orderId, member) as shape Order else empty()
 
   mutation joined as shape Joined refreshes account
-  mutation signedIn as shape Account then afterSignIn
+  mutation signedIn as shape SignedIn then afterSignIn
+  mutation signedOut as shape Done
+  mutation savedSynced as shape Done
   mutation renamed as shape Account refreshes account
-  mutation placed as shape Placed refreshes orders, account, stock, bagStock then afterOrder
+  mutation placed as shape Placed refreshes orders, account, stock, promoInfo then afterOrder
   derive nameValue = nameEdited ? nameDraft : account.name
   derive nameError = match renamed { case some(r) => r.error, case none => "" }
   derive orderError = match failure(order) { case some(f) => f.message, case none => "" }
@@ -335,10 +352,12 @@ component App
   derive signinError = match signedIn { case some(r) => r.error, case none => "" }
   derive signedOk = match signedIn { case some(r) => r.ok, case none => false }
   derive signedEmail = match signedIn { case some(r) => r.email, case none => "" }
+  derive signedBag = match signedIn { case some(r) => r.bag, case none => [] }
+  derive signedSaved = match signedIn { case some(r) => r.saved, case none => [] }
   derive placeError = match placed { case some(r) => r.error, case none => "" }
   derive placedOk = match placed { case some(r) => r.ok, case none => false }
   derive placedId = match placed { case some(r) => r.id, case none => "" }
-  derive checkoutHint = bag.length == 0 ? "Your bag is empty." : coEmail.trim() == "" ? "Enter an email for the receipt." : coName.trim() == "" ? "Enter the name it ships to." : (coAddress.trim() == "" or coCity.trim() == "" or coZip.trim() == "") ? "Enter the shipping address." : ""
+  derive checkoutHint = bag.length == 0 ? "Your bag is empty." : member == "" ? "Sign in to place your order." : coEmail.trim() == "" ? "Enter an email for the receipt." : coName.trim() == "" ? "Enter the name it ships to." : (coAddress.trim() == "" or coCity.trim() == "" or coZip.trim() == "") ? "Enter the shipping address." : ""
 
   // Leaving a page ends its toast: its word was about that page, and it must not cover what the next one offers.
   action pick(name: string)
@@ -421,8 +440,11 @@ component App
     if pending(placed)
       submittedBag = submittedBag.filter(l => keyOf(l) != key)
   action toggleSaved(slug: string)
-    saved = saved.includes(slug) ? saved.filter(s => s != slug) : saved.concat([slug])
+    let next = saved.includes(slug) ? saved.filter(s => s != slug) : saved.concat([slug])
+    saved = next
     haptic("selection")
+    if member != ""
+      send savedSynced = syncSaved(member, next)
 
   action editJoin(v: string)
     joinDraft = v
@@ -445,16 +467,25 @@ component App
 
   action editSignin(v: string)
     signinDraft = v
+  action editPassword(v: string)
+    passwordDraft = v
   action signIn
-    if signinDraft.trim() != "" and not pending(signedIn)
-      send signedIn = signIn(signinDraft.trim())
+    if signinDraft.trim() != "" and passwordDraft != "" and not pending(signedIn)
+      send signedIn = signIn(signinDraft.trim(), passwordDraft)
+  // What was in the bag and saved before signing in joins what the account already had; both then go to the server.
   action afterSignIn
     if signedOk
+      bag = signedBag.filter(l => qtyFor(bag, keyOf(l)) == 0).concat(bag)
+      let all = saved.concat(signedSaved.filter(s => not saved.includes(s)))
+      saved = all
       member = signedEmail
       signinDraft = ""
+      passwordDraft = ""
+      send savedSynced = syncSaved(signedEmail, all)
       nameEdited = false
       renamed = none
   action signOut
+    send signedOut = signOut()
     member = ""
     nameDraft = ""
     nameEdited = false
@@ -497,8 +528,6 @@ component App
       send placed = placeOrder(email, coName.trim(), coAddress.trim(), coCity.trim(), coZip.trim(), coShip, bag, promo)
   action afterOrder
     if placedOk
-      if member == submittedMember
-        member = submittedEmail
       bag = afterPurchase(bag, submittedBag)
       if promo == submittedPromo
         promo = ""
@@ -1218,10 +1247,11 @@ component App
                         if member == ""
                           column gap=12
                             text "Sign in" role="heading" aria-level=1 class=Title
-                            text "Your orders, your saved styles and your member code. No password: this demo store signs you in with an email alone." color="muted" line-height=1.5
+                            text "Your orders, your saved styles, your bag on every device and your welcome code. New here? Choose a password and this makes your account." color="muted" line-height=1.5
                             row gap=8 flex-wrap="wrap"
                               input value=signinDraft input=editSignin submit=signIn type="email" placeholder="you@example.com" aria-label="Email" autocomplete="email" inputmode="email" class=Field flex="1 1 240px" min-width=0 testId="signin-email"
-                              button press=signIn disabled=(signinDraft.trim() == "" or pending(signedIn)) buttonStyle="filled" class=Capsule testId="signin"
+                              input value=passwordDraft input=editPassword submit=signIn type="password" placeholder="Password" aria-label="Password" autocomplete="current-password" class=Field flex="1 1 160px" min-width=0 testId="signin-password"
+                              button press=signIn disabled=(signinDraft.trim() == "" or passwordDraft == "" or pending(signedIn)) buttonStyle="filled" class=Capsule testId="signin"
                                 text "Continue"
                             if signinError != "" and not pending(signedIn)
                               text signinError font-size="0.8125rem" color="error" testId="signin-error"
@@ -1231,9 +1261,11 @@ component App
                             text member overflow-wrap="break-word" role="heading" aria-level=1 class=Title font-size="1.375rem" testId="member"
                           row flex-wrap="wrap" gap=16
                             column flex="1 1 220px" gap=8 background-color="card" border-radius=16 padding=20 min-width=0
-                              text "Your member code" font-size="0.875rem" color="muted"
-                              text account.code overflow-wrap="break-word" font-size="1.5rem" font-weight=700 letter-spacing="0.06em" testId="account-code"
-                              text "10% off any order, as often as you like." font-size="0.8125rem" color="muted"
+                              text "Your welcome code" font-size="0.875rem" color="muted"
+                              text (account.code == "" and account.ok ? "Used" : account.code) overflow-wrap="break-word" font-size="1.5rem" font-weight=700 letter-spacing="0.06em" testId="account-code"
+                              text (account.code == "" and account.ok ? "It took 15% off your first order." : "15% off your first order.") font-size="0.8125rem" color="muted"
+                              if not account.ok and account.error != ""
+                                text account.error font-size="0.8125rem" color="error" testId="account-error"
                               if account.code != "" and promo != account.code
                                 button press=applyCode(account.code) buttonStyle="bordered" class=Capsule align-self="flex-start" testId="account-code-apply"
                                   text "Apply to your bag"

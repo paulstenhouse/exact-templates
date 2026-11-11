@@ -24,6 +24,6 @@
 # license does not cover the photos
 landscapes/app/assets/apple/
 
-# Softwear's local API database and per-machine API address
-softwear/app/data.db*
+# Softwear's per-machine API address. Its backend keeps its own local state and secrets out of git
+# (softwear/backend/.gitignore: .wrangler/, .dev.vars, node_modules/)
 softwear/app/.env.local

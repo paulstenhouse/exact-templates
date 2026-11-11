@@ -25,17 +25,18 @@ not affiliated with it.
   gone. Colour and size pickers (the size carries to the next style, unless it is sold out there), a
   quantity stepper, a saved heart, what the style is worn with and more of its kind.
 - Search, by name, fabric, category, colour, fit, style number and tag.
-- A bag kept on the device: quantities, removal, each line checked against the server's stock, promo
-  codes the server prices (`WELCOME15`, `FLEECE10`, and every member's own `FRIEND` code), free
-  shipping over $75. The code a signup earns applies itself in one press. Adding or applying says so in
+- A bag kept on the device and, signed in, on the server too, so it is there on the next device: quantities,
+  removal, each line checked against the server's stock, promo codes the server prices for the account
+  (`FLEECE10`, and `WELCOME15`, which works once per shopper), free shipping over $75. The code a signup earns applies itself in one press. Adding or applying says so in
   a toast at the bottom of the window (in the app, at the bottom of the route: above the tab bar, and short of
   the tab rail on an iPhone Duo, off the hinge on a book fold), with a way to the bag, for five
   seconds or until dismissed.
-- Checkout with an address (kept on the device for the next order) and a shipping choice; the server
-  checks stock, prices the order and gives it a number; the order has its own page. A refusal names
-  the line and offers the bag.
-- Join the list for a welcome code; sign in with an email alone (no password: a demo) for orders, a
-  name and a member code. Saved styles and the appearance setting are the device's, signed in or not.
+- Checkout, signed in, with an address (kept on the device for the next order) and a shipping choice; the
+  server reads the account's bag, checks stock, prices the order and gives it a number; the order has its own
+  page. A refusal names the line and offers the bag.
+- Join the list for a welcome code; sign in with an email and a password (the first sign-in makes the account)
+  for orders, a name and the welcome code. Saved styles follow the account; the appearance setting is the
+  device's.
 - In the installed app: the platform's bars, a tab bar (Shop, Search, Bag, Account) with each tab's
   own stack, and a haptic on add and save. In a browser: the site's header, nav and
   footer.
@@ -59,7 +60,7 @@ not affiliated with it.
 ## Run it
 
 ```sh
-bun exact.mjs test web          # the tests, in Chrome, with server.ts on an empty database
+bun exact.mjs test web          # the tests, in Chrome, with the backend on an empty database
 bun exact.mjs web               # the dev loop: a URL that rebuilds on save (run `bun server.ts` beside it)
 bun exact.mjs web-build --out dist && bun server.ts & bun exact.mjs serve dist   # the site as deployed
 bun exact.mjs ios --run         # the iOS app on a simulator
@@ -67,26 +68,31 @@ bun exact.mjs android --run     # the Android app on the connected device or emu
 bun exact.mjs test ios          # the tests on iOS (the app's tab-bar test runs here, not on the web)
 ```
 
-`server.ts` is the API (Bun, SQLite in `data.db`): stock per size, promo codes, the mailing list,
-restock requests, accounts and orders. Its origin is `API_BASE_URL` (`.env`, `app.json`'s `env`); a build for elsewhere sets it
-in the environment or `.env.local`. A phone reaches a Mac's server by the Mac's LAN address.
+The API is `../backend`, a Quickback project compiled to a Cloudflare Worker with D1 and Better Auth: the
+catalogue, stock per size, promo codes, the mailing list, restock requests, accounts, bags, saved styles and
+orders, each with its own access rules (`../backend/README.md`). Run `npm install` there once. `server.ts`
+runs it for development: it migrates and seeds a local D1, starts `wrangler dev`, and passes requests to it.
+Its origin is `API_BASE_URL` (`.env`, `app.json`'s `env`); a build for elsewhere sets it in the environment or
+`.env.local`. A phone reaches a Mac's server by the Mac's LAN address.
 
 ## Where things are
 
-Regression checks: `bun test tools/server.test.ts tools/data.test.ts` exercises inventory transactions, input validation and
-order-fetch failures against an isolated in-memory API. `bun exact.mjs web-build --out target/browser-test && EXACT_WEB_DIST=target/browser-test bun test tools/browser.test.ts` builds a separate
+Regression checks: `bun test tools/server.test.ts tools/data.test.ts` exercises inventory under competing
+orders, server-side pricing, the once-only welcome code, who may read and write what, input validation and
+order-fetch failures, against a backend it starts on a database of its own. `bun exact.mjs web-build --out target/browser-test && EXACT_WEB_DIST=target/browser-test bun test tools/browser.test.ts` builds a separate
 web copy, then checks delayed checkout replies and photo gestures in headless Chrome, using the
 Exact checkout's Playwright installation. `bun exact.mjs test web` also runs
 `regressions.test.contract`, covering quantity limits, subscription and order refreshes, editable
-names, stock isolation, stock consumption and order retries. The API tests never use `data.db`.
+names, stock isolation, stock consumption and order retries. The API tests never use the hand-run server's
+database.
 
 | File | What |
 |---|---|
 | `app.contract` | Every page and screen, the bag's arithmetic, the garment drawings |
-| `app.ts` | The data module: the catalog, and the API's reads and writes |
-| `catalog.ts` | The products, each naming its photos |
+| `app.ts` | The data module: the API's reads and writes, and the session token it keeps in the secret store |
+| `catalog.ts` | The products, each naming its photos: what the backend is seeded from, and what a build renders ahead |
 | `photos/` | The photos as found, with where each came from; `assets/p` and `assets/t` are the sizes the site ships |
-| `server.ts` | The API |
+| `server.ts` | Runs the API, `../backend`, for development |
 | `app.tamber` | The brand's colours, light and dark, and the mark as an icon token |
 | `assets/brand/` | The mark: the app icon and the SVG the site draws, written by `tools/logo.ts` |
 | `modules/` | `zoom-image`, the photo viewer: Swift for iOS, Kotlin for Android, JavaScript for the web |

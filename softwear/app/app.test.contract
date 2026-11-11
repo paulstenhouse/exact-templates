@@ -1,4 +1,4 @@
-// Run by `test` or `verify`, which start server.ts on an empty database for the whole run. Each test starts from
+// Run by `test` or `verify`, which start server.ts (the Quickback backend, seeded) on an empty database for the whole run. Each test starts from
 // empty storage, as a first visit does; `reload` keeps it, as a return visit does. A test that walks the site's
 // own header runs on the web; the installed app's chrome has its own test at the end.
 
@@ -78,7 +78,15 @@ test "the product page says what is sold out and what is nearly gone, from the s
 
 test "the bag changes a quantity, removes a line, applies a promo code and prices shipping" on web
   size 1280x900
-  at "/p/go-to-tee"
+  at "/account"
+  clock data
+  type "signin-email" "promo@example.com"
+  type "signin-password" "softwear-demo"
+  tap "signin"
+  clock data
+  tap "nav-shop"
+  clock settle
+  tap "card-go-to-tee"
   clock data
   clock settle
   tap "size-XS"
@@ -121,8 +129,20 @@ test "checkout waits for the address, then places the order, which clears the ba
   tap "checkout"
   clock settle
   expect disabled "place-order"
-  expect text "co-hint" == "Enter an email for the receipt."
-  type "co-email" "ada@example.com"
+  expect text "co-hint" == "Sign in to place your order."
+  tap "nav-account"
+  clock settle
+  type "signin-email" "ada@example.com"
+  type "signin-password" "softwear-demo"
+  tap "signin"
+  clock data
+  expect text "member" == "ada@example.com"
+  tap "nav-bag"
+  clock settle
+  clock data
+  tap "checkout"
+  clock settle
+  expect text "co-hint" == "Enter the name it ships to."
   type "co-name" "Ada Lovelace"
   expect text "co-hint" == "Enter the shipping address."
   type "co-address" "12 Analytical Way"
@@ -147,7 +167,15 @@ test "checkout waits for the address, then places the order, which clears the ba
 
 test "an order the server refuses keeps the bag and says why" on web
   size 1280x900
-  at "/p/go-to-tee"
+  at "/account"
+  clock data
+  type "signin-email" "grace@example.com"
+  type "signin-password" "softwear-demo"
+  tap "signin"
+  clock data
+  tap "nav-shop"
+  clock settle
+  tap "card-go-to-tee"
   clock data
   clock settle
   tap "size-XS"
@@ -156,12 +184,11 @@ test "an order the server refuses keeps the bag and says why" on web
   clock settle
   tap "checkout"
   clock settle
-  type "co-email" "grace@example.com"
   type "co-name" "Grace Hopper"
   type "co-address" "1 Compiler Court"
   type "co-city" "Arlington"
   type "co-zip" "22201"
-  fail fetch "/orders"
+  fail fetch "/api/v1/checkout"
   tap "place-order"
   clock data
   expect state bag.length == 1
@@ -169,7 +196,7 @@ test "an order the server refuses keeps the bag and says why" on web
   tap "co-edit-bag"
   clock settle
   expect tree has "bag-lines"
-  pass fetch "/orders"
+  pass fetch "/api/v1/checkout"
 
 test "joining the list earns the welcome code once, and the account page remembers it" on web
   size 1280x900
@@ -188,6 +215,7 @@ test "joining the list earns the welcome code once, and the account page remembe
   tap "nav-account"
   clock settle
   type "signin-email" "fan@example.com"
+  type "signin-password" "softwear-demo"
   tap "signin"
   clock data
   expect text "member" == "fan@example.com"
@@ -235,6 +263,7 @@ test "a saved style shows on the account page, signed in or not" on web
   expect tree has "card-lazy-day-pullover"
   expect tree has "scheme-dark"
   type "signin-email" "lazy@example.com"
+  type "signin-password" "softwear-demo"
   tap "signin"
   clock data
   expect text "member" == "lazy@example.com"
@@ -254,30 +283,102 @@ test "a path no route matches is the not-found page" on web, ios
   clock data
   expect tree has "notfound-home"
 
-test "a member's own code takes 10% off, from the account page in one press" on web
+// The whole store against the backend: a new account, a hoodie in the bag, the welcome code priced by the server,
+// an order, and the order read back from the account.
+test "a new shopper signs up, bags a hoodie, takes 15% off with WELCOME15, checks out and sees the order" on web
   size 1280x900
   at "/account"
   clock data
   type "signin-email" "member@example.com"
+  type "signin-password" "softwear-demo"
   tap "signin"
   clock data
-  expect text "account-code" == "FRIEND4250"
-  tap "account-code-apply"
-  clock data
-  expect state promo == "FRIEND4250"
-  expect tree has "account-code-applied"
-  tap "nav-shop"
+  expect text "member" == "member@example.com"
+  expect text "account-code" == "WELCOME15"
+  expect tree has "no-orders"
+  tap "nav-hoodies"
   clock settle
-  tap "card-go-to-tee"
+  tap "card-challenger-eco-fleece-hoodie"
   clock data
   clock settle
-  tap "size-XS"
+  tap "size-M"
   tap "add-to-bag"
   tap "nav-bag"
   clock settle
   clock data
-  expect text "promo-note" == "FRIEND4250 applied: 10% off."
-  expect text "discount" == "−$3.00"
+  expect text "subtotal" == "$74.00"
+  type "promo" "welcome15"
+  tap "apply-promo"
+  clock data
+  expect text "promo-note" == "WELCOME15 applied: 15% off."
+  expect text "discount" == "−$11.10"
+  tap "checkout"
+  clock settle
+  type "co-name" "Member One"
+  type "co-address" "1 Test St"
+  type "co-city" "Test"
+  type "co-zip" "00000"
+  expect text "co-total" == "$68.90"
+  tap "place-order"
+  clock data
+  clock settle
+  expect state bag == []
+  expect text "order-title" == "Your order is in, Member One."
+  expect text "order-total" == "$68.90"
+  tap "order-account"
+  clock settle
+  clock data
+  expect state orders.length == 1
+  expect state orders.0 .totalCents == 6890
+  expect state orders.0 .status == "placed"
+  expect text "account-code" == "Used"
+
+test "the welcome code is spent: the server refuses it on a second order" on web
+  size 1280x900
+  at "/account"
+  clock data
+  type "signin-email" "member@example.com"
+  type "signin-password" "softwear-demo"
+  tap "signin"
+  clock data
+  tap "nav-hoodies"
+  clock settle
+  tap "card-challenger-eco-fleece-hoodie"
+  clock data
+  clock settle
+  tap "size-S"
+  tap "add-to-bag"
+  tap "nav-bag"
+  clock settle
+  clock data
+  type "promo" "WELCOME15"
+  tap "apply-promo"
+  clock data
+  expect text "promo-note" == "WELCOME15 is for a first order, and you have used it."
+  expect text "total" == "$80.00"
+
+test "what one shopper keeps is not another's: the orders, bag and saved styles are the account's" on web
+  size 1280x900
+  at "/account"
+  clock data
+  type "signin-email" "member@example.com"
+  type "signin-password" "softwear-demo"
+  tap "signin"
+  clock data
+  expect state orders.length == 1
+  tap "signout"
+  type "signin-email" "stranger@example.com"
+  type "signin-password" "softwear-demo"
+  tap "signin"
+  clock data
+  expect text "member" == "stranger@example.com"
+  expect tree has "no-orders"
+  tap "signout"
+  type "signin-email" "member@example.com"
+  type "signin-password" "not-the-password"
+  tap "signin"
+  clock data
+  expect text "signin-error" == "That password doesn’t match this email."
 
 test "a size carried from another product is dropped where it is sold out, so nothing sold out is added" on web
   size 1280x900
@@ -453,3 +554,54 @@ test "the product photo opens large in the lightbox from the shop tab, and its c
   clock settle
   expect state stackDepth == 2
   expect tree has "gallery"
+
+test "in the app, a new shopper signs up, bags a hoodie, takes 15% off with WELCOME15, checks out and sees the order" on ios, android
+  clock data
+  tap "tab-account"
+  clock settle
+  type "signin-email" "app-member@example.com"
+  type "signin-password" "softwear-demo"
+  tap "signin"
+  clock data
+  expect text "member" == "app-member@example.com"
+  expect text "account-code" == "WELCOME15"
+  tap "tab-search"
+  clock settle
+  type "search-app" "challenger eco-fleece"
+  clock settle
+  tap "card-challenger-eco-fleece-hoodie"
+  clock data
+  clock settle
+  clock +800 real
+  clock settle
+  tap "size-M"
+  tap "add-to-bag"
+  tap "tab-bag"
+  clock settle
+  clock data
+  expect text "subtotal" == "$74.00"
+  type "promo" "welcome15"
+  tap "apply-promo"
+  clock data
+  expect text "discount" == "−$11.10"
+  tap "checkout"
+  clock settle
+  clock +800 real
+  clock settle
+  type "co-name" "App Member"
+  type "co-address" "1 Test St"
+  type "co-city" "Test"
+  type "co-zip" "00000"
+  expect text "co-total" == "$68.90"
+  tap "place-order"
+  clock data
+  clock settle
+  clock +800 real
+  clock settle
+  expect state bag == []
+  expect text "order-total" == "$68.90"
+  tap "tab-account"
+  clock settle
+  clock data
+  expect state orders.length == 1
+  expect state orders.0 .status == "placed"

@@ -15,6 +15,8 @@ beforeAll(async () => {
     if (!path.startsWith(dist + '/') && path !== dist) return new Response(null, { status: 404 });
     let file = Bun.file(path);
     if (!await file.exists()) file = Bun.file(resolve(path, 'index.html'));
+    // A page the build did not render ahead is the shell, which the client draws, as a static host serves it.
+    if (!await file.exists()) file = Bun.file(resolve(dist, 'shell.html'));
     return new Response(file);
   } });
 });
@@ -28,27 +30,42 @@ async function checkoutPage(fail = false) {
   const origin = `http://127.0.0.1:${server.port}`;
   await page.route('**/*', async (route: any) => {
     const request = route.request(), url = new URL(request.url());
-    if (url.origin === origin || !/^\/(stock|orders|signin|subscribe|account|promo|notify)(\/|\?|$)/.test(url.pathname)) return route.continue();
-    if (request.method() === 'POST' && url.pathname === '/orders') {
+    // The page calls the API where it was built to; each test has a backend of its own, so its calls go there.
+    if (url.origin === origin || !/^\/(api|auth)\/v1\//.test(url.pathname)) return route.continue();
+    if (request.method() === 'POST' && url.pathname === '/api/v1/checkout') {
       received();
       await held;
-      if (fail) return route.fulfill({ status: 503, contentType: 'application/json', headers: { 'access-control-allow-origin': '*' }, body: JSON.stringify({ error: 'Try again.' }) });
+      if (fail) return route.fulfill({ status: 503, contentType: 'application/problem+json', headers: { 'access-control-allow-origin': '*' }, body: JSON.stringify({ detail: 'Try again.' }) });
     }
-    await route.fulfill({ response: await route.fetch({ url: api.origin + url.pathname + url.search }) });
+    // Asked as the page asks: with its own headers and no cookie jar, since the app signs in with a bearer token.
+    // A call still in flight when its test ends finds the backend gone; it is the page's to lose, not the run's.
+    try {
+      const reply = await fetch(api.origin + url.pathname + url.search, { method: request.method(), headers: request.headers(), body: request.postData() ?? undefined });
+      const headers = Object.fromEntries(reply.headers);
+      delete headers['set-cookie'];
+      await route.fulfill({ status: reply.status, headers, body: Buffer.from(await reply.arrayBuffer()) });
+    } catch { await route.abort().catch(() => {}); }
   });
+  // An order is an account's: sign in first, which makes the account on this backend.
   await page.goto(origin);
+  await page.getByTestId('nav-account').click();
+  await page.getByTestId('signin-email').fill('placed@example.com');
+  await page.getByTestId('signin-password').fill('softwear-demo');
+  await page.getByTestId('signin').click();
+  await page.getByTestId('member').waitFor();
+  await page.getByTestId('nav-shop').click();
   await page.getByTestId('card-challenger-eco-fleece-hoodie').click();
   await page.getByTestId('size-S').click();
   await page.getByTestId('add-to-bag').click();
   await page.getByTestId('nav-bag').click();
   await page.getByTestId('checkout').click();
-  for (const [id, value] of Object.entries({ 'co-email': 'Placed@example.com', 'co-name': 'Review', 'co-address': '1 Test St', 'co-city': 'Test', 'co-zip': '00000' })) await page.getByTestId(id).fill(value);
+  for (const [id, value] of Object.entries({ 'co-email': 'Receipt@example.com', 'co-name': 'Review', 'co-address': '1 Test St', 'co-city': 'Test', 'co-zip': '00000' })) await page.getByTestId(id).fill(value);
   await page.getByTestId('place-order').click();
   await sent;
   return { page, release, close: async () => { release(); await page.close(); await api.close(); } };
 }
 
-test('checkout preserves subsequent additions, changed promo and the submitted identity', async () => {
+test('checkout preserves subsequent additions and a changed promo, and the account stays the one signed in', async () => {
   const fixture = await checkoutPage();
   const { page, release } = fixture;
   try {
@@ -72,7 +89,7 @@ test('checkout preserves subsequent additions, changed promo and the submitted i
     expect(await page.getByTestId('line-name-1').textContent()).toBe('Go-To Tee');
     await page.getByTestId('promo-note').filter({ hasText: 'FLEECE10 applied: 10% off.' }).waitFor();
   } finally { await fixture.close(); }
-}, 15000);
+}, 60000);
 
 test('removing and re-adding a submitted line keeps the replacement', async () => {
   const fixture = await checkoutPage();
@@ -87,7 +104,7 @@ test('removing and re-adding a submitted line keeps the replacement', async () =
     await page.getByTestId('order-title').waitFor();
     expect(await page.getByTestId('bag-count').textContent()).toBe('1');
   } finally { await fixture.close(); }
-}, 15000);
+}, 60000);
 
 test('a rejected checkout preserves all current bag contents and the contact draft', async () => {
   const fixture = await checkoutPage(true);
@@ -99,7 +116,7 @@ test('a rejected checkout preserves all current bag contents and the contact dra
     expect(await page.getByTestId('bag-count').textContent()).toBe('1');
     expect(await page.getByTestId('co-email').inputValue()).toBe('edited@example.com');
   } finally { await fixture.close(); }
-}, 15000);
+}, 60000);
 
 test('pinch can continue as a one-finger pan and only a completed pull dismisses', async () => {
   const page = await browser.newPage({ viewport: { width: 800, height: 800 } });
