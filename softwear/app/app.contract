@@ -16,6 +16,7 @@
 // The bag is the person's, kept on the device (`persist`): each line is `slug|colour|size|qty`. Signed in, it is
 // also kept on the server, which is what an order is made from. No payment is taken and nothing ships.
 use EmptyState from "exact:content"
+use Product, Promo from "./quickback.gen.contract"
 
 routes nav
   tab shop "/" render=build
@@ -29,30 +30,6 @@ routes nav
     order "/order/:id"
   tab account "/account"
   notfound render=build
-
-shape Color
-  name: string
-  hex: string
-  photo: string
-
-shape Product
-  slug: string
-  style: string
-  name: string
-  category: string
-  gender: string
-  fabric: string
-  weight: string
-  fit: string
-  description: string
-  details: string[]
-  colors: Color[]
-  sizes: string[]
-  priceCents: number
-  compareCents: number
-  tags: string[]
-  kind: string
-  photo: string
 
 shape SizeStock
   size: string
@@ -104,11 +81,6 @@ shape Placed
   ok: bool
   error: string
   id: string
-
-shape Promo
-  code: string
-  pct: number
-  used: bool
 
 // What signing in answers: who, and the bag and saved styles they kept on the server.
 shape SignedIn

@@ -7,7 +7,7 @@ export interface ExactStore {
   forget(name: string): void;
 }
 
-// Copy this literal into app.ts: Exact’s static admission reader does not follow re-exports.
+// quickback build syncs these grants into app.ts for Exact’s static admission reader.
 export const grants = "net.fetch http://127.0.0.1:8787\nsecret.keep softwear.session";
 
 export interface ExactClientOptions {

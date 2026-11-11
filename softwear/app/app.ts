@@ -1,9 +1,10 @@
 import type { Answer, Result, Sources, Store } from './app.contract.d.ts';
 import { CATALOG } from './catalog.ts';
 import { QuickbackError, type Client } from '@backend/quickback.client.ts';
+import { createExactSources } from '@backend/quickback.sources.ts';
 import { createExactClient, createExactGuestClient } from '@backend/quickback.exact.ts';
 // Exact reads app.ts grants statically; imported/re-exported grants are not followed.
-export const grants = 'net.fetch http://127.0.0.1:8787\nsecret.keep softwear.session';
+export const grants = "net.fetch http://127.0.0.1:8787\nsecret.keep softwear.session\n# [quickback:grants-start]\n# [quickback:grants-end]";
 import type { Api, Qb } from '@backend/quickback.gen.ts';
 
 // The API's origin, a setting (app.json's "env"): the environment's value, else .env.local's, else .env's.
@@ -11,6 +12,7 @@ import type { Api, Qb } from '@backend/quickback.gen.ts';
 // module on every host, so it is public: never a secret.
 export const API = import.meta.env.API_BASE_URL;
 const SESSION = 'softwear.session';
+const backend = createExactSources({ baseUrl: API });
 
 type Product = Result<'loadCatalog'>[number];
 type Stock = Result<'loadStock'>;
@@ -46,11 +48,6 @@ function failed(e: unknown, signedIn = false): Failed {
 const addressOr = (f: Failed) => (BAD_ADDRESS.includes(f.code) ? ADDRESS_PLEASE : f.error);
 const fail = (signedIn = false) => (e: unknown): never => { throw new Error(failed(e, signedIn).error); };
 
-const toProduct = (p: Api.products.Row): Product => ({
-  slug: p.slug, style: p.style, name: p.name, category: p.category, gender: p.gender, fabric: p.fabric, weight: p.weight, fit: p.fit,
-  description: p.description, details: p.details, colors: p.colors, sizes: p.sizes, priceCents: p.priceCents, compareCents: p.compareCents,
-  tags: p.tags, kind: p.kind, photo: p.photo,
-});
 const toOrder = (o: Api.orders.Row, lines: Api.orderLines.Row[]): Order => ({
   found: true, id: o.number, email: o.email, name: o.shipName, placedAt: o.placedAt, status: o.status, shipping: o.shippingMethod,
   subtotalCents: o.subtotalCents, discountCents: o.discountCents, shippingCents: o.shippingCents, totalCents: o.totalCents,
@@ -81,10 +78,8 @@ const sources: Sources = {
   // The catalogue is the backend's `products`, in the shop's order. Without an answer (a build renders its pages
   // ahead with no server to ask; a phone may be offline) the shop shows catalog.ts, the copy the backend was
   // seeded from: stock, prices at checkout and orders are still only ever the server's.
-  loadCatalog: async () => {
-    // `position,id`, not `position`: in this compile (0.72.7) a lone unprefixed field sorts DESCENDING unless `?order=asc`
-    // is sent, and the client has no `order`. A comma takes the multi-sort path, where unprefixed is ascending.
-    try { return (await createExactGuestClient({ baseUrl: API }).products.list({ limit: 100, sort: 'position,id' })).data.map(toProduct); }
+  loadCatalog: async (args, store) => {
+    try { return await backend.loadCatalog(args, store); }
     catch (e) { failed(e); return CATALOG; }
   },
   // What is left of each size, asked when a product page renders. A failed read fails the resource: the page then
@@ -112,7 +107,7 @@ const sources: Sources = {
   checkPromo: async ([code, member], store): Promise<Promo> => {
     if (!code) return { code: '', pct: 0, used: false };
     if (!member || !session(store)) return { code, pct: 0, used: false };
-    return createExactClient({ store, baseUrl: API }).promoCodes.actions.check({ code }).catch(fail(true));
+    return backend.checkPromoRemote([{ code }], store).catch(fail(true));
   },
   notifyMe: async ([email, slug]): Promise<Notified> => {
     try { await createExactGuestClient({ baseUrl: API }).restockRequests.actions.notify({ email, slug }); return { ok: true, error: '', slug }; }

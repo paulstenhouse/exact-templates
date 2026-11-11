@@ -14,7 +14,17 @@ export default {
     name: "softwear",
     template: "hono",
     cms: { sysadmin: true },
-    client: { target: "exact", origin: "http://127.0.0.1:8787", secret: "softwear.session" },
+    client: {
+        target: "exact", origin: "http://127.0.0.1:8787", secret: "softwear.session",
+        bindings: {
+            loadCatalog: {
+                call: "products.list", shape: "Product", auth: "guest",
+                fields: ["slug", "style", "name", "category", "gender", "fabric", "weight", "fit", "description", "details", "colors", "sizes", "priceCents", "compareCents", "tags", "kind", "photo"],
+                args: [{ limit: 100, sort: "position,id" }],
+            },
+            checkPromoRemote: { call: "promoCodes.actions.check", shape: "Promo" },
+        },
+    },
     // The Exact app's own origins while developing: `bun exact.mjs web` and `serve`.
     // The installed apps send no Origin and sign in with a bearer token.
     trustedOrigins: [
