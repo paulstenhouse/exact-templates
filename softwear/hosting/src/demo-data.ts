@@ -25,8 +25,11 @@ export function featureResetStatements(catalogue: string): string[] {
 
 export function authResetStatements(hash: string): string[] {
   if (!/^[a-f0-9]+:[a-f0-9]+$/.test(hash)) throw new Error('Unexpected Better Auth password hash');
-  return demoAccounts.flatMap((account) => [
+  return [...demoAccounts.flatMap((account) => [
     `INSERT INTO user (id,name,email,email_verified,role,updated_at) VALUES ('${account.id}','${account.name}','${account.email}',1,'${account.role}',unixepoch()*1000) ON CONFLICT(id) DO UPDATE SET name=excluded.name,email=excluded.email,email_verified=1,role=excluded.role,banned=0,ban_reason=NULL,ban_expires=NULL,updated_at=excluded.updated_at`,
     `INSERT INTO account (id,account_id,provider_id,user_id,password,updated_at) VALUES ('${account.id}-password','${account.id}','credential','${account.id}','${hash}',unixepoch()*1000) ON CONFLICT(id) DO UPDATE SET password=excluded.password,updated_at=excluded.updated_at`,
-  ]);
+  ]),
+    `INSERT INTO organization (id,name,slug,created_at) VALUES ('softwear-demo-store','Softwear demo','softwear-demo',unixepoch()*1000) ON CONFLICT(id) DO UPDATE SET name=excluded.name,slug=excluded.slug`,
+    `INSERT INTO member (id,organization_id,user_id,role,created_at) VALUES ('softwear-demo-admin-membership','softwear-demo-store','softwear-demo-admin','owner',unixepoch()*1000) ON CONFLICT(id) DO UPDATE SET organization_id=excluded.organization_id,user_id=excluded.user_id,role=excluded.role`,
+  ];
 }

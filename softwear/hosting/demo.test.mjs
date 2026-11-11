@@ -8,6 +8,8 @@ test('shared accounts cannot change credentials or administer identities, includ
   assert.equal(demoDenied('/auth/v1/sign-in/email', 'POST'), false);
   assert.equal(demoDenied('/auth/v1/sign-out', 'POST'), false);
   assert.equal(demoDenied('/auth/v1/get-session', 'GET'), false);
+  assert.equal(demoDenied('/auth/v1/organization/get-full-organization', 'GET'), false);
+  assert.equal(demoDenied('/auth/v1/organization/get-full-organization', 'POST'), true);
   assert.equal(demoDenied('/auth/v1/sign-in/email', 'GET'), true);
   assert.equal(demoDenied('/api/v1/products/demo', 'PATCH'), false);
 });
@@ -31,6 +33,7 @@ for attempt in range(2):
  assert db.execute('SELECT count(*) FROM orders').fetchone()[0] == 1
  assert db.execute('SELECT count(*) FROM subscribers').fetchone()[0] == 1
  assert auth.execute("SELECT role FROM user WHERE id='softwear-demo-admin'").fetchone()[0] == 'sysadmin'
+ assert auth.execute("SELECT role FROM member WHERE organization_id='softwear-demo-store' AND user_id='softwear-demo-admin'").fetchone()[0] == 'owner'
  assert auth.execute('SELECT count(*) FROM account').fetchone()[0] == 2
  db.execute('UPDATE stock SET count=0')
  db.execute("UPDATE products SET name='Changed'")

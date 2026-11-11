@@ -1,4 +1,4 @@
-const authReads = new Set(['/auth/v1/get-session']);
+const authReads = new Set(['/auth/v1/get-session', '/auth/v1/organization/get-full-organization']);
 const authWrites = new Set(['/auth/v1/sign-in/email', '/auth/v1/sign-out']);
 
 // This gateway is the backend's only public ingress. The generated backend is

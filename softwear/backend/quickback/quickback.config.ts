@@ -19,6 +19,7 @@ export default {
     build: publicOrigin ? { outputDir: "../.deploy" } : undefined,
     bindings: { vars: publicOrigin ? { BETTER_AUTH_URL: publicOrigin } : {} },
     cms: { sysadmin: true },
+    features: publicOrigin ? { pinnedOrganizationId: "softwear-demo-store" } : undefined,
     account: { name: "Softwear demo", auth: { password: true, organizations: false, admin: false, passkey: false } },
     client: {
         target: "exact", origin: publicOrigin ?? "http://127.0.0.1:8787", secret: "softwear.session",

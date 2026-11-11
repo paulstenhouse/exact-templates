@@ -1,16 +1,16 @@
 {
   "site": "https://softwear.examples.quickback.dev",
-  "recordedAt": "2026-11-11T16:56:21.424243+00:00",
+  "recordedAt": "2026-11-11T17:56:26.332291+00:00",
   "accountId": "19cf1906ef35218176ea7a01fb1032f7",
   "zoneId": "c71a556b78630ce3ffb88f229ba11e75",
   "workers": {
     "frontend": {
       "name": "softwear-flagship",
-      "versionId": "994d9f7b-cb92-4b0f-91e7-288293bbcdae"
+      "versionId": "a1cfa3f4-8f4a-4cd8-aabf-bd7e84dd3a9f"
     },
     "backend": {
       "name": "softwear",
-      "versionId": "e1920e74-1c2c-4f4f-a343-a9e0c92ba344",
+      "versionId": "f2b6ea53-f144-420e-a930-7a713d2622a3",
       "ingress": "Service binding only; workers.dev and preview URLs disabled"
     }
   },
@@ -48,7 +48,8 @@
     "blockedCredentialChanges": true,
     "builtResetHandlerRuns": 2,
     "directBackendReturns404": true,
-    "shopperDeniedStaffOperations": true
+    "shopperDeniedStaffOperations": true,
+    "pinnedOrganizationAndOwnerMembership": true
   },
   "notes": [
     "Secrets are stored in Cloudflare and are not included here.",
@@ -62,6 +63,7 @@
     "publicPassword": "SoftwearDemo2026!",
     "resetCron": "*/30 * * * *",
     "identityAdministration": "blocked at sole public gateway",
-    "signup": "disabled; use shared public accounts"
+    "signup": "disabled; use shared public accounts",
+    "pinnedOrganizationId": "softwear-demo-store"
   }
 }
