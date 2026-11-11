@@ -1,16 +1,16 @@
 {
   "site": "https://softwear.examples.quickback.dev",
-  "recordedAt": "2026-11-11T18:32:02.160569+00:00",
+  "recordedAt": "2026-11-11T19:20:54.110963+00:00",
   "accountId": "19cf1906ef35218176ea7a01fb1032f7",
   "zoneId": "c71a556b78630ce3ffb88f229ba11e75",
   "workers": {
     "frontend": {
       "name": "softwear-flagship",
-      "versionId": "a1cfa3f4-8f4a-4cd8-aabf-bd7e84dd3a9f"
+      "versionId": "f1da49ca-3d9e-4d67-8051-7fa175571f86"
     },
     "backend": {
       "name": "softwear",
-      "versionId": "35bb52df-f672-4610-ba96-39e033bed94c",
+      "versionId": "cfd0adf4-fbf9-46a3-8fc4-1ac4b9444181",
       "ingress": "Service binding only; workers.dev and preview URLs disabled"
     }
   },
@@ -24,8 +24,8 @@
   },
   "compiler": {
     "version": "0.72.7",
-    "gitSha": "8d528cb96",
-    "image": "quickback-compiler:cms-sidebar-groups"
+    "gitSha": "b06ac6314",
+    "image": "quickback-compiler:cms-login-redirect"
   },
   "certificate": {
     "packId": "aaefaefa-5b62-46e9-b33a-caa2f87dc1d0",
@@ -59,7 +59,11 @@
       "Orders",
       "Marketing"
     ],
-    "cmsNavigationTables": 10
+    "cmsNavigationTables": 10,
+    "prefilledCmsLoginRedirectsDirectly": true,
+    "prefilledShopperLogin": true,
+    "demoSessionDoesNotAuthenticateKardoeOs": true,
+    "kardoeOsContactsStatusWhileDemoSignedIn": 401
   },
   "notes": [
     "Secrets are stored in Cloudflare and are not included here.",
@@ -68,8 +72,8 @@
     "Public credentials are specific to this disposable demonstration; auth secrets remain in Cloudflare."
   ],
   "demo": {
-    "shopper": "shopper@softwear.example",
-    "admin": "admin@softwear.example",
+    "shopper": "shopper@quickback.dev",
+    "admin": "admin@quickback.dev",
     "publicPassword": "SoftwearDemo2026!",
     "resetCron": "*/30 * * * *",
     "identityAdministration": "blocked at sole public gateway",

@@ -1344,9 +1344,9 @@ component SiteHeader
           text "Orders are simulated: no real orders are placed, no payments are taken, and nothing ships." font-weight=600
           row justify-content="center" flex-wrap="wrap" gap="4px 20px"
             link href="/account" text-decoration="underline" color="onband"
-              text "Shopper login: shopper@softwear.example"
+              text "Shopper login: shopper@quickback.dev"
             link href="/cms/" text-decoration="underline" color="onband"
-              text "CMS admin login: admin@softwear.example"
+              text "CMS admin login: admin@quickback.dev"
           text "Password for both: SoftwearDemo2026! · Shared demo data resets every 30 minutes, at :00 and :30 UTC. Use fictitious details only; changes are public and temporary."
       row class=Wrap flex-wrap="wrap" align-items="center" gap="8px 20px" padding-top=12 padding-bottom=12
         link href="/" aria-label="Softwear home" color="ink" text-decoration="none" display="flex" flex-wrap="wrap" align-items="center" gap=9 min-width=0 max-width="100%" testId="home"

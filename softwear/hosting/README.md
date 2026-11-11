@@ -6,13 +6,15 @@ The `softwear-flagship` Worker serves Exact's release assets and proxies API/aut
 
 ## Public demo logins
 
-- Shopper: `shopper@softwear.example` at `/account`.
-- CMS admin: `admin@softwear.example` at `/cms/` (redirects to `/account/login`).
+- Shopper: `shopper@quickback.dev` at `/account`.
+- CMS admin: `admin@quickback.dev` at `/cms/` (redirects to `/account/login`).
 - Password for both: `SoftwearDemo2026!`.
 
 Its sidebar groups the shop tables under Catalogue, Shopping, Orders and Marketing using authored `cms.navigation`. Resource identities and API routes are unchanged.
 
 The CMS is pinned to the `Softwear demo` organization (`softwear-demo-store`), with the shared admin as its owner. There is no organization picker. This administrative workspace does not change shopper ownership of bags or orders. The reset repairs the workspace and membership as well as the public accounts.
+
+Both login forms arrive prefilled in the public deployment. The CMS uses explicit `account.demoLogin`; the release staging script seeds only the production Exact shopper form. The local template keeps its shopper inputs empty. The CMS login callback stays at `/cms/`, outside the Account UI mount.
 
 These credentials are intentionally public and appear in the site header. Accounts and shop data are shared with other visitors. Use fictitious details only. Catalogue, stock, promo codes, bags, saved styles, orders, subscribers and restock requests reset at :00 and :30 UTC. The reset restores a sample shopper bag/order, subscriber and restock request. Demo sessions survive the reset; refresh a page to see the restored records.
 
@@ -30,7 +32,7 @@ cd softwear/backend && npm install
 cd ../hosting && npm ci
 ```
 
-The current prototype requires Quickback's Exact target, automatic grants and generated bindings (#836–#838), plus the Wrangler KV naming compatibility fix and CMS platform-role/edit-validation fixes (#840) and sidebar navigation groups (#841) found during this deployment. Until those changes are released, build the CLI from the Quickback checkout and run its compiler with Docker. Never replace the Docker compiler with a host Bun server.
+The current prototype requires Quickback's Exact target, automatic grants and generated bindings (#836–#838), plus the Wrangler KV naming compatibility fix and CMS platform-role/edit-validation fixes (#840) and sidebar navigation groups (#841), plus the CMS callback/demo-prefill fix (#842) found during this deployment. Until those changes are released, build the CLI from the Quickback checkout and run its compiler with Docker. Never replace the Docker compiler with a host Bun server.
 
 ```sh
 # In the Quickback checkout:

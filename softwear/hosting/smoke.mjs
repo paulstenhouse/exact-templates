@@ -6,7 +6,7 @@ const origin = process.env.SOFTWEAR_PUBLIC_ORIGIN ?? 'https://softwear.examples.
 function passed(name) { console.log('PASS ' + name); }
 for (const [path, status] of [['/', 200], ['/shop', 200], ['/story', 200], ['/account', 200], ['/account/login', 200], ['/p/challenger-eco-fleece-hoodie', 200], ['/not-a-route', 404], ['/missing-file.js', 404]]) assert.equal((await fetch(origin + path)).status, status, path);
 const home = await (await fetch(origin)).text();
-for (const value of ['Orders are simulated', 'shopper@softwear.example', 'admin@softwear.example', demoPassword, 'every 30 minutes']) assert.ok(home.includes(value), value);
+for (const value of ['Orders are simulated', 'shopper@quickback.dev', 'admin@quickback.dev', demoPassword, 'every 30 minutes']) assert.ok(home.includes(value), value);
 passed('pages, CMS login, public credentials, reset notice and real 404s');
 assert.equal((await (await fetch(origin + '/health')).json()).status, 'ok');
 assert.equal((await fetch(origin + '/app.js')).status, 200);

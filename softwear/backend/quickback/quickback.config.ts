@@ -28,7 +28,7 @@ export default {
         ],
     },
     features: publicOrigin ? { pinnedOrganizationId: "softwear-demo-store" } : undefined,
-    account: { name: "Softwear demo", auth: { password: true, organizations: false, admin: false, passkey: false } },
+    account: { name: "Softwear demo", demoLogin: publicOrigin ? { email: "admin@quickback.dev", password: "SoftwearDemo2026!" } : undefined, auth: { password: true, organizations: false, admin: false, passkey: false } },
     client: {
         target: "exact", origin: publicOrigin ?? "http://127.0.0.1:8787", secret: "softwear.session",
         appEntry: publicOrigin ? "../.deploy/app/app.ts" : undefined,
