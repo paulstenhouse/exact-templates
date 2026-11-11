@@ -1,0 +1,144 @@
+/**
+ * POST /api/v1/checkout: turn the caller's bag into an order.
+ *
+ * The client sends where it ships and a promo code, never a price or a line: the lines are
+ * the caller's own `bagItems` rows (the scoped `db` reads only theirs), priced from
+ * `products`, discounted by `promoCodes` and taken from `stock`, all here. No payment is
+ * taken and nothing ships: this is a demonstration.
+ */
+import { z } from "zod";
+import { and, eq, gte, inArray, sql } from "drizzle-orm";
+import { ActionError } from "@quickback/compiler";
+import { defineAction, orders } from "../.quickback/define-action";
+import { bagItems } from "../../bag-items/bag-items";
+import { orderLines } from "../../order-lines/order-lines";
+import { products } from "../../products/products";
+import { stock } from "../../stock/stock";
+import { promoCodes } from "../../promo-codes/promo-codes";
+import { promoRedemptions } from "../../promo-redemptions/promo-redemptions";
+import { orderNumber, shippingFor } from "../lib/pricing";
+
+export default defineAction({
+    description: "Place an order for everything in the caller's bag. A demonstration: no payment is taken.",
+    path: "/checkout",
+    method: "POST",
+    input: z.object({
+        email: z.string().email().max(254),
+        name: z.string().trim().min(1).max(120),
+        address: z.string().trim().min(1).max(200),
+        city: z.string().trim().min(1).max(120),
+        zip: z.string().trim().min(1).max(20),
+        shipping: z.enum(["standard", "express"]).default("standard"),
+        promo: z.string().trim().max(40).optional(),
+    }),
+    output: z.object({
+        number: z.string(),
+        subtotalCents: z.number(),
+        discountCents: z.number(),
+        shippingCents: z.number(),
+        totalCents: z.number(),
+    }),
+    // ACCESS: a signed-in shopper. Every table this touches for them is firewalled to their rows.
+    access: { roles: ["USER"] },
+    // `count = count - n` is an expression, which Drizzle writes as sql`…`. Its values are bound.
+    allowRawSql: true,
+    async execute({ db, input, ctx }) {
+        // 1. The bag: only the caller's rows come back, whatever this query says.
+        const bag = await db.select().from(bagItems);
+        if (bag.length === 0) throw new ActionError("Your bag is empty.", "BAG_EMPTY", 400);
+
+        // 2. Price every line from the catalogue, never from the client.
+        const slugs = [...new Set(bag.map((l) => l.productSlug))];
+        const catalogue = await db.select().from(products).where(inArray(products.slug, slugs));
+        const lines = bag.map((l) => {
+            const product = catalogue.find((p) => p.slug === l.productSlug);
+            if (!product) throw new ActionError(`There is no product called ${l.productSlug}.`, "PRODUCT_GONE", 409);
+            // A typed q.json() column reads back as `unknown` in an action; these are the shapes products.ts declares.
+            const sizes = product.sizes as string[];
+            const colors = product.colors as { name: string }[];
+            if (!sizes.includes(l.size)) throw new ActionError(`${product.name} doesn't come in size ${l.size}.`, "SIZE_UNKNOWN", 400);
+            if (!colors.some((c) => c.name === l.color)) throw new ActionError(`${product.name} doesn't come in ${l.color}.`, "COLOR_UNKNOWN", 400);
+            return { productSlug: l.productSlug, name: product.name, color: l.color, size: l.size, qty: l.qty, priceCents: product.priceCents };
+        });
+        const subtotalCents = lines.reduce((sum, l) => sum + l.priceCents * l.qty, 0);
+
+        // 3. The promo code, if any. WELCOME15 is once per shopper.
+        const code = (input.promo ?? "").toUpperCase();
+        let pct = 0;
+        let once = false;
+        if (code) {
+            const [promo] = await db.select().from(promoCodes).where(and(eq(promoCodes.code, code), eq(promoCodes.active, true)));
+            if (!promo) throw new ActionError(`${code} isn't a code we know.`, "PROMO_UNKNOWN", 400);
+            pct = promo.pct;
+            once = promo.oncePerUser;
+            if (once) {
+                const [used] = await db.select().from(promoRedemptions).where(eq(promoRedemptions.code, code));
+                if (used) throw new ActionError(`${code} is for a first order, and you used it on ${used.orderNumber}.`, "PROMO_USED", 409);
+            }
+        }
+        const discountCents = Math.round((subtotalCents * pct) / 100);
+        const shippingCents = shippingFor(input.shipping, subtotalCents - discountCents);
+        const totalCents = subtotalCents - discountCents + shippingCents;
+
+        // 4. Take the stock. Colours share a size's stock, so add up what each size is asked for.
+        // Each take is one statement that only succeeds while enough is left; a line that
+        // can't be met gives back what the earlier lines took.
+        const demand = new Map<string, { slug: string; size: string; name: string; qty: number }>();
+        for (const l of lines) {
+            const key = `${l.productSlug}|${l.size}`;
+            demand.set(key, { slug: l.productSlug, size: l.size, name: l.name, qty: (demand.get(key)?.qty ?? 0) + l.qty });
+        }
+        const taken: { slug: string; size: string; qty: number }[] = [];
+        const giveBack = async () => {
+            for (const t of taken) {
+                await db.update(stock).set({ count: sql`${stock.count} + ${t.qty}` }).where(and(eq(stock.productSlug, t.slug), eq(stock.size, t.size)));
+            }
+        };
+        for (const d of demand.values()) {
+            const mine = and(eq(stock.productSlug, d.slug), eq(stock.size, d.size));
+            const got = await db.update(stock).set({ count: sql`${stock.count} - ${d.qty}` }).where(and(mine, gte(stock.count, d.qty))).returning();
+            if (got.length === 0) {
+                await giveBack();
+                const [row] = await db.select().from(stock).where(mine);
+                const left = row?.count ?? 0;
+                throw new ActionError(left <= 0 ? `${d.name} in ${d.size} just sold out.` : `Only ${left} left of ${d.name} in ${d.size}.`, "OUT_OF_STOCK", 409, { slug: d.slug, size: d.size, left });
+            }
+            taken.push({ slug: d.slug, size: d.size, qty: d.qty });
+        }
+
+        try {
+            // 5. The order. `ownerId` is stamped from the session by the scoped db.
+            const number = orderNumber();
+            // A once-only code is claimed before the order exists; the unique index on
+            // (ownerId, code) lets one of two racing checkouts through, and only one.
+            if (once) {
+                const claimed = await db.insertWhere(promoRedemptions, { code, orderNumber: number }, {
+                    notExists: { table: promoRedemptions, where: eq(promoRedemptions.code, code) },
+                });
+                if (!claimed) throw new ActionError(`${code} is for a first order, and you have used it.`, "PROMO_USED", 409);
+            }
+            await db.insert(orders).values({
+                number,
+                email: input.email.toLowerCase(),
+                shipName: input.name,
+                shipAddress: input.address,
+                shipCity: input.city,
+                shipZip: input.zip,
+                shippingMethod: input.shipping,
+                promoCode: code || null,
+                subtotalCents,
+                discountCents,
+                shippingCents,
+                totalCents,
+                placedAt: new Date().toISOString(),
+            });
+            await db.insert(orderLines).values(lines.map((l) => ({ ...l, orderNumber: number })));
+            // 6. The bag is now the order's.
+            await db.delete(bagItems).where(eq(bagItems.ownerId, ctx.userId!));
+            return { number, subtotalCents, discountCents, shippingCents, totalCents };
+        } catch (e) {
+            await giveBack();
+            throw e;
+        }
+    },
+});

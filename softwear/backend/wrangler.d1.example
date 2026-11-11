@@ -1,0 +1,22 @@
+# Add this to your wrangler.toml or wrangler.jsonc file:
+
+# Auth Database (Better Auth tables: users, sessions, accounts, organizations, members, etc.)
+[[d1_databases]]
+binding = "AUTH_DB"
+database_name = "your-app-auth"
+database_id = "your-auth-database-id"
+migrations_dir = "quickback/drizzle/auth"
+
+# Features Database (application tables)
+[[d1_databases]]
+binding = "DB"
+database_name = "your-app-features"
+database_id = "your-features-database-id"
+migrations_dir = "quickback/drizzle/features"
+
+# Security Audit Database (unsafe cross-tenant action logs)
+[[d1_databases]]
+binding = "AUDIT_DB"
+database_name = "your-app-audit"
+database_id = "your-audit-database-id"
+migrations_dir = "quickback/drizzle/audit"

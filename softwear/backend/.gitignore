@@ -1,0 +1,13 @@
+node_modules/
+.env
+.env.*
+!.env.*.example
+.dev.vars
+*.db
+/data/
+dist/
+.wrangler/
+quickback/.archives/
+quickback/.quickback/
+quickback/features/*/.quickback/
+quickback/features/**/.quickback/

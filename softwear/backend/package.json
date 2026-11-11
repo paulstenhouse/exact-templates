@@ -1,0 +1,41 @@
+{
+  "name": "softwear",
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "wrangler dev",
+    "auth:schema": "npx better-auth generate --config ./src/lib/auth.ts --output ./src/auth/schema.ts --yes",
+    "build": "tsc",
+    "db:migrate:auth:local": "wrangler d1 migrations apply AUTH_DB --local",
+    "db:migrate:auth:remote": "wrangler d1 migrations apply AUTH_DB --remote",
+    "db:migrate:features:local": "wrangler d1 migrations apply DB --local",
+    "db:migrate:features:remote": "wrangler d1 migrations apply DB --remote",
+    "db:migrate:local": "npm run db:migrate:auth:local && npm run db:migrate:features:local && npm run db:migrate:audit:local",
+    "db:migrate:remote": "npm run db:migrate:auth:remote && npm run db:migrate:features:remote && npm run db:migrate:audit:remote",
+    "deploy": "npm run db:migrate:remote && wrangler deploy",
+    "db:migrate:audit:local": "wrangler d1 migrations apply AUDIT_DB --local",
+    "db:migrate:audit:remote": "wrangler d1 migrations apply AUDIT_DB --remote"
+  },
+  "dependencies": {
+    "hono": "^4.13.13",
+    "zod": "^4.6.7",
+    "drizzle-orm": "^0.45.2",
+    "better-auth": "1.7.17",
+    "@better-auth/drizzle-adapter": "1.7.17",
+    "@better-auth/core": "1.7.17",
+    "kysely": "^0.29.5",
+    "@better-auth/api-key": "1.7.17"
+  },
+  "devDependencies": {
+    "typescript": "^6.0.3",
+    "drizzle-kit": "0.31.10",
+    "@cloudflare/workers-types": "^5.20260905.1",
+    "auth": "1.7.17",
+    "wrangler": "^4.129.0"
+  },
+  "overrides": {
+    "lodash": "4.18.1"
+  },
+  "peerDependencies": {},
+  "optionalDependencies": {},
+  "engines": {}
+}

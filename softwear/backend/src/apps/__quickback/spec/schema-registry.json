@@ -1,0 +1,2432 @@
+{
+  "featureActions": {
+    "account": [
+      {
+        "access": {
+          "roles": [
+            "AUTHENTICATED"
+          ]
+        },
+        "description": "The signed-in shopper: their address, name, whether they are on the list, and their welcome code while it is unused.",
+        "inputFields": [],
+        "method": "GET",
+        "name": "me",
+        "path": "/me",
+        "standalone": true
+      }
+    ]
+  },
+  "features": {
+    "account": [
+      "actions.ts"
+    ],
+    "bag-items": [
+      "bag-items.ts",
+      "actions.ts"
+    ],
+    "custom-view": [
+      "custom-view.ts"
+    ],
+    "order-lines": [
+      "order-lines.ts"
+    ],
+    "orders": [
+      "orders.ts",
+      "actions.ts"
+    ],
+    "products": [
+      "products.ts"
+    ],
+    "promo-codes": [
+      "promo-codes.ts",
+      "actions.ts"
+    ],
+    "promo-redemptions": [
+      "promo-redemptions.ts"
+    ],
+    "restock-requests": [
+      "restock-requests.ts",
+      "actions.ts"
+    ],
+    "saved-styles": [
+      "saved-styles.ts"
+    ],
+    "stock": [
+      "stock.ts"
+    ],
+    "subscribers": [
+      "subscribers.ts",
+      "actions.ts"
+    ]
+  },
+  "generatedBy": "quickback-compiler",
+  "pages": {},
+  "pagesByFeature": {},
+  "tables": {
+    "account": {
+      "actions": [
+        {
+          "access": {
+            "roles": [
+              "AUTHENTICATED"
+            ]
+          },
+          "description": "The signed-in shopper: their address, name, whether they are on the list, and their welcome code while it is unused.",
+          "inputFields": [],
+          "method": "GET",
+          "name": "me",
+          "path": "/me",
+          "standalone": true
+        }
+      ],
+      "apiPath": "account",
+      "columns": [],
+      "crud": {},
+      "dbName": "",
+      "feature": "account",
+      "firewall": {},
+      "guards": {
+        "createable": [],
+        "immutable": [],
+        "protected": {},
+        "updatable": []
+      },
+      "internal": true,
+      "masking": {},
+      "name": "account",
+      "validation": {},
+      "views": {}
+    },
+    "bagItems": {
+      "actions": [
+        {
+          "access": {
+            "roles": [
+              "USER"
+            ]
+          },
+          "description": "Replace the caller's bag with the lines given.",
+          "inputFields": [
+            {
+              "name": "lines",
+              "required": true,
+              "type": "array<object>"
+            }
+          ],
+          "method": "PUT",
+          "name": "sync",
+          "path": "/bag",
+          "standalone": true
+        }
+      ],
+      "apiPath": "bag-items",
+      "columns": [
+        {
+          "dbName": "id",
+          "name": "id",
+          "notNull": true,
+          "primaryKey": true,
+          "type": "text"
+        },
+        {
+          "dbName": "created_at",
+          "name": "createdAt",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "created_by",
+          "name": "createdBy",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "modified_at",
+          "name": "modifiedAt",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "modified_by",
+          "name": "modifiedBy",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "deleted_at",
+          "name": "deletedAt",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "owner_id",
+          "kind": "text",
+          "name": "ownerId",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "product_slug",
+          "kind": "text",
+          "name": "productSlug",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "color",
+          "kind": "text",
+          "name": "color",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "size",
+          "kind": "text",
+          "name": "size",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "qty",
+          "kind": "int",
+          "name": "qty",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "integer"
+        }
+      ],
+      "create": {
+        "access": {
+          "roles": [
+            "USER"
+          ]
+        },
+        "batch": {
+          "access": {
+            "roles": [
+              "USER"
+            ]
+          },
+          "allowFailFast": true,
+          "maxBatchSize": 100
+        }
+      },
+      "crud": {
+        "batchCreate": {
+          "access": {
+            "roles": [
+              "USER"
+            ]
+          },
+          "allowFailFast": true,
+          "maxBatchSize": 100
+        },
+        "batchDelete": {
+          "access": {
+            "roles": [
+              "USER"
+            ]
+          },
+          "allowFailFast": true,
+          "maxBatchSize": 100,
+          "mode": "hard"
+        },
+        "batchUpdate": {
+          "access": {
+            "roles": [
+              "USER"
+            ]
+          },
+          "allowFailFast": true,
+          "maxBatchSize": 100
+        },
+        "create": {
+          "access": {
+            "roles": [
+              "USER"
+            ]
+          }
+        },
+        "delete": {
+          "access": {
+            "roles": [
+              "USER"
+            ]
+          },
+          "mode": "hard"
+        },
+        "update": {
+          "access": {
+            "roles": [
+              "USER"
+            ]
+          }
+        }
+      },
+      "dbName": "bagItems",
+      "delete": {
+        "access": {
+          "roles": [
+            "USER"
+          ]
+        },
+        "batch": {
+          "access": {
+            "roles": [
+              "USER"
+            ]
+          },
+          "allowFailFast": true,
+          "maxBatchSize": 100,
+          "mode": "hard"
+        },
+        "mode": "hard"
+      },
+      "feature": "bag-items",
+      "firewall": {
+        "owner": {
+          "column": "ownerId",
+          "source": "ctx.userId"
+        }
+      },
+      "guards": {
+        "createable": [
+          "productSlug",
+          "color",
+          "size",
+          "qty"
+        ],
+        "immutable": [],
+        "protected": {},
+        "updatable": [
+          "qty"
+        ]
+      },
+      "masking": {},
+      "name": "bagItems",
+      "update": {
+        "access": {
+          "roles": [
+            "USER"
+          ]
+        },
+        "batch": {
+          "access": {
+            "roles": [
+              "USER"
+            ]
+          },
+          "allowFailFast": true,
+          "maxBatchSize": 100
+        }
+      },
+      "validation": {
+        "qty": {
+          "integer": true
+        }
+      },
+      "views": {}
+    },
+    "customView": {
+      "actions": [],
+      "apiPath": "custom-view",
+      "columns": [
+        {
+          "dbName": "id",
+          "name": "id",
+          "notNull": true,
+          "primaryKey": true,
+          "type": "text"
+        },
+        {
+          "dbName": "created_at",
+          "name": "createdAt",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "created_by",
+          "name": "createdBy",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "modified_at",
+          "name": "modifiedAt",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "modified_by",
+          "name": "modifiedBy",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "deleted_at",
+          "name": "deletedAt",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "table_name",
+          "name": "tableName",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "name",
+          "name": "name",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "description",
+          "name": "description",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "layout_config",
+          "name": "layoutConfig",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "is_shared",
+          "defaultValue": 0,
+          "name": "isShared",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "integer"
+        }
+      ],
+      "create": {
+        "access": {
+          "userRole": [
+            "sysadmin"
+          ]
+        },
+        "batch": {
+          "access": {
+            "userRole": [
+              "sysadmin"
+            ]
+          },
+          "allowFailFast": true,
+          "maxBatchSize": 100
+        }
+      },
+      "crud": {
+        "batchCreate": {
+          "access": {
+            "userRole": [
+              "sysadmin"
+            ]
+          },
+          "allowFailFast": true,
+          "maxBatchSize": 100
+        },
+        "batchDelete": {
+          "access": {
+            "userRole": [
+              "sysadmin"
+            ]
+          },
+          "allowFailFast": true,
+          "maxBatchSize": 100,
+          "mode": "soft"
+        },
+        "batchUpdate": {
+          "access": {
+            "userRole": [
+              "sysadmin"
+            ]
+          },
+          "allowFailFast": true,
+          "maxBatchSize": 100
+        },
+        "create": {
+          "access": {
+            "userRole": [
+              "sysadmin"
+            ]
+          }
+        },
+        "delete": {
+          "access": {
+            "userRole": [
+              "sysadmin"
+            ]
+          }
+        },
+        "update": {
+          "access": {
+            "userRole": [
+              "sysadmin"
+            ]
+          }
+        }
+      },
+      "dbName": "custom_view",
+      "delete": {
+        "access": {
+          "userRole": [
+            "sysadmin"
+          ]
+        },
+        "batch": {
+          "access": {
+            "userRole": [
+              "sysadmin"
+            ]
+          },
+          "allowFailFast": true,
+          "maxBatchSize": 100,
+          "mode": "soft"
+        }
+      },
+      "displayColumn": "name",
+      "feature": "custom-view",
+      "firewall": {
+        "exception": true
+      },
+      "guards": {
+        "createable": [
+          "tableName",
+          "name",
+          "description",
+          "layoutConfig",
+          "isShared"
+        ],
+        "immutable": [],
+        "protected": {},
+        "updatable": [
+          "tableName",
+          "name",
+          "description",
+          "layoutConfig",
+          "isShared"
+        ]
+      },
+      "internal": true,
+      "masking": {},
+      "name": "customView",
+      "update": {
+        "access": {
+          "userRole": [
+            "sysadmin"
+          ]
+        },
+        "batch": {
+          "access": {
+            "userRole": [
+              "sysadmin"
+            ]
+          },
+          "allowFailFast": true,
+          "maxBatchSize": 100
+        }
+      },
+      "validation": {},
+      "views": {}
+    },
+    "orderLines": {
+      "actions": [],
+      "apiPath": "order-lines",
+      "columns": [
+        {
+          "dbName": "id",
+          "name": "id",
+          "notNull": true,
+          "primaryKey": true,
+          "type": "text"
+        },
+        {
+          "dbName": "created_at",
+          "name": "createdAt",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "created_by",
+          "name": "createdBy",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "modified_at",
+          "name": "modifiedAt",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "modified_by",
+          "name": "modifiedBy",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "deleted_at",
+          "name": "deletedAt",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "owner_id",
+          "kind": "text",
+          "name": "ownerId",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "order_number",
+          "filterable": "eq",
+          "kind": "text",
+          "name": "orderNumber",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "product_slug",
+          "kind": "text",
+          "name": "productSlug",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "name",
+          "kind": "text",
+          "name": "name",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "color",
+          "kind": "text",
+          "name": "color",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "size",
+          "kind": "text",
+          "name": "size",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "qty",
+          "kind": "int",
+          "name": "qty",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "integer"
+        },
+        {
+          "dbName": "price_cents",
+          "kind": "int",
+          "name": "priceCents",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "integer"
+        },
+        {
+          "dbName": "deleted_by",
+          "kind": "text",
+          "name": "deletedBy",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "text"
+        }
+      ],
+      "crud": {},
+      "dbName": "orderLines",
+      "displayColumn": "name",
+      "feature": "order-lines",
+      "firewall": {
+        "owner": {
+          "column": "ownerId",
+          "source": "ctx.userId"
+        },
+        "softDelete": {
+          "column": "deletedAt"
+        }
+      },
+      "guards": {
+        "createable": [],
+        "immutable": [],
+        "protected": {},
+        "updatable": []
+      },
+      "masking": {},
+      "name": "orderLines",
+      "validation": {
+        "priceCents": {
+          "integer": true
+        },
+        "qty": {
+          "integer": true
+        }
+      },
+      "views": {}
+    },
+    "orders": {
+      "actions": [
+        {
+          "access": {
+            "roles": [
+              "SYSADMIN"
+            ]
+          },
+          "description": "Transition orders via cancel",
+          "inputFields": [],
+          "method": "POST",
+          "name": "cancel",
+          "transition": {
+            "field": "status",
+            "fromTo": {
+              "placed": [
+                "cancelled"
+              ]
+            },
+            "to": "cancelled"
+          }
+        },
+        {
+          "access": {
+            "roles": [
+              "USER"
+            ]
+          },
+          "description": "Place an order for everything in the caller's bag. A demonstration: no payment is taken.",
+          "inputFields": [
+            {
+              "name": "email",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "name",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "address",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "city",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "zip",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "default": "standard",
+              "enum": [
+                "standard",
+                "express"
+              ],
+              "name": "shipping",
+              "required": false,
+              "type": "enum"
+            },
+            {
+              "name": "promo",
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "method": "POST",
+          "name": "checkout",
+          "path": "/checkout",
+          "standalone": true
+        },
+        {
+          "access": {
+            "roles": [
+              "SYSADMIN"
+            ]
+          },
+          "description": "Transition orders via deliver",
+          "inputFields": [],
+          "method": "POST",
+          "name": "deliver",
+          "transition": {
+            "field": "status",
+            "fromTo": {
+              "shipped": [
+                "delivered"
+              ]
+            },
+            "to": "delivered"
+          }
+        },
+        {
+          "access": {
+            "roles": [
+              "SYSADMIN"
+            ]
+          },
+          "description": "Transition orders via ship",
+          "inputFields": [],
+          "method": "POST",
+          "name": "ship",
+          "transition": {
+            "field": "status",
+            "fromTo": {
+              "placed": [
+                "shipped"
+              ]
+            },
+            "to": "shipped"
+          }
+        }
+      ],
+      "apiPath": "orders",
+      "columns": [
+        {
+          "dbName": "id",
+          "name": "id",
+          "notNull": true,
+          "primaryKey": true,
+          "type": "text"
+        },
+        {
+          "dbName": "created_at",
+          "name": "createdAt",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "created_by",
+          "name": "createdBy",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "modified_at",
+          "name": "modifiedAt",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "modified_by",
+          "name": "modifiedBy",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "deleted_at",
+          "name": "deletedAt",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "owner_id",
+          "kind": "text",
+          "name": "ownerId",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "number",
+          "filterable": "eq",
+          "kind": "text",
+          "name": "number",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "status",
+          "defaultValue": "placed",
+          "kind": "enum",
+          "name": "status",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "email",
+          "kind": "text",
+          "name": "email",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "ship_name",
+          "kind": "text",
+          "name": "shipName",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "ship_address",
+          "kind": "text",
+          "name": "shipAddress",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "ship_city",
+          "kind": "text",
+          "name": "shipCity",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "ship_zip",
+          "kind": "text",
+          "name": "shipZip",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "shipping_method",
+          "defaultValue": "standard",
+          "kind": "enum",
+          "name": "shippingMethod",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "promo_code",
+          "kind": "text",
+          "name": "promoCode",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "subtotal_cents",
+          "kind": "int",
+          "name": "subtotalCents",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "integer"
+        },
+        {
+          "dbName": "discount_cents",
+          "kind": "int",
+          "name": "discountCents",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "integer"
+        },
+        {
+          "dbName": "shipping_cents",
+          "kind": "int",
+          "name": "shippingCents",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "integer"
+        },
+        {
+          "dbName": "total_cents",
+          "kind": "int",
+          "name": "totalCents",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "integer"
+        },
+        {
+          "dbName": "placed_at",
+          "kind": "timestamp",
+          "name": "placedAt",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "timestamp"
+        },
+        {
+          "dbName": "shipped_at",
+          "kind": "timestamp",
+          "name": "shippedAt",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "timestamp"
+        },
+        {
+          "dbName": "delivered_at",
+          "kind": "timestamp",
+          "name": "deliveredAt",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "timestamp"
+        },
+        {
+          "dbName": "cancelled_at",
+          "kind": "timestamp",
+          "name": "cancelledAt",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "timestamp"
+        },
+        {
+          "dbName": "deleted_by",
+          "kind": "text",
+          "name": "deletedBy",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "text"
+        }
+      ],
+      "crud": {},
+      "dbName": "orders",
+      "feature": "orders",
+      "firewall": {
+        "owner": {
+          "column": "ownerId",
+          "source": "ctx.userId"
+        },
+        "softDelete": {
+          "column": "deletedAt"
+        }
+      },
+      "guards": {
+        "createable": [],
+        "immutable": [],
+        "protected": {
+          "status": [
+            "ship",
+            "deliver",
+            "cancel"
+          ]
+        },
+        "updatable": []
+      },
+      "masking": {
+        "email": {
+          "show": {
+            "or": "owner",
+            "roles": [
+              "SYSADMIN"
+            ]
+          },
+          "type": "email"
+        },
+        "shipAddress": {
+          "show": {
+            "or": "owner",
+            "roles": [
+              "SYSADMIN"
+            ]
+          },
+          "type": "redact"
+        },
+        "shipName": {
+          "show": {
+            "or": "owner",
+            "roles": [
+              "SYSADMIN"
+            ]
+          },
+          "type": "name"
+        }
+      },
+      "name": "orders",
+      "validation": {
+        "discountCents": {
+          "integer": true
+        },
+        "shippingCents": {
+          "integer": true
+        },
+        "shippingMethod": {
+          "enum": [
+            "standard",
+            "express"
+          ]
+        },
+        "status": {
+          "enum": [
+            "placed",
+            "shipped",
+            "delivered",
+            "cancelled"
+          ]
+        },
+        "subtotalCents": {
+          "integer": true
+        },
+        "totalCents": {
+          "integer": true
+        }
+      },
+      "views": {}
+    },
+    "products": {
+      "actions": [],
+      "apiPath": "products",
+      "columns": [
+        {
+          "dbName": "id",
+          "name": "id",
+          "notNull": true,
+          "primaryKey": true,
+          "type": "text"
+        },
+        {
+          "dbName": "created_at",
+          "name": "createdAt",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "created_by",
+          "name": "createdBy",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "modified_at",
+          "name": "modifiedAt",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "modified_by",
+          "name": "modifiedBy",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "deleted_at",
+          "name": "deletedAt",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "slug",
+          "kind": "text",
+          "name": "slug",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "style",
+          "kind": "text",
+          "name": "style",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "name",
+          "kind": "text",
+          "name": "name",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "category",
+          "kind": "text",
+          "name": "category",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "gender",
+          "kind": "text",
+          "name": "gender",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "fabric",
+          "kind": "text",
+          "name": "fabric",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "weight",
+          "kind": "text",
+          "name": "weight",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "fit",
+          "kind": "text",
+          "name": "fit",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "description",
+          "kind": "text",
+          "name": "description",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "details",
+          "kind": "json",
+          "name": "details",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "jsonb"
+        },
+        {
+          "dbName": "colors",
+          "kind": "json",
+          "name": "colors",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "jsonb"
+        },
+        {
+          "dbName": "sizes",
+          "kind": "json",
+          "name": "sizes",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "jsonb"
+        },
+        {
+          "dbName": "price_cents",
+          "kind": "int",
+          "name": "priceCents",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "integer"
+        },
+        {
+          "dbName": "compare_cents",
+          "defaultValue": 0,
+          "kind": "int",
+          "name": "compareCents",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "integer"
+        },
+        {
+          "dbName": "tags",
+          "kind": "json",
+          "name": "tags",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "jsonb"
+        },
+        {
+          "dbName": "kind",
+          "kind": "text",
+          "name": "kind",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "photo",
+          "kind": "text",
+          "name": "photo",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "position",
+          "defaultValue": 0,
+          "kind": "int",
+          "name": "position",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "integer"
+        },
+        {
+          "dbName": "deleted_by",
+          "kind": "text",
+          "name": "deletedBy",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "text"
+        }
+      ],
+      "create": {
+        "access": {
+          "userRole": [
+            "sysadmin"
+          ]
+        },
+        "batch": {
+          "access": {
+            "userRole": [
+              "sysadmin"
+            ]
+          },
+          "allowFailFast": true,
+          "maxBatchSize": 100
+        }
+      },
+      "crud": {
+        "batchCreate": {
+          "access": {
+            "userRole": [
+              "sysadmin"
+            ]
+          },
+          "allowFailFast": true,
+          "maxBatchSize": 100
+        },
+        "batchDelete": {
+          "access": {
+            "userRole": [
+              "sysadmin"
+            ]
+          },
+          "allowFailFast": true,
+          "maxBatchSize": 100,
+          "mode": "soft"
+        },
+        "batchUpdate": {
+          "access": {
+            "userRole": [
+              "sysadmin"
+            ]
+          },
+          "allowFailFast": true,
+          "maxBatchSize": 100
+        },
+        "create": {
+          "access": {
+            "userRole": [
+              "sysadmin"
+            ]
+          }
+        },
+        "delete": {
+          "access": {
+            "userRole": [
+              "sysadmin"
+            ]
+          },
+          "mode": "soft"
+        },
+        "update": {
+          "access": {
+            "userRole": [
+              "sysadmin"
+            ]
+          }
+        }
+      },
+      "dbName": "products",
+      "delete": {
+        "access": {
+          "userRole": [
+            "sysadmin"
+          ]
+        },
+        "batch": {
+          "access": {
+            "userRole": [
+              "sysadmin"
+            ]
+          },
+          "allowFailFast": true,
+          "maxBatchSize": 100,
+          "mode": "soft"
+        },
+        "mode": "soft"
+      },
+      "displayColumn": "name",
+      "feature": "products",
+      "firewall": {
+        "softDelete": {
+          "column": "deletedAt"
+        }
+      },
+      "guards": {
+        "createable": [
+          "slug",
+          "style",
+          "name",
+          "category",
+          "gender",
+          "fabric",
+          "weight",
+          "fit",
+          "description",
+          "details",
+          "colors",
+          "sizes",
+          "priceCents",
+          "compareCents",
+          "tags",
+          "kind",
+          "photo",
+          "position"
+        ],
+        "immutable": [
+          "slug"
+        ],
+        "protected": {},
+        "updatable": [
+          "style",
+          "name",
+          "category",
+          "gender",
+          "fabric",
+          "weight",
+          "fit",
+          "description",
+          "details",
+          "colors",
+          "sizes",
+          "priceCents",
+          "compareCents",
+          "tags",
+          "kind",
+          "photo",
+          "position"
+        ]
+      },
+      "masking": {},
+      "name": "products",
+      "update": {
+        "access": {
+          "userRole": [
+            "sysadmin"
+          ]
+        },
+        "batch": {
+          "access": {
+            "userRole": [
+              "sysadmin"
+            ]
+          },
+          "allowFailFast": true,
+          "maxBatchSize": 100
+        }
+      },
+      "validation": {
+        "compareCents": {
+          "integer": true
+        },
+        "position": {
+          "integer": true
+        },
+        "priceCents": {
+          "integer": true
+        }
+      },
+      "views": {}
+    },
+    "promoCodes": {
+      "actions": [
+        {
+          "access": {
+            "roles": [
+              "USER"
+            ]
+          },
+          "description": "What a promo code is worth to the caller: its percentage, or 0.",
+          "inputFields": [
+            {
+              "name": "code",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "method": "GET",
+          "name": "check",
+          "path": "/promo",
+          "standalone": true
+        }
+      ],
+      "apiPath": "promo-codes",
+      "columns": [
+        {
+          "dbName": "id",
+          "name": "id",
+          "notNull": true,
+          "primaryKey": true,
+          "type": "text"
+        },
+        {
+          "dbName": "created_at",
+          "name": "createdAt",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "created_by",
+          "name": "createdBy",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "modified_at",
+          "name": "modifiedAt",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "modified_by",
+          "name": "modifiedBy",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "deleted_at",
+          "name": "deletedAt",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "code",
+          "kind": "text",
+          "name": "code",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "pct",
+          "kind": "int",
+          "name": "pct",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "integer"
+        },
+        {
+          "dbName": "once_per_user",
+          "defaultValue": false,
+          "kind": "bool",
+          "name": "oncePerUser",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "boolean"
+        },
+        {
+          "dbName": "active",
+          "defaultValue": true,
+          "kind": "bool",
+          "name": "active",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "boolean"
+        },
+        {
+          "dbName": "deleted_by",
+          "kind": "text",
+          "name": "deletedBy",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "text"
+        }
+      ],
+      "create": {
+        "access": {
+          "roles": [
+            "SYSADMIN"
+          ]
+        },
+        "batch": {
+          "access": {
+            "roles": [
+              "SYSADMIN"
+            ]
+          },
+          "allowFailFast": true,
+          "maxBatchSize": 100
+        }
+      },
+      "crud": {
+        "batchCreate": {
+          "access": {
+            "roles": [
+              "SYSADMIN"
+            ]
+          },
+          "allowFailFast": true,
+          "maxBatchSize": 100
+        },
+        "batchUpdate": {
+          "access": {
+            "roles": [
+              "SYSADMIN"
+            ]
+          },
+          "allowFailFast": true,
+          "maxBatchSize": 100
+        },
+        "create": {
+          "access": {
+            "roles": [
+              "SYSADMIN"
+            ]
+          }
+        },
+        "update": {
+          "access": {
+            "roles": [
+              "SYSADMIN"
+            ]
+          }
+        }
+      },
+      "dbName": "promoCodes",
+      "displayColumn": "code",
+      "feature": "promo-codes",
+      "firewall": {
+        "exception": true
+      },
+      "guards": {
+        "createable": [
+          "code",
+          "pct",
+          "oncePerUser",
+          "active"
+        ],
+        "immutable": [
+          "code"
+        ],
+        "protected": {},
+        "updatable": [
+          "pct",
+          "oncePerUser",
+          "active"
+        ]
+      },
+      "masking": {},
+      "name": "promoCodes",
+      "update": {
+        "access": {
+          "roles": [
+            "SYSADMIN"
+          ]
+        },
+        "batch": {
+          "access": {
+            "roles": [
+              "SYSADMIN"
+            ]
+          },
+          "allowFailFast": true,
+          "maxBatchSize": 100
+        }
+      },
+      "validation": {
+        "pct": {
+          "integer": true
+        }
+      },
+      "views": {}
+    },
+    "promoRedemptions": {
+      "actions": [],
+      "apiPath": "promo-redemptions",
+      "columns": [
+        {
+          "dbName": "id",
+          "name": "id",
+          "notNull": true,
+          "primaryKey": true,
+          "type": "text"
+        },
+        {
+          "dbName": "created_at",
+          "name": "createdAt",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "created_by",
+          "name": "createdBy",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "modified_at",
+          "name": "modifiedAt",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "modified_by",
+          "name": "modifiedBy",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "deleted_at",
+          "name": "deletedAt",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "owner_id",
+          "kind": "text",
+          "name": "ownerId",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "code",
+          "kind": "text",
+          "name": "code",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "order_number",
+          "kind": "text",
+          "name": "orderNumber",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "deleted_by",
+          "kind": "text",
+          "name": "deletedBy",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "text"
+        }
+      ],
+      "crud": {},
+      "dbName": "promoRedemptions",
+      "displayColumn": "code",
+      "feature": "promo-redemptions",
+      "firewall": {
+        "owner": {
+          "column": "ownerId",
+          "source": "ctx.userId"
+        },
+        "softDelete": {
+          "column": "deletedAt"
+        }
+      },
+      "guards": {
+        "createable": [],
+        "immutable": [],
+        "protected": {},
+        "updatable": []
+      },
+      "masking": {},
+      "name": "promoRedemptions",
+      "validation": {},
+      "views": {}
+    },
+    "restockRequests": {
+      "actions": [
+        {
+          "access": {
+            "roles": [
+              "PUBLIC"
+            ]
+          },
+          "description": "Ask to be told when a sold-out style is back.",
+          "inputFields": [
+            {
+              "name": "email",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "slug",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "method": "POST",
+          "name": "notify",
+          "path": "/notify",
+          "standalone": true
+        }
+      ],
+      "apiPath": "restock-requests",
+      "columns": [
+        {
+          "dbName": "id",
+          "name": "id",
+          "notNull": true,
+          "primaryKey": true,
+          "type": "text"
+        },
+        {
+          "dbName": "created_at",
+          "name": "createdAt",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "created_by",
+          "name": "createdBy",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "modified_at",
+          "name": "modifiedAt",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "modified_by",
+          "name": "modifiedBy",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "deleted_at",
+          "name": "deletedAt",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "email",
+          "kind": "text",
+          "name": "email",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "product_slug",
+          "kind": "text",
+          "name": "productSlug",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "deleted_by",
+          "kind": "text",
+          "name": "deletedBy",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "text"
+        }
+      ],
+      "crud": {},
+      "dbName": "restockRequests",
+      "feature": "restock-requests",
+      "firewall": {
+        "exception": true
+      },
+      "guards": {
+        "createable": [],
+        "immutable": [],
+        "protected": {},
+        "updatable": []
+      },
+      "masking": {
+        "email": {
+          "show": {
+            "roles": [
+              "SYSADMIN"
+            ]
+          },
+          "type": "email"
+        }
+      },
+      "name": "restockRequests",
+      "validation": {
+        "email": {
+          "email": true,
+          "maxLength": 254
+        }
+      },
+      "views": {}
+    },
+    "savedStyles": {
+      "actions": [],
+      "apiPath": "saved-styles",
+      "columns": [
+        {
+          "dbName": "id",
+          "name": "id",
+          "notNull": true,
+          "primaryKey": true,
+          "type": "text"
+        },
+        {
+          "dbName": "created_at",
+          "name": "createdAt",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "created_by",
+          "name": "createdBy",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "modified_at",
+          "name": "modifiedAt",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "modified_by",
+          "name": "modifiedBy",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "deleted_at",
+          "name": "deletedAt",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "owner_id",
+          "kind": "text",
+          "name": "ownerId",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "product_slug",
+          "filterable": "eq",
+          "kind": "text",
+          "name": "productSlug",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        }
+      ],
+      "create": {
+        "access": {
+          "roles": [
+            "USER"
+          ]
+        },
+        "batch": {
+          "access": {
+            "roles": [
+              "USER"
+            ]
+          },
+          "allowFailFast": true,
+          "maxBatchSize": 100
+        }
+      },
+      "crud": {
+        "batchCreate": {
+          "access": {
+            "roles": [
+              "USER"
+            ]
+          },
+          "allowFailFast": true,
+          "maxBatchSize": 100
+        },
+        "batchDelete": {
+          "access": {
+            "roles": [
+              "USER"
+            ]
+          },
+          "allowFailFast": true,
+          "maxBatchSize": 100,
+          "mode": "hard"
+        },
+        "create": {
+          "access": {
+            "roles": [
+              "USER"
+            ]
+          }
+        },
+        "delete": {
+          "access": {
+            "roles": [
+              "USER"
+            ]
+          },
+          "mode": "hard"
+        }
+      },
+      "dbName": "savedStyles",
+      "delete": {
+        "access": {
+          "roles": [
+            "USER"
+          ]
+        },
+        "batch": {
+          "access": {
+            "roles": [
+              "USER"
+            ]
+          },
+          "allowFailFast": true,
+          "maxBatchSize": 100,
+          "mode": "hard"
+        },
+        "mode": "hard"
+      },
+      "feature": "saved-styles",
+      "firewall": {
+        "owner": {
+          "column": "ownerId",
+          "source": "ctx.userId"
+        }
+      },
+      "guards": {
+        "createable": [
+          "productSlug"
+        ],
+        "immutable": [],
+        "protected": {},
+        "updatable": []
+      },
+      "masking": {},
+      "name": "savedStyles",
+      "validation": {},
+      "views": {}
+    },
+    "stock": {
+      "actions": [],
+      "apiPath": "stock",
+      "columns": [
+        {
+          "dbName": "id",
+          "name": "id",
+          "notNull": true,
+          "primaryKey": true,
+          "type": "text"
+        },
+        {
+          "dbName": "created_at",
+          "name": "createdAt",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "created_by",
+          "name": "createdBy",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "modified_at",
+          "name": "modifiedAt",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "modified_by",
+          "name": "modifiedBy",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "deleted_at",
+          "name": "deletedAt",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "product_slug",
+          "filterable": "eq",
+          "kind": "text",
+          "name": "productSlug",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "size",
+          "kind": "text",
+          "name": "size",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "count",
+          "kind": "int",
+          "name": "count",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "integer"
+        },
+        {
+          "dbName": "deleted_by",
+          "kind": "text",
+          "name": "deletedBy",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "text"
+        }
+      ],
+      "create": {
+        "access": {
+          "userRole": [
+            "sysadmin"
+          ]
+        },
+        "batch": {
+          "access": {
+            "userRole": [
+              "sysadmin"
+            ]
+          },
+          "allowFailFast": true,
+          "maxBatchSize": 100
+        }
+      },
+      "crud": {
+        "batchCreate": {
+          "access": {
+            "userRole": [
+              "sysadmin"
+            ]
+          },
+          "allowFailFast": true,
+          "maxBatchSize": 100
+        },
+        "batchUpdate": {
+          "access": {
+            "userRole": [
+              "sysadmin"
+            ]
+          },
+          "allowFailFast": true,
+          "maxBatchSize": 100
+        },
+        "create": {
+          "access": {
+            "userRole": [
+              "sysadmin"
+            ]
+          }
+        },
+        "update": {
+          "access": {
+            "userRole": [
+              "sysadmin"
+            ]
+          }
+        }
+      },
+      "dbName": "stock",
+      "feature": "stock",
+      "firewall": {
+        "softDelete": {
+          "column": "deletedAt"
+        }
+      },
+      "guards": {
+        "createable": [
+          "productSlug",
+          "size",
+          "count"
+        ],
+        "immutable": [],
+        "protected": {},
+        "updatable": [
+          "count"
+        ]
+      },
+      "masking": {},
+      "name": "stock",
+      "update": {
+        "access": {
+          "userRole": [
+            "sysadmin"
+          ]
+        },
+        "batch": {
+          "access": {
+            "userRole": [
+              "sysadmin"
+            ]
+          },
+          "allowFailFast": true,
+          "maxBatchSize": 100
+        }
+      },
+      "validation": {
+        "count": {
+          "integer": true
+        }
+      },
+      "views": {}
+    },
+    "subscribers": {
+      "actions": [
+        {
+          "access": {
+            "roles": [
+              "PUBLIC"
+            ]
+          },
+          "description": "Join the mailing list. Answers the welcome code, and whether the address was already on the list.",
+          "inputFields": [
+            {
+              "name": "email",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "method": "POST",
+          "name": "join",
+          "path": "/subscribe",
+          "standalone": true
+        }
+      ],
+      "apiPath": "subscribers",
+      "columns": [
+        {
+          "dbName": "id",
+          "name": "id",
+          "notNull": true,
+          "primaryKey": true,
+          "type": "text"
+        },
+        {
+          "dbName": "created_at",
+          "name": "createdAt",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "created_by",
+          "name": "createdBy",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "modified_at",
+          "name": "modifiedAt",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "modified_by",
+          "name": "modifiedBy",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "deleted_at",
+          "name": "deletedAt",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "email",
+          "kind": "text",
+          "name": "email",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        },
+        {
+          "dbName": "deleted_by",
+          "kind": "text",
+          "name": "deletedBy",
+          "notNull": false,
+          "primaryKey": false,
+          "type": "text"
+        }
+      ],
+      "crud": {
+        "batchDelete": {
+          "access": {
+            "roles": [
+              "SYSADMIN"
+            ]
+          },
+          "allowFailFast": true,
+          "maxBatchSize": 100,
+          "mode": "soft"
+        },
+        "delete": {
+          "access": {
+            "roles": [
+              "SYSADMIN"
+            ]
+          },
+          "mode": "soft"
+        }
+      },
+      "dbName": "subscribers",
+      "delete": {
+        "access": {
+          "roles": [
+            "SYSADMIN"
+          ]
+        },
+        "batch": {
+          "access": {
+            "roles": [
+              "SYSADMIN"
+            ]
+          },
+          "allowFailFast": true,
+          "maxBatchSize": 100,
+          "mode": "soft"
+        },
+        "mode": "soft"
+      },
+      "feature": "subscribers",
+      "firewall": {
+        "exception": true
+      },
+      "guards": {
+        "createable": [],
+        "immutable": [],
+        "protected": {},
+        "updatable": []
+      },
+      "masking": {
+        "email": {
+          "show": {
+            "roles": [
+              "SYSADMIN"
+            ]
+          },
+          "type": "email"
+        }
+      },
+      "name": "subscribers",
+      "validation": {
+        "email": {
+          "email": true,
+          "maxLength": 254
+        }
+      },
+      "views": {}
+    }
+  },
+  "tablesByFeature": {
+    "account": [
+      "account"
+    ],
+    "bag-items": [
+      "bagItems"
+    ],
+    "custom-view": [
+      "customView"
+    ],
+    "order-lines": [
+      "orderLines"
+    ],
+    "orders": [
+      "orders"
+    ],
+    "products": [
+      "products"
+    ],
+    "promo-codes": [
+      "promoCodes"
+    ],
+    "promo-redemptions": [
+      "promoRedemptions"
+    ],
+    "restock-requests": [
+      "restockRequests"
+    ],
+    "saved-styles": [
+      "savedStyles"
+    ],
+    "stock": [
+      "stock"
+    ],
+    "subscribers": [
+      "subscribers"
+    ]
+  },
+  "version": "0.72.7"
+}

@@ -1,0 +1,3525 @@
+[
+  {
+    "operationId": "batchCreateBagItems",
+    "method": "POST",
+    "path": "/api/v1/bag-items/batch",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "batchCreateBagItems",
+    "method": "POST",
+    "path": "/api/v1/bag-items/batch",
+    "principal": "non-member",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    },
+    "notes": "empty-batch probe ({\"records\":[]} / {\"ids\":[]}) → 200 with zero results; non-empty payloads are fixture-dependent"
+  },
+  {
+    "operationId": "batchCreateBagItems",
+    "method": "POST",
+    "path": "/api/v1/bag-items/batch",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    },
+    "notes": "empty-batch probe ({\"records\":[]} / {\"ids\":[]}) → 200 with zero results; non-empty payloads are fixture-dependent; non-empty creates land in the CALLER's org (scope auto-stamp)"
+  },
+  {
+    "operationId": "batchCreateBagItems",
+    "method": "POST",
+    "path": "/api/v1/bag-items/batch",
+    "principal": "role:member",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    },
+    "notes": "empty-batch probe ({\"records\":[]} / {\"ids\":[]}) → 200 with zero results; non-empty payloads are fixture-dependent"
+  },
+  {
+    "operationId": "batchCreateBagItems",
+    "method": "POST",
+    "path": "/api/v1/bag-items/batch",
+    "principal": "owner",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    },
+    "notes": "empty-batch probe ({\"records\":[]} / {\"ids\":[]}) → 200 with zero results; non-empty payloads are fixture-dependent"
+  },
+  {
+    "operationId": "batchCreateBagItems",
+    "method": "POST",
+    "path": "/api/v1/bag-items/batch",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    },
+    "notes": "empty-batch probe ({\"records\":[]} / {\"ids\":[]}) → 200 with zero results; non-empty payloads are fixture-dependent"
+  },
+  {
+    "operationId": "batchCreateCustomView",
+    "method": "POST",
+    "path": "/api/v1/custom-view/batch",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "batchCreateCustomView",
+    "method": "POST",
+    "path": "/api/v1/custom-view/batch",
+    "principal": "non-member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "batchCreateCustomView",
+    "method": "POST",
+    "path": "/api/v1/custom-view/batch",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "batchCreateCustomView",
+    "method": "POST",
+    "path": "/api/v1/custom-view/batch",
+    "principal": "role:member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "batchCreateCustomView",
+    "method": "POST",
+    "path": "/api/v1/custom-view/batch",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    },
+    "notes": "empty-batch probe ({\"records\":[]} / {\"ids\":[]}) → 200 with zero results; non-empty payloads are fixture-dependent"
+  },
+  {
+    "operationId": "batchCreateProducts",
+    "method": "POST",
+    "path": "/api/v1/products/batch",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "batchCreateProducts",
+    "method": "POST",
+    "path": "/api/v1/products/batch",
+    "principal": "non-member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "batchCreateProducts",
+    "method": "POST",
+    "path": "/api/v1/products/batch",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "batchCreateProducts",
+    "method": "POST",
+    "path": "/api/v1/products/batch",
+    "principal": "role:member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "batchCreateProducts",
+    "method": "POST",
+    "path": "/api/v1/products/batch",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    },
+    "notes": "empty-batch probe ({\"records\":[]} / {\"ids\":[]}) → 200 with zero results; non-empty payloads are fixture-dependent"
+  },
+  {
+    "operationId": "batchCreatePromoCodes",
+    "method": "POST",
+    "path": "/api/v1/promo-codes/batch",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "batchCreatePromoCodes",
+    "method": "POST",
+    "path": "/api/v1/promo-codes/batch",
+    "principal": "non-member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "batchCreatePromoCodes",
+    "method": "POST",
+    "path": "/api/v1/promo-codes/batch",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "batchCreatePromoCodes",
+    "method": "POST",
+    "path": "/api/v1/promo-codes/batch",
+    "principal": "role:member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "batchCreatePromoCodes",
+    "method": "POST",
+    "path": "/api/v1/promo-codes/batch",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    },
+    "notes": "empty-batch probe ({\"records\":[]} / {\"ids\":[]}) → 200 with zero results; non-empty payloads are fixture-dependent"
+  },
+  {
+    "operationId": "batchCreateSavedStyles",
+    "method": "POST",
+    "path": "/api/v1/saved-styles/batch",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "batchCreateSavedStyles",
+    "method": "POST",
+    "path": "/api/v1/saved-styles/batch",
+    "principal": "non-member",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    },
+    "notes": "empty-batch probe ({\"records\":[]} / {\"ids\":[]}) → 200 with zero results; non-empty payloads are fixture-dependent"
+  },
+  {
+    "operationId": "batchCreateSavedStyles",
+    "method": "POST",
+    "path": "/api/v1/saved-styles/batch",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    },
+    "notes": "empty-batch probe ({\"records\":[]} / {\"ids\":[]}) → 200 with zero results; non-empty payloads are fixture-dependent; non-empty creates land in the CALLER's org (scope auto-stamp)"
+  },
+  {
+    "operationId": "batchCreateSavedStyles",
+    "method": "POST",
+    "path": "/api/v1/saved-styles/batch",
+    "principal": "role:member",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    },
+    "notes": "empty-batch probe ({\"records\":[]} / {\"ids\":[]}) → 200 with zero results; non-empty payloads are fixture-dependent"
+  },
+  {
+    "operationId": "batchCreateSavedStyles",
+    "method": "POST",
+    "path": "/api/v1/saved-styles/batch",
+    "principal": "owner",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    },
+    "notes": "empty-batch probe ({\"records\":[]} / {\"ids\":[]}) → 200 with zero results; non-empty payloads are fixture-dependent"
+  },
+  {
+    "operationId": "batchCreateSavedStyles",
+    "method": "POST",
+    "path": "/api/v1/saved-styles/batch",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    },
+    "notes": "empty-batch probe ({\"records\":[]} / {\"ids\":[]}) → 200 with zero results; non-empty payloads are fixture-dependent"
+  },
+  {
+    "operationId": "batchCreateStock",
+    "method": "POST",
+    "path": "/api/v1/stock/batch",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "batchCreateStock",
+    "method": "POST",
+    "path": "/api/v1/stock/batch",
+    "principal": "non-member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "batchCreateStock",
+    "method": "POST",
+    "path": "/api/v1/stock/batch",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "batchCreateStock",
+    "method": "POST",
+    "path": "/api/v1/stock/batch",
+    "principal": "role:member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "batchCreateStock",
+    "method": "POST",
+    "path": "/api/v1/stock/batch",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    },
+    "notes": "empty-batch probe ({\"records\":[]} / {\"ids\":[]}) → 200 with zero results; non-empty payloads are fixture-dependent"
+  },
+  {
+    "operationId": "batchDeleteBagItems",
+    "method": "DELETE",
+    "path": "/api/v1/bag-items/batch",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "batchDeleteBagItems",
+    "method": "DELETE",
+    "path": "/api/v1/bag-items/batch",
+    "principal": "non-member",
+    "expected": {
+      "status": 207,
+      "kind": "cross-tenant-batch-miss"
+    },
+    "notes": "runner submits the provisioned target-tenant ids — every record errors FIREWALL_NOT_FOUND; status 207 (errors.length > 0)"
+  },
+  {
+    "operationId": "batchDeleteBagItems",
+    "method": "DELETE",
+    "path": "/api/v1/bag-items/batch",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 207,
+      "kind": "cross-tenant-batch-miss"
+    },
+    "notes": "runner submits the provisioned target-tenant ids — every record errors FIREWALL_NOT_FOUND; status 207 (errors.length > 0)"
+  },
+  {
+    "operationId": "batchDeleteBagItems",
+    "method": "DELETE",
+    "path": "/api/v1/bag-items/batch",
+    "principal": "role:member",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    },
+    "notes": "empty-batch probe ({\"records\":[]} / {\"ids\":[]}) → 200 with zero results; non-empty payloads are fixture-dependent"
+  },
+  {
+    "operationId": "batchDeleteBagItems",
+    "method": "DELETE",
+    "path": "/api/v1/bag-items/batch",
+    "principal": "owner",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    },
+    "notes": "empty-batch probe ({\"records\":[]} / {\"ids\":[]}) → 200 with zero results; non-empty payloads are fixture-dependent"
+  },
+  {
+    "operationId": "batchDeleteBagItems",
+    "method": "DELETE",
+    "path": "/api/v1/bag-items/batch",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    },
+    "notes": "empty-batch probe ({\"records\":[]} / {\"ids\":[]}) → 200 with zero results; non-empty payloads are fixture-dependent"
+  },
+  {
+    "operationId": "batchDeleteCustomView",
+    "method": "DELETE",
+    "path": "/api/v1/custom-view/batch",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "batchDeleteCustomView",
+    "method": "DELETE",
+    "path": "/api/v1/custom-view/batch",
+    "principal": "non-member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "batchDeleteCustomView",
+    "method": "DELETE",
+    "path": "/api/v1/custom-view/batch",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "batchDeleteCustomView",
+    "method": "DELETE",
+    "path": "/api/v1/custom-view/batch",
+    "principal": "role:member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "batchDeleteCustomView",
+    "method": "DELETE",
+    "path": "/api/v1/custom-view/batch",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    },
+    "notes": "empty-batch probe ({\"records\":[]} / {\"ids\":[]}) → 200 with zero results; non-empty payloads are fixture-dependent"
+  },
+  {
+    "operationId": "batchDeleteProducts",
+    "method": "DELETE",
+    "path": "/api/v1/products/batch",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "batchDeleteProducts",
+    "method": "DELETE",
+    "path": "/api/v1/products/batch",
+    "principal": "non-member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "batchDeleteProducts",
+    "method": "DELETE",
+    "path": "/api/v1/products/batch",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "batchDeleteProducts",
+    "method": "DELETE",
+    "path": "/api/v1/products/batch",
+    "principal": "role:member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "batchDeleteProducts",
+    "method": "DELETE",
+    "path": "/api/v1/products/batch",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    },
+    "notes": "empty-batch probe ({\"records\":[]} / {\"ids\":[]}) → 200 with zero results; non-empty payloads are fixture-dependent"
+  },
+  {
+    "operationId": "batchDeleteSavedStyles",
+    "method": "DELETE",
+    "path": "/api/v1/saved-styles/batch",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "batchDeleteSavedStyles",
+    "method": "DELETE",
+    "path": "/api/v1/saved-styles/batch",
+    "principal": "non-member",
+    "expected": {
+      "status": 207,
+      "kind": "cross-tenant-batch-miss"
+    },
+    "notes": "runner submits the provisioned target-tenant ids — every record errors FIREWALL_NOT_FOUND; status 207 (errors.length > 0)"
+  },
+  {
+    "operationId": "batchDeleteSavedStyles",
+    "method": "DELETE",
+    "path": "/api/v1/saved-styles/batch",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 207,
+      "kind": "cross-tenant-batch-miss"
+    },
+    "notes": "runner submits the provisioned target-tenant ids — every record errors FIREWALL_NOT_FOUND; status 207 (errors.length > 0)"
+  },
+  {
+    "operationId": "batchDeleteSavedStyles",
+    "method": "DELETE",
+    "path": "/api/v1/saved-styles/batch",
+    "principal": "role:member",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    },
+    "notes": "empty-batch probe ({\"records\":[]} / {\"ids\":[]}) → 200 with zero results; non-empty payloads are fixture-dependent"
+  },
+  {
+    "operationId": "batchDeleteSavedStyles",
+    "method": "DELETE",
+    "path": "/api/v1/saved-styles/batch",
+    "principal": "owner",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    },
+    "notes": "empty-batch probe ({\"records\":[]} / {\"ids\":[]}) → 200 with zero results; non-empty payloads are fixture-dependent"
+  },
+  {
+    "operationId": "batchDeleteSavedStyles",
+    "method": "DELETE",
+    "path": "/api/v1/saved-styles/batch",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    },
+    "notes": "empty-batch probe ({\"records\":[]} / {\"ids\":[]}) → 200 with zero results; non-empty payloads are fixture-dependent"
+  },
+  {
+    "operationId": "batchDeleteSubscribers",
+    "method": "DELETE",
+    "path": "/api/v1/subscribers/batch",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "batchDeleteSubscribers",
+    "method": "DELETE",
+    "path": "/api/v1/subscribers/batch",
+    "principal": "non-member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "batchDeleteSubscribers",
+    "method": "DELETE",
+    "path": "/api/v1/subscribers/batch",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "batchDeleteSubscribers",
+    "method": "DELETE",
+    "path": "/api/v1/subscribers/batch",
+    "principal": "role:member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "batchDeleteSubscribers",
+    "method": "DELETE",
+    "path": "/api/v1/subscribers/batch",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    },
+    "notes": "empty-batch probe ({\"records\":[]} / {\"ids\":[]}) → 200 with zero results; non-empty payloads are fixture-dependent"
+  },
+  {
+    "operationId": "batchUpdateBagItems",
+    "method": "PATCH",
+    "path": "/api/v1/bag-items/batch",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "batchUpdateBagItems",
+    "method": "PATCH",
+    "path": "/api/v1/bag-items/batch",
+    "principal": "non-member",
+    "expected": {
+      "status": 207,
+      "kind": "cross-tenant-batch-miss"
+    },
+    "notes": "runner submits the provisioned target-tenant ids — every record errors FIREWALL_NOT_FOUND; status 207 (errors.length > 0)"
+  },
+  {
+    "operationId": "batchUpdateBagItems",
+    "method": "PATCH",
+    "path": "/api/v1/bag-items/batch",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 207,
+      "kind": "cross-tenant-batch-miss"
+    },
+    "notes": "runner submits the provisioned target-tenant ids — every record errors FIREWALL_NOT_FOUND; status 207 (errors.length > 0)"
+  },
+  {
+    "operationId": "batchUpdateBagItems",
+    "method": "PATCH",
+    "path": "/api/v1/bag-items/batch",
+    "principal": "role:member",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    },
+    "notes": "empty-batch probe ({\"records\":[]} / {\"ids\":[]}) → 200 with zero results; non-empty payloads are fixture-dependent"
+  },
+  {
+    "operationId": "batchUpdateBagItems",
+    "method": "PATCH",
+    "path": "/api/v1/bag-items/batch",
+    "principal": "owner",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    },
+    "notes": "empty-batch probe ({\"records\":[]} / {\"ids\":[]}) → 200 with zero results; non-empty payloads are fixture-dependent"
+  },
+  {
+    "operationId": "batchUpdateBagItems",
+    "method": "PATCH",
+    "path": "/api/v1/bag-items/batch",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    },
+    "notes": "empty-batch probe ({\"records\":[]} / {\"ids\":[]}) → 200 with zero results; non-empty payloads are fixture-dependent"
+  },
+  {
+    "operationId": "batchUpdateCustomView",
+    "method": "PATCH",
+    "path": "/api/v1/custom-view/batch",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "batchUpdateCustomView",
+    "method": "PATCH",
+    "path": "/api/v1/custom-view/batch",
+    "principal": "non-member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "batchUpdateCustomView",
+    "method": "PATCH",
+    "path": "/api/v1/custom-view/batch",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "batchUpdateCustomView",
+    "method": "PATCH",
+    "path": "/api/v1/custom-view/batch",
+    "principal": "role:member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "batchUpdateCustomView",
+    "method": "PATCH",
+    "path": "/api/v1/custom-view/batch",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    },
+    "notes": "empty-batch probe ({\"records\":[]} / {\"ids\":[]}) → 200 with zero results; non-empty payloads are fixture-dependent"
+  },
+  {
+    "operationId": "batchUpdateProducts",
+    "method": "PATCH",
+    "path": "/api/v1/products/batch",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "batchUpdateProducts",
+    "method": "PATCH",
+    "path": "/api/v1/products/batch",
+    "principal": "non-member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "batchUpdateProducts",
+    "method": "PATCH",
+    "path": "/api/v1/products/batch",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "batchUpdateProducts",
+    "method": "PATCH",
+    "path": "/api/v1/products/batch",
+    "principal": "role:member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "batchUpdateProducts",
+    "method": "PATCH",
+    "path": "/api/v1/products/batch",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    },
+    "notes": "empty-batch probe ({\"records\":[]} / {\"ids\":[]}) → 200 with zero results; non-empty payloads are fixture-dependent"
+  },
+  {
+    "operationId": "batchUpdatePromoCodes",
+    "method": "PATCH",
+    "path": "/api/v1/promo-codes/batch",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "batchUpdatePromoCodes",
+    "method": "PATCH",
+    "path": "/api/v1/promo-codes/batch",
+    "principal": "non-member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "batchUpdatePromoCodes",
+    "method": "PATCH",
+    "path": "/api/v1/promo-codes/batch",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "batchUpdatePromoCodes",
+    "method": "PATCH",
+    "path": "/api/v1/promo-codes/batch",
+    "principal": "role:member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "batchUpdatePromoCodes",
+    "method": "PATCH",
+    "path": "/api/v1/promo-codes/batch",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    },
+    "notes": "empty-batch probe ({\"records\":[]} / {\"ids\":[]}) → 200 with zero results; non-empty payloads are fixture-dependent"
+  },
+  {
+    "operationId": "batchUpdateStock",
+    "method": "PATCH",
+    "path": "/api/v1/stock/batch",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "batchUpdateStock",
+    "method": "PATCH",
+    "path": "/api/v1/stock/batch",
+    "principal": "non-member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "batchUpdateStock",
+    "method": "PATCH",
+    "path": "/api/v1/stock/batch",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "batchUpdateStock",
+    "method": "PATCH",
+    "path": "/api/v1/stock/batch",
+    "principal": "role:member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "batchUpdateStock",
+    "method": "PATCH",
+    "path": "/api/v1/stock/batch",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    },
+    "notes": "empty-batch probe ({\"records\":[]} / {\"ids\":[]}) → 200 with zero results; non-empty payloads are fixture-dependent"
+  },
+  {
+    "operationId": "check",
+    "method": "GET",
+    "path": "/api/v1/promo",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "check",
+    "method": "GET",
+    "path": "/api/v1/promo",
+    "principal": "non-member",
+    "expected": {
+      "status": 200,
+      "kind": "allowed-app-defined"
+    },
+    "notes": "input is validated BEFORE the org/role gates — the runner must send a schema-valid body to observe them; execute() is app code over the scoped db"
+  },
+  {
+    "operationId": "check",
+    "method": "GET",
+    "path": "/api/v1/promo",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 200,
+      "kind": "allowed-app-defined"
+    },
+    "notes": "input is validated BEFORE the org/role gates — the runner must send a schema-valid body to observe them; execute() is app code over the scoped db — writes/reads confined to the CALLER's org (scoped-db); Stage B asserts no target-tenant mutation"
+  },
+  {
+    "operationId": "check",
+    "method": "GET",
+    "path": "/api/v1/promo",
+    "principal": "role:member",
+    "expected": {
+      "status": 200,
+      "kind": "allowed-app-defined"
+    },
+    "notes": "input is validated BEFORE the org/role gates — the runner must send a schema-valid body to observe them; execute() is app code over the scoped db"
+  },
+  {
+    "operationId": "check",
+    "method": "GET",
+    "path": "/api/v1/promo",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed-app-defined"
+    },
+    "notes": "input is validated BEFORE the org/role gates — the runner must send a schema-valid body to observe them; execute() is app code over the scoped db"
+  },
+  {
+    "operationId": "checkout",
+    "method": "POST",
+    "path": "/api/v1/checkout",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "checkout",
+    "method": "POST",
+    "path": "/api/v1/checkout",
+    "principal": "non-member",
+    "expected": {
+      "status": 200,
+      "kind": "allowed-app-defined"
+    },
+    "notes": "input is validated BEFORE the org/role gates — the runner must send a schema-valid body to observe them; execute() is app code over the scoped db"
+  },
+  {
+    "operationId": "checkout",
+    "method": "POST",
+    "path": "/api/v1/checkout",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 200,
+      "kind": "allowed-app-defined"
+    },
+    "notes": "input is validated BEFORE the org/role gates — the runner must send a schema-valid body to observe them; execute() is app code over the scoped db — writes/reads confined to the CALLER's org (scoped-db); Stage B asserts no target-tenant mutation"
+  },
+  {
+    "operationId": "checkout",
+    "method": "POST",
+    "path": "/api/v1/checkout",
+    "principal": "role:member",
+    "expected": {
+      "status": 200,
+      "kind": "allowed-app-defined"
+    },
+    "notes": "input is validated BEFORE the org/role gates — the runner must send a schema-valid body to observe them; execute() is app code over the scoped db"
+  },
+  {
+    "operationId": "checkout",
+    "method": "POST",
+    "path": "/api/v1/checkout",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed-app-defined"
+    },
+    "notes": "input is validated BEFORE the org/role gates — the runner must send a schema-valid body to observe them; execute() is app code over the scoped db"
+  },
+  {
+    "operationId": "createBagItems",
+    "method": "POST",
+    "path": "/api/v1/bag-items",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "createBagItems",
+    "method": "POST",
+    "path": "/api/v1/bag-items",
+    "principal": "non-member",
+    "expected": {
+      "status": 201,
+      "kind": "allowed"
+    },
+    "notes": "requires a guards-valid body"
+  },
+  {
+    "operationId": "createBagItems",
+    "method": "POST",
+    "path": "/api/v1/bag-items",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 201,
+      "kind": "allowed-own-tenant"
+    },
+    "notes": "scope columns are server-stamped from the caller's session — the row lands under the CALLER as owner, never under the provisioned owner"
+  },
+  {
+    "operationId": "createBagItems",
+    "method": "POST",
+    "path": "/api/v1/bag-items",
+    "principal": "role:member",
+    "expected": {
+      "status": 201,
+      "kind": "allowed"
+    },
+    "notes": "requires a guards-valid body"
+  },
+  {
+    "operationId": "createBagItems",
+    "method": "POST",
+    "path": "/api/v1/bag-items",
+    "principal": "owner",
+    "expected": {
+      "status": 201,
+      "kind": "allowed"
+    },
+    "notes": "requires a guards-valid body"
+  },
+  {
+    "operationId": "createBagItems",
+    "method": "POST",
+    "path": "/api/v1/bag-items",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 201,
+      "kind": "allowed"
+    },
+    "notes": "requires a guards-valid body"
+  },
+  {
+    "operationId": "createCustomView",
+    "method": "POST",
+    "path": "/api/v1/custom-view",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "createCustomView",
+    "method": "POST",
+    "path": "/api/v1/custom-view",
+    "principal": "non-member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "createCustomView",
+    "method": "POST",
+    "path": "/api/v1/custom-view",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "createCustomView",
+    "method": "POST",
+    "path": "/api/v1/custom-view",
+    "principal": "role:member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "createCustomView",
+    "method": "POST",
+    "path": "/api/v1/custom-view",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 201,
+      "kind": "allowed"
+    },
+    "notes": "requires a guards-valid body"
+  },
+  {
+    "operationId": "createProducts",
+    "method": "POST",
+    "path": "/api/v1/products",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "createProducts",
+    "method": "POST",
+    "path": "/api/v1/products",
+    "principal": "non-member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "createProducts",
+    "method": "POST",
+    "path": "/api/v1/products",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "createProducts",
+    "method": "POST",
+    "path": "/api/v1/products",
+    "principal": "role:member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "createProducts",
+    "method": "POST",
+    "path": "/api/v1/products",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 201,
+      "kind": "allowed"
+    },
+    "notes": "requires a guards-valid body"
+  },
+  {
+    "operationId": "createPromoCodes",
+    "method": "POST",
+    "path": "/api/v1/promo-codes",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "createPromoCodes",
+    "method": "POST",
+    "path": "/api/v1/promo-codes",
+    "principal": "non-member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "createPromoCodes",
+    "method": "POST",
+    "path": "/api/v1/promo-codes",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "createPromoCodes",
+    "method": "POST",
+    "path": "/api/v1/promo-codes",
+    "principal": "role:member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "createPromoCodes",
+    "method": "POST",
+    "path": "/api/v1/promo-codes",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 201,
+      "kind": "allowed"
+    },
+    "notes": "requires a guards-valid body"
+  },
+  {
+    "operationId": "createSavedStyles",
+    "method": "POST",
+    "path": "/api/v1/saved-styles",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "createSavedStyles",
+    "method": "POST",
+    "path": "/api/v1/saved-styles",
+    "principal": "non-member",
+    "expected": {
+      "status": 201,
+      "kind": "allowed"
+    },
+    "notes": "requires a guards-valid body"
+  },
+  {
+    "operationId": "createSavedStyles",
+    "method": "POST",
+    "path": "/api/v1/saved-styles",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 201,
+      "kind": "allowed-own-tenant"
+    },
+    "notes": "scope columns are server-stamped from the caller's session — the row lands under the CALLER as owner, never under the provisioned owner"
+  },
+  {
+    "operationId": "createSavedStyles",
+    "method": "POST",
+    "path": "/api/v1/saved-styles",
+    "principal": "role:member",
+    "expected": {
+      "status": 201,
+      "kind": "allowed"
+    },
+    "notes": "requires a guards-valid body"
+  },
+  {
+    "operationId": "createSavedStyles",
+    "method": "POST",
+    "path": "/api/v1/saved-styles",
+    "principal": "owner",
+    "expected": {
+      "status": 201,
+      "kind": "allowed"
+    },
+    "notes": "requires a guards-valid body"
+  },
+  {
+    "operationId": "createSavedStyles",
+    "method": "POST",
+    "path": "/api/v1/saved-styles",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 201,
+      "kind": "allowed"
+    },
+    "notes": "requires a guards-valid body"
+  },
+  {
+    "operationId": "createStock",
+    "method": "POST",
+    "path": "/api/v1/stock",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "createStock",
+    "method": "POST",
+    "path": "/api/v1/stock",
+    "principal": "non-member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "createStock",
+    "method": "POST",
+    "path": "/api/v1/stock",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "createStock",
+    "method": "POST",
+    "path": "/api/v1/stock",
+    "principal": "role:member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "createStock",
+    "method": "POST",
+    "path": "/api/v1/stock",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 201,
+      "kind": "allowed"
+    },
+    "notes": "requires a guards-valid body"
+  },
+  {
+    "operationId": "deleteBagItems",
+    "method": "DELETE",
+    "path": "/api/v1/bag-items/{id}",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "deleteBagItems",
+    "method": "DELETE",
+    "path": "/api/v1/bag-items/{id}",
+    "principal": "non-member",
+    "expected": {
+      "status": 403,
+      "kind": "cross-tenant-miss"
+    }
+  },
+  {
+    "operationId": "deleteBagItems",
+    "method": "DELETE",
+    "path": "/api/v1/bag-items/{id}",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 403,
+      "kind": "cross-tenant-miss"
+    }
+  },
+  {
+    "operationId": "deleteBagItems",
+    "method": "DELETE",
+    "path": "/api/v1/bag-items/{id}",
+    "principal": "role:member",
+    "expected": {
+      "status": 403,
+      "kind": "cross-tenant-miss"
+    },
+    "notes": "owner-scoped: non-owner caller — the provisioned row belongs to the owner principal"
+  },
+  {
+    "operationId": "deleteBagItems",
+    "method": "DELETE",
+    "path": "/api/v1/bag-items/{id}",
+    "principal": "owner",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    },
+    "notes": "hard delete — { success: true }; owner-positive: the caller owns the provisioned row — the owner firewall bind matches"
+  },
+  {
+    "operationId": "deleteBagItems",
+    "method": "DELETE",
+    "path": "/api/v1/bag-items/{id}",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    },
+    "notes": "hard delete — { success: true }"
+  },
+  {
+    "operationId": "deleteCustomView",
+    "method": "DELETE",
+    "path": "/api/v1/custom-view/{id}",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "deleteCustomView",
+    "method": "DELETE",
+    "path": "/api/v1/custom-view/{id}",
+    "principal": "non-member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "deleteCustomView",
+    "method": "DELETE",
+    "path": "/api/v1/custom-view/{id}",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "deleteCustomView",
+    "method": "DELETE",
+    "path": "/api/v1/custom-view/{id}",
+    "principal": "role:member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "deleteCustomView",
+    "method": "DELETE",
+    "path": "/api/v1/custom-view/{id}",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    },
+    "notes": "soft delete — { success: true }"
+  },
+  {
+    "operationId": "deleteProducts",
+    "method": "DELETE",
+    "path": "/api/v1/products/{id}",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "deleteProducts",
+    "method": "DELETE",
+    "path": "/api/v1/products/{id}",
+    "principal": "non-member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "deleteProducts",
+    "method": "DELETE",
+    "path": "/api/v1/products/{id}",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "deleteProducts",
+    "method": "DELETE",
+    "path": "/api/v1/products/{id}",
+    "principal": "role:member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "deleteProducts",
+    "method": "DELETE",
+    "path": "/api/v1/products/{id}",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    },
+    "notes": "soft delete — { success: true }"
+  },
+  {
+    "operationId": "deleteSavedStyles",
+    "method": "DELETE",
+    "path": "/api/v1/saved-styles/{id}",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "deleteSavedStyles",
+    "method": "DELETE",
+    "path": "/api/v1/saved-styles/{id}",
+    "principal": "non-member",
+    "expected": {
+      "status": 403,
+      "kind": "cross-tenant-miss"
+    }
+  },
+  {
+    "operationId": "deleteSavedStyles",
+    "method": "DELETE",
+    "path": "/api/v1/saved-styles/{id}",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 403,
+      "kind": "cross-tenant-miss"
+    }
+  },
+  {
+    "operationId": "deleteSavedStyles",
+    "method": "DELETE",
+    "path": "/api/v1/saved-styles/{id}",
+    "principal": "role:member",
+    "expected": {
+      "status": 403,
+      "kind": "cross-tenant-miss"
+    },
+    "notes": "owner-scoped: non-owner caller — the provisioned row belongs to the owner principal"
+  },
+  {
+    "operationId": "deleteSavedStyles",
+    "method": "DELETE",
+    "path": "/api/v1/saved-styles/{id}",
+    "principal": "owner",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    },
+    "notes": "hard delete — { success: true }; owner-positive: the caller owns the provisioned row — the owner firewall bind matches"
+  },
+  {
+    "operationId": "deleteSavedStyles",
+    "method": "DELETE",
+    "path": "/api/v1/saved-styles/{id}",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    },
+    "notes": "hard delete — { success: true }"
+  },
+  {
+    "operationId": "deleteSubscribers",
+    "method": "DELETE",
+    "path": "/api/v1/subscribers/{id}",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "deleteSubscribers",
+    "method": "DELETE",
+    "path": "/api/v1/subscribers/{id}",
+    "principal": "non-member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "deleteSubscribers",
+    "method": "DELETE",
+    "path": "/api/v1/subscribers/{id}",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "deleteSubscribers",
+    "method": "DELETE",
+    "path": "/api/v1/subscribers/{id}",
+    "principal": "role:member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "deleteSubscribers",
+    "method": "DELETE",
+    "path": "/api/v1/subscribers/{id}",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    },
+    "notes": "soft delete — { success: true }"
+  },
+  {
+    "operationId": "getBagItems",
+    "method": "GET",
+    "path": "/api/v1/bag-items/{id}",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "getBagItems",
+    "method": "GET",
+    "path": "/api/v1/bag-items/{id}",
+    "principal": "non-member",
+    "expected": {
+      "status": 403,
+      "kind": "cross-tenant-miss"
+    }
+  },
+  {
+    "operationId": "getBagItems",
+    "method": "GET",
+    "path": "/api/v1/bag-items/{id}",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 403,
+      "kind": "cross-tenant-miss"
+    }
+  },
+  {
+    "operationId": "getBagItems",
+    "method": "GET",
+    "path": "/api/v1/bag-items/{id}",
+    "principal": "role:member",
+    "expected": {
+      "status": 403,
+      "kind": "cross-tenant-miss"
+    },
+    "notes": "owner-scoped: non-owner caller — the provisioned row belongs to the owner principal"
+  },
+  {
+    "operationId": "getBagItems",
+    "method": "GET",
+    "path": "/api/v1/bag-items/{id}",
+    "principal": "owner",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    },
+    "notes": "owner-positive: the caller owns the provisioned row — the owner firewall bind matches"
+  },
+  {
+    "operationId": "getBagItems",
+    "method": "GET",
+    "path": "/api/v1/bag-items/{id}",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    }
+  },
+  {
+    "operationId": "getCustomView",
+    "method": "GET",
+    "path": "/api/v1/custom-view/{id}",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "getCustomView",
+    "method": "GET",
+    "path": "/api/v1/custom-view/{id}",
+    "principal": "non-member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "getCustomView",
+    "method": "GET",
+    "path": "/api/v1/custom-view/{id}",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "getCustomView",
+    "method": "GET",
+    "path": "/api/v1/custom-view/{id}",
+    "principal": "role:member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "getCustomView",
+    "method": "GET",
+    "path": "/api/v1/custom-view/{id}",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    }
+  },
+  {
+    "operationId": "getOrderLines",
+    "method": "GET",
+    "path": "/api/v1/order-lines/{id}",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "getOrderLines",
+    "method": "GET",
+    "path": "/api/v1/order-lines/{id}",
+    "principal": "non-member",
+    "expected": {
+      "status": 403,
+      "kind": "cross-tenant-miss"
+    }
+  },
+  {
+    "operationId": "getOrderLines",
+    "method": "GET",
+    "path": "/api/v1/order-lines/{id}",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 403,
+      "kind": "cross-tenant-miss"
+    }
+  },
+  {
+    "operationId": "getOrderLines",
+    "method": "GET",
+    "path": "/api/v1/order-lines/{id}",
+    "principal": "role:member",
+    "expected": {
+      "status": 403,
+      "kind": "cross-tenant-miss"
+    },
+    "notes": "owner-scoped: non-owner caller — the provisioned row belongs to the owner principal"
+  },
+  {
+    "operationId": "getOrderLines",
+    "method": "GET",
+    "path": "/api/v1/order-lines/{id}",
+    "principal": "owner",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    },
+    "notes": "owner-positive: the caller owns the provisioned row — the owner firewall bind matches"
+  },
+  {
+    "operationId": "getOrderLines",
+    "method": "GET",
+    "path": "/api/v1/order-lines/{id}",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    }
+  },
+  {
+    "operationId": "getOrders",
+    "method": "GET",
+    "path": "/api/v1/orders/{id}",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "getOrders",
+    "method": "GET",
+    "path": "/api/v1/orders/{id}",
+    "principal": "non-member",
+    "expected": {
+      "status": 403,
+      "kind": "cross-tenant-miss"
+    }
+  },
+  {
+    "operationId": "getOrders",
+    "method": "GET",
+    "path": "/api/v1/orders/{id}",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 403,
+      "kind": "cross-tenant-miss"
+    }
+  },
+  {
+    "operationId": "getOrders",
+    "method": "GET",
+    "path": "/api/v1/orders/{id}",
+    "principal": "role:member",
+    "expected": {
+      "status": 403,
+      "kind": "cross-tenant-miss"
+    },
+    "notes": "owner-scoped: non-owner caller — the provisioned row belongs to the owner principal"
+  },
+  {
+    "operationId": "getOrders",
+    "method": "GET",
+    "path": "/api/v1/orders/{id}",
+    "principal": "owner",
+    "expected": {
+      "status": 200,
+      "kind": "allowed-masked"
+    },
+    "notes": "masked columns for this principal: email, shipAddress, shipName (a rule carries show.or:\"owner\" — owner rows unmask record-dependently); owner-positive: the caller owns the provisioned row — the owner firewall bind matches"
+  },
+  {
+    "operationId": "getOrders",
+    "method": "GET",
+    "path": "/api/v1/orders/{id}",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    }
+  },
+  {
+    "operationId": "getProducts",
+    "method": "GET",
+    "path": "/api/v1/products/{id}",
+    "principal": "anon",
+    "expected": {
+      "status": 403,
+      "kind": "cross-tenant-miss"
+    }
+  },
+  {
+    "operationId": "getProducts",
+    "method": "GET",
+    "path": "/api/v1/products/{id}",
+    "principal": "non-member",
+    "expected": {
+      "status": 403,
+      "kind": "cross-tenant-miss"
+    }
+  },
+  {
+    "operationId": "getProducts",
+    "method": "GET",
+    "path": "/api/v1/products/{id}",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 403,
+      "kind": "cross-tenant-miss"
+    }
+  },
+  {
+    "operationId": "getProducts",
+    "method": "GET",
+    "path": "/api/v1/products/{id}",
+    "principal": "role:member",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    }
+  },
+  {
+    "operationId": "getProducts",
+    "method": "GET",
+    "path": "/api/v1/products/{id}",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    }
+  },
+  {
+    "operationId": "getPromoCodes",
+    "method": "GET",
+    "path": "/api/v1/promo-codes/{id}",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "getPromoCodes",
+    "method": "GET",
+    "path": "/api/v1/promo-codes/{id}",
+    "principal": "non-member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "getPromoCodes",
+    "method": "GET",
+    "path": "/api/v1/promo-codes/{id}",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "getPromoCodes",
+    "method": "GET",
+    "path": "/api/v1/promo-codes/{id}",
+    "principal": "role:member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "getPromoCodes",
+    "method": "GET",
+    "path": "/api/v1/promo-codes/{id}",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    }
+  },
+  {
+    "operationId": "getPromoRedemptions",
+    "method": "GET",
+    "path": "/api/v1/promo-redemptions/{id}",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "getPromoRedemptions",
+    "method": "GET",
+    "path": "/api/v1/promo-redemptions/{id}",
+    "principal": "non-member",
+    "expected": {
+      "status": 403,
+      "kind": "cross-tenant-miss"
+    }
+  },
+  {
+    "operationId": "getPromoRedemptions",
+    "method": "GET",
+    "path": "/api/v1/promo-redemptions/{id}",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 403,
+      "kind": "cross-tenant-miss"
+    }
+  },
+  {
+    "operationId": "getPromoRedemptions",
+    "method": "GET",
+    "path": "/api/v1/promo-redemptions/{id}",
+    "principal": "role:member",
+    "expected": {
+      "status": 403,
+      "kind": "cross-tenant-miss"
+    },
+    "notes": "owner-scoped: non-owner caller — the provisioned row belongs to the owner principal"
+  },
+  {
+    "operationId": "getPromoRedemptions",
+    "method": "GET",
+    "path": "/api/v1/promo-redemptions/{id}",
+    "principal": "owner",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    },
+    "notes": "owner-positive: the caller owns the provisioned row — the owner firewall bind matches"
+  },
+  {
+    "operationId": "getPromoRedemptions",
+    "method": "GET",
+    "path": "/api/v1/promo-redemptions/{id}",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    }
+  },
+  {
+    "operationId": "getRestockRequests",
+    "method": "GET",
+    "path": "/api/v1/restock-requests/{id}",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "getRestockRequests",
+    "method": "GET",
+    "path": "/api/v1/restock-requests/{id}",
+    "principal": "non-member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "getRestockRequests",
+    "method": "GET",
+    "path": "/api/v1/restock-requests/{id}",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "getRestockRequests",
+    "method": "GET",
+    "path": "/api/v1/restock-requests/{id}",
+    "principal": "role:member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "getRestockRequests",
+    "method": "GET",
+    "path": "/api/v1/restock-requests/{id}",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    }
+  },
+  {
+    "operationId": "getSavedStyles",
+    "method": "GET",
+    "path": "/api/v1/saved-styles/{id}",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "getSavedStyles",
+    "method": "GET",
+    "path": "/api/v1/saved-styles/{id}",
+    "principal": "non-member",
+    "expected": {
+      "status": 403,
+      "kind": "cross-tenant-miss"
+    }
+  },
+  {
+    "operationId": "getSavedStyles",
+    "method": "GET",
+    "path": "/api/v1/saved-styles/{id}",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 403,
+      "kind": "cross-tenant-miss"
+    }
+  },
+  {
+    "operationId": "getSavedStyles",
+    "method": "GET",
+    "path": "/api/v1/saved-styles/{id}",
+    "principal": "role:member",
+    "expected": {
+      "status": 403,
+      "kind": "cross-tenant-miss"
+    },
+    "notes": "owner-scoped: non-owner caller — the provisioned row belongs to the owner principal"
+  },
+  {
+    "operationId": "getSavedStyles",
+    "method": "GET",
+    "path": "/api/v1/saved-styles/{id}",
+    "principal": "owner",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    },
+    "notes": "owner-positive: the caller owns the provisioned row — the owner firewall bind matches"
+  },
+  {
+    "operationId": "getSavedStyles",
+    "method": "GET",
+    "path": "/api/v1/saved-styles/{id}",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    }
+  },
+  {
+    "operationId": "getStock",
+    "method": "GET",
+    "path": "/api/v1/stock/{id}",
+    "principal": "anon",
+    "expected": {
+      "status": 403,
+      "kind": "cross-tenant-miss"
+    }
+  },
+  {
+    "operationId": "getStock",
+    "method": "GET",
+    "path": "/api/v1/stock/{id}",
+    "principal": "non-member",
+    "expected": {
+      "status": 403,
+      "kind": "cross-tenant-miss"
+    }
+  },
+  {
+    "operationId": "getStock",
+    "method": "GET",
+    "path": "/api/v1/stock/{id}",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 403,
+      "kind": "cross-tenant-miss"
+    }
+  },
+  {
+    "operationId": "getStock",
+    "method": "GET",
+    "path": "/api/v1/stock/{id}",
+    "principal": "role:member",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    }
+  },
+  {
+    "operationId": "getStock",
+    "method": "GET",
+    "path": "/api/v1/stock/{id}",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    }
+  },
+  {
+    "operationId": "getSubscribers",
+    "method": "GET",
+    "path": "/api/v1/subscribers/{id}",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "getSubscribers",
+    "method": "GET",
+    "path": "/api/v1/subscribers/{id}",
+    "principal": "non-member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "getSubscribers",
+    "method": "GET",
+    "path": "/api/v1/subscribers/{id}",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "getSubscribers",
+    "method": "GET",
+    "path": "/api/v1/subscribers/{id}",
+    "principal": "role:member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "getSubscribers",
+    "method": "GET",
+    "path": "/api/v1/subscribers/{id}",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    }
+  },
+  {
+    "operationId": "join",
+    "method": "POST",
+    "path": "/api/v1/subscribe",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "join",
+    "method": "POST",
+    "path": "/api/v1/subscribe",
+    "principal": "non-member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    },
+    "notes": "input is validated BEFORE the org/role gates — the runner must send a schema-valid body to observe them"
+  },
+  {
+    "operationId": "join",
+    "method": "POST",
+    "path": "/api/v1/subscribe",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    },
+    "notes": "input is validated BEFORE the org/role gates — the runner must send a schema-valid body to observe them"
+  },
+  {
+    "operationId": "join",
+    "method": "POST",
+    "path": "/api/v1/subscribe",
+    "principal": "role:member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    },
+    "notes": "input is validated BEFORE the org/role gates — the runner must send a schema-valid body to observe them"
+  },
+  {
+    "operationId": "join",
+    "method": "POST",
+    "path": "/api/v1/subscribe",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed-app-defined"
+    },
+    "notes": "input is validated BEFORE the org/role gates — the runner must send a schema-valid body to observe them; execute() is app code over the scoped db"
+  },
+  {
+    "operationId": "listBagItems",
+    "method": "GET",
+    "path": "/api/v1/bag-items",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "listBagItems",
+    "method": "GET",
+    "path": "/api/v1/bag-items",
+    "principal": "non-member",
+    "expected": {
+      "status": 200,
+      "kind": "cross-tenant-empty"
+    },
+    "notes": "firewall scopes the page to the caller's own tenant/owner slice — zero target-tenant rows"
+  },
+  {
+    "operationId": "listBagItems",
+    "method": "GET",
+    "path": "/api/v1/bag-items",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 200,
+      "kind": "cross-tenant-empty"
+    },
+    "notes": "firewall scopes the page to the caller's own tenant/owner slice — zero target-tenant rows"
+  },
+  {
+    "operationId": "listBagItems",
+    "method": "GET",
+    "path": "/api/v1/bag-items",
+    "principal": "role:member",
+    "expected": {
+      "status": 200,
+      "kind": "cross-tenant-empty"
+    },
+    "notes": "owner-scoped: the provisioned rows belong to the owner principal — a non-owner caller's page is scoped to their own (empty) owner slice"
+  },
+  {
+    "operationId": "listBagItems",
+    "method": "GET",
+    "path": "/api/v1/bag-items",
+    "principal": "owner",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    }
+  },
+  {
+    "operationId": "listBagItems",
+    "method": "GET",
+    "path": "/api/v1/bag-items",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    },
+    "notes": "sysadmin escape — all-tenant slice"
+  },
+  {
+    "operationId": "listCustomView",
+    "method": "GET",
+    "path": "/api/v1/custom-view",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "listCustomView",
+    "method": "GET",
+    "path": "/api/v1/custom-view",
+    "principal": "non-member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "listCustomView",
+    "method": "GET",
+    "path": "/api/v1/custom-view",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "listCustomView",
+    "method": "GET",
+    "path": "/api/v1/custom-view",
+    "principal": "role:member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "listCustomView",
+    "method": "GET",
+    "path": "/api/v1/custom-view",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    },
+    "notes": "firewall exception — cross-tenant visibility is by design; sysadmin escape — all-tenant slice"
+  },
+  {
+    "operationId": "listOrderLines",
+    "method": "GET",
+    "path": "/api/v1/order-lines",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "listOrderLines",
+    "method": "GET",
+    "path": "/api/v1/order-lines",
+    "principal": "non-member",
+    "expected": {
+      "status": 200,
+      "kind": "cross-tenant-empty"
+    },
+    "notes": "firewall scopes the page to the caller's own tenant/owner slice — zero target-tenant rows"
+  },
+  {
+    "operationId": "listOrderLines",
+    "method": "GET",
+    "path": "/api/v1/order-lines",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 200,
+      "kind": "cross-tenant-empty"
+    },
+    "notes": "firewall scopes the page to the caller's own tenant/owner slice — zero target-tenant rows"
+  },
+  {
+    "operationId": "listOrderLines",
+    "method": "GET",
+    "path": "/api/v1/order-lines",
+    "principal": "role:member",
+    "expected": {
+      "status": 200,
+      "kind": "cross-tenant-empty"
+    },
+    "notes": "owner-scoped: the provisioned rows belong to the owner principal — a non-owner caller's page is scoped to their own (empty) owner slice"
+  },
+  {
+    "operationId": "listOrderLines",
+    "method": "GET",
+    "path": "/api/v1/order-lines",
+    "principal": "owner",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    }
+  },
+  {
+    "operationId": "listOrderLines",
+    "method": "GET",
+    "path": "/api/v1/order-lines",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    },
+    "notes": "sysadmin escape — all-tenant slice"
+  },
+  {
+    "operationId": "listOrders",
+    "method": "GET",
+    "path": "/api/v1/orders",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "listOrders",
+    "method": "GET",
+    "path": "/api/v1/orders",
+    "principal": "non-member",
+    "expected": {
+      "status": 200,
+      "kind": "cross-tenant-empty"
+    },
+    "notes": "firewall scopes the page to the caller's own tenant/owner slice — zero target-tenant rows"
+  },
+  {
+    "operationId": "listOrders",
+    "method": "GET",
+    "path": "/api/v1/orders",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 200,
+      "kind": "cross-tenant-empty"
+    },
+    "notes": "firewall scopes the page to the caller's own tenant/owner slice — zero target-tenant rows"
+  },
+  {
+    "operationId": "listOrders",
+    "method": "GET",
+    "path": "/api/v1/orders",
+    "principal": "role:member",
+    "expected": {
+      "status": 200,
+      "kind": "cross-tenant-empty"
+    },
+    "notes": "owner-scoped: the provisioned rows belong to the owner principal — a non-owner caller's page is scoped to their own (empty) owner slice"
+  },
+  {
+    "operationId": "listOrders",
+    "method": "GET",
+    "path": "/api/v1/orders",
+    "principal": "owner",
+    "expected": {
+      "status": 200,
+      "kind": "allowed-masked"
+    },
+    "notes": "masked columns for this principal: email, shipAddress, shipName (a rule carries show.or:\"owner\" — owner rows unmask record-dependently)"
+  },
+  {
+    "operationId": "listOrders",
+    "method": "GET",
+    "path": "/api/v1/orders",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    },
+    "notes": "sysadmin escape — all-tenant slice"
+  },
+  {
+    "operationId": "listProducts",
+    "method": "GET",
+    "path": "/api/v1/products",
+    "principal": "anon",
+    "expected": {
+      "status": 200,
+      "kind": "cross-tenant-empty"
+    },
+    "notes": "firewall scopes the page to the caller's own tenant/owner slice — zero target-tenant rows"
+  },
+  {
+    "operationId": "listProducts",
+    "method": "GET",
+    "path": "/api/v1/products",
+    "principal": "non-member",
+    "expected": {
+      "status": 200,
+      "kind": "cross-tenant-empty"
+    },
+    "notes": "firewall scopes the page to the caller's own tenant/owner slice — zero target-tenant rows"
+  },
+  {
+    "operationId": "listProducts",
+    "method": "GET",
+    "path": "/api/v1/products",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 200,
+      "kind": "cross-tenant-empty"
+    },
+    "notes": "firewall scopes the page to the caller's own tenant/owner slice — zero target-tenant rows"
+  },
+  {
+    "operationId": "listProducts",
+    "method": "GET",
+    "path": "/api/v1/products",
+    "principal": "role:member",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    }
+  },
+  {
+    "operationId": "listProducts",
+    "method": "GET",
+    "path": "/api/v1/products",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    },
+    "notes": "sysadmin escape — all-tenant slice"
+  },
+  {
+    "operationId": "listPromoCodes",
+    "method": "GET",
+    "path": "/api/v1/promo-codes",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "listPromoCodes",
+    "method": "GET",
+    "path": "/api/v1/promo-codes",
+    "principal": "non-member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "listPromoCodes",
+    "method": "GET",
+    "path": "/api/v1/promo-codes",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "listPromoCodes",
+    "method": "GET",
+    "path": "/api/v1/promo-codes",
+    "principal": "role:member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "listPromoCodes",
+    "method": "GET",
+    "path": "/api/v1/promo-codes",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    },
+    "notes": "firewall exception — cross-tenant visibility is by design; sysadmin escape — all-tenant slice"
+  },
+  {
+    "operationId": "listPromoRedemptions",
+    "method": "GET",
+    "path": "/api/v1/promo-redemptions",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "listPromoRedemptions",
+    "method": "GET",
+    "path": "/api/v1/promo-redemptions",
+    "principal": "non-member",
+    "expected": {
+      "status": 200,
+      "kind": "cross-tenant-empty"
+    },
+    "notes": "firewall scopes the page to the caller's own tenant/owner slice — zero target-tenant rows"
+  },
+  {
+    "operationId": "listPromoRedemptions",
+    "method": "GET",
+    "path": "/api/v1/promo-redemptions",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 200,
+      "kind": "cross-tenant-empty"
+    },
+    "notes": "firewall scopes the page to the caller's own tenant/owner slice — zero target-tenant rows"
+  },
+  {
+    "operationId": "listPromoRedemptions",
+    "method": "GET",
+    "path": "/api/v1/promo-redemptions",
+    "principal": "role:member",
+    "expected": {
+      "status": 200,
+      "kind": "cross-tenant-empty"
+    },
+    "notes": "owner-scoped: the provisioned rows belong to the owner principal — a non-owner caller's page is scoped to their own (empty) owner slice"
+  },
+  {
+    "operationId": "listPromoRedemptions",
+    "method": "GET",
+    "path": "/api/v1/promo-redemptions",
+    "principal": "owner",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    }
+  },
+  {
+    "operationId": "listPromoRedemptions",
+    "method": "GET",
+    "path": "/api/v1/promo-redemptions",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    },
+    "notes": "sysadmin escape — all-tenant slice"
+  },
+  {
+    "operationId": "listRestockRequests",
+    "method": "GET",
+    "path": "/api/v1/restock-requests",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "listRestockRequests",
+    "method": "GET",
+    "path": "/api/v1/restock-requests",
+    "principal": "non-member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "listRestockRequests",
+    "method": "GET",
+    "path": "/api/v1/restock-requests",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "listRestockRequests",
+    "method": "GET",
+    "path": "/api/v1/restock-requests",
+    "principal": "role:member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "listRestockRequests",
+    "method": "GET",
+    "path": "/api/v1/restock-requests",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    },
+    "notes": "firewall exception — cross-tenant visibility is by design; sysadmin escape — all-tenant slice"
+  },
+  {
+    "operationId": "listSavedStyles",
+    "method": "GET",
+    "path": "/api/v1/saved-styles",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "listSavedStyles",
+    "method": "GET",
+    "path": "/api/v1/saved-styles",
+    "principal": "non-member",
+    "expected": {
+      "status": 200,
+      "kind": "cross-tenant-empty"
+    },
+    "notes": "firewall scopes the page to the caller's own tenant/owner slice — zero target-tenant rows"
+  },
+  {
+    "operationId": "listSavedStyles",
+    "method": "GET",
+    "path": "/api/v1/saved-styles",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 200,
+      "kind": "cross-tenant-empty"
+    },
+    "notes": "firewall scopes the page to the caller's own tenant/owner slice — zero target-tenant rows"
+  },
+  {
+    "operationId": "listSavedStyles",
+    "method": "GET",
+    "path": "/api/v1/saved-styles",
+    "principal": "role:member",
+    "expected": {
+      "status": 200,
+      "kind": "cross-tenant-empty"
+    },
+    "notes": "owner-scoped: the provisioned rows belong to the owner principal — a non-owner caller's page is scoped to their own (empty) owner slice"
+  },
+  {
+    "operationId": "listSavedStyles",
+    "method": "GET",
+    "path": "/api/v1/saved-styles",
+    "principal": "owner",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    }
+  },
+  {
+    "operationId": "listSavedStyles",
+    "method": "GET",
+    "path": "/api/v1/saved-styles",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    },
+    "notes": "sysadmin escape — all-tenant slice"
+  },
+  {
+    "operationId": "listStock",
+    "method": "GET",
+    "path": "/api/v1/stock",
+    "principal": "anon",
+    "expected": {
+      "status": 200,
+      "kind": "cross-tenant-empty"
+    },
+    "notes": "firewall scopes the page to the caller's own tenant/owner slice — zero target-tenant rows"
+  },
+  {
+    "operationId": "listStock",
+    "method": "GET",
+    "path": "/api/v1/stock",
+    "principal": "non-member",
+    "expected": {
+      "status": 200,
+      "kind": "cross-tenant-empty"
+    },
+    "notes": "firewall scopes the page to the caller's own tenant/owner slice — zero target-tenant rows"
+  },
+  {
+    "operationId": "listStock",
+    "method": "GET",
+    "path": "/api/v1/stock",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 200,
+      "kind": "cross-tenant-empty"
+    },
+    "notes": "firewall scopes the page to the caller's own tenant/owner slice — zero target-tenant rows"
+  },
+  {
+    "operationId": "listStock",
+    "method": "GET",
+    "path": "/api/v1/stock",
+    "principal": "role:member",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    }
+  },
+  {
+    "operationId": "listStock",
+    "method": "GET",
+    "path": "/api/v1/stock",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    },
+    "notes": "sysadmin escape — all-tenant slice"
+  },
+  {
+    "operationId": "listSubscribers",
+    "method": "GET",
+    "path": "/api/v1/subscribers",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "listSubscribers",
+    "method": "GET",
+    "path": "/api/v1/subscribers",
+    "principal": "non-member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "listSubscribers",
+    "method": "GET",
+    "path": "/api/v1/subscribers",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "listSubscribers",
+    "method": "GET",
+    "path": "/api/v1/subscribers",
+    "principal": "role:member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "listSubscribers",
+    "method": "GET",
+    "path": "/api/v1/subscribers",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    },
+    "notes": "firewall exception — cross-tenant visibility is by design; sysadmin escape — all-tenant slice"
+  },
+  {
+    "operationId": "me",
+    "method": "GET",
+    "path": "/api/v1/me",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "me",
+    "method": "GET",
+    "path": "/api/v1/me",
+    "principal": "non-member",
+    "expected": {
+      "status": 200,
+      "kind": "allowed-app-defined"
+    },
+    "notes": "input is validated BEFORE the org/role gates — the runner must send a schema-valid body to observe them; execute() is app code over the scoped db"
+  },
+  {
+    "operationId": "me",
+    "method": "GET",
+    "path": "/api/v1/me",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 200,
+      "kind": "allowed-app-defined"
+    },
+    "notes": "input is validated BEFORE the org/role gates — the runner must send a schema-valid body to observe them; execute() is app code over the scoped db — writes/reads confined to the CALLER's org (scoped-db); Stage B asserts no target-tenant mutation"
+  },
+  {
+    "operationId": "me",
+    "method": "GET",
+    "path": "/api/v1/me",
+    "principal": "role:member",
+    "expected": {
+      "status": 200,
+      "kind": "allowed-app-defined"
+    },
+    "notes": "input is validated BEFORE the org/role gates — the runner must send a schema-valid body to observe them; execute() is app code over the scoped db"
+  },
+  {
+    "operationId": "me",
+    "method": "GET",
+    "path": "/api/v1/me",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed-app-defined"
+    },
+    "notes": "input is validated BEFORE the org/role gates — the runner must send a schema-valid body to observe them; execute() is app code over the scoped db"
+  },
+  {
+    "operationId": "notify",
+    "method": "POST",
+    "path": "/api/v1/notify",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "notify",
+    "method": "POST",
+    "path": "/api/v1/notify",
+    "principal": "non-member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    },
+    "notes": "input is validated BEFORE the org/role gates — the runner must send a schema-valid body to observe them"
+  },
+  {
+    "operationId": "notify",
+    "method": "POST",
+    "path": "/api/v1/notify",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    },
+    "notes": "input is validated BEFORE the org/role gates — the runner must send a schema-valid body to observe them"
+  },
+  {
+    "operationId": "notify",
+    "method": "POST",
+    "path": "/api/v1/notify",
+    "principal": "role:member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    },
+    "notes": "input is validated BEFORE the org/role gates — the runner must send a schema-valid body to observe them"
+  },
+  {
+    "operationId": "notify",
+    "method": "POST",
+    "path": "/api/v1/notify",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed-app-defined"
+    },
+    "notes": "input is validated BEFORE the org/role gates — the runner must send a schema-valid body to observe them; execute() is app code over the scoped db"
+  },
+  {
+    "operationId": "ordersCancel",
+    "method": "POST",
+    "path": "/api/v1/orders/{id}/cancel",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "ordersCancel",
+    "method": "POST",
+    "path": "/api/v1/orders/{id}/cancel",
+    "principal": "non-member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    },
+    "notes": "input is validated BEFORE the record fetch — the runner must send a schema-valid body; pre-record role gate — uniform denial regardless of row existence (F2)"
+  },
+  {
+    "operationId": "ordersCancel",
+    "method": "POST",
+    "path": "/api/v1/orders/{id}/cancel",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    },
+    "notes": "input is validated BEFORE the record fetch — the runner must send a schema-valid body; pre-record role gate — uniform denial regardless of row existence (F2)"
+  },
+  {
+    "operationId": "ordersCancel",
+    "method": "POST",
+    "path": "/api/v1/orders/{id}/cancel",
+    "principal": "role:member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    },
+    "notes": "input is validated BEFORE the record fetch — the runner must send a schema-valid body; pre-record role gate — uniform denial regardless of row existence (F2)"
+  },
+  {
+    "operationId": "ordersCancel",
+    "method": "POST",
+    "path": "/api/v1/orders/{id}/cancel",
+    "principal": "owner",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    },
+    "notes": "input is validated BEFORE the record fetch — the runner must send a schema-valid body; pre-record role gate — uniform denial regardless of row existence (F2)"
+  },
+  {
+    "operationId": "ordersCancel",
+    "method": "POST",
+    "path": "/api/v1/orders/{id}/cancel",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed-app-defined"
+    },
+    "notes": "input is validated BEFORE the record fetch — the runner must send a schema-valid body; execute() is app code — the runner asserts the response is not a security denial (401/403/404 catalog codes)"
+  },
+  {
+    "operationId": "ordersDeliver",
+    "method": "POST",
+    "path": "/api/v1/orders/{id}/deliver",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "ordersDeliver",
+    "method": "POST",
+    "path": "/api/v1/orders/{id}/deliver",
+    "principal": "non-member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    },
+    "notes": "input is validated BEFORE the record fetch — the runner must send a schema-valid body; pre-record role gate — uniform denial regardless of row existence (F2)"
+  },
+  {
+    "operationId": "ordersDeliver",
+    "method": "POST",
+    "path": "/api/v1/orders/{id}/deliver",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    },
+    "notes": "input is validated BEFORE the record fetch — the runner must send a schema-valid body; pre-record role gate — uniform denial regardless of row existence (F2)"
+  },
+  {
+    "operationId": "ordersDeliver",
+    "method": "POST",
+    "path": "/api/v1/orders/{id}/deliver",
+    "principal": "role:member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    },
+    "notes": "input is validated BEFORE the record fetch — the runner must send a schema-valid body; pre-record role gate — uniform denial regardless of row existence (F2)"
+  },
+  {
+    "operationId": "ordersDeliver",
+    "method": "POST",
+    "path": "/api/v1/orders/{id}/deliver",
+    "principal": "owner",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    },
+    "notes": "input is validated BEFORE the record fetch — the runner must send a schema-valid body; pre-record role gate — uniform denial regardless of row existence (F2)"
+  },
+  {
+    "operationId": "ordersDeliver",
+    "method": "POST",
+    "path": "/api/v1/orders/{id}/deliver",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed-app-defined"
+    },
+    "notes": "input is validated BEFORE the record fetch — the runner must send a schema-valid body; execute() is app code — the runner asserts the response is not a security denial (401/403/404 catalog codes)"
+  },
+  {
+    "operationId": "ordersShip",
+    "method": "POST",
+    "path": "/api/v1/orders/{id}/ship",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "ordersShip",
+    "method": "POST",
+    "path": "/api/v1/orders/{id}/ship",
+    "principal": "non-member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    },
+    "notes": "input is validated BEFORE the record fetch — the runner must send a schema-valid body; pre-record role gate — uniform denial regardless of row existence (F2)"
+  },
+  {
+    "operationId": "ordersShip",
+    "method": "POST",
+    "path": "/api/v1/orders/{id}/ship",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    },
+    "notes": "input is validated BEFORE the record fetch — the runner must send a schema-valid body; pre-record role gate — uniform denial regardless of row existence (F2)"
+  },
+  {
+    "operationId": "ordersShip",
+    "method": "POST",
+    "path": "/api/v1/orders/{id}/ship",
+    "principal": "role:member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    },
+    "notes": "input is validated BEFORE the record fetch — the runner must send a schema-valid body; pre-record role gate — uniform denial regardless of row existence (F2)"
+  },
+  {
+    "operationId": "ordersShip",
+    "method": "POST",
+    "path": "/api/v1/orders/{id}/ship",
+    "principal": "owner",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    },
+    "notes": "input is validated BEFORE the record fetch — the runner must send a schema-valid body; pre-record role gate — uniform denial regardless of row existence (F2)"
+  },
+  {
+    "operationId": "ordersShip",
+    "method": "POST",
+    "path": "/api/v1/orders/{id}/ship",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed-app-defined"
+    },
+    "notes": "input is validated BEFORE the record fetch — the runner must send a schema-valid body; execute() is app code — the runner asserts the response is not a security denial (401/403/404 catalog codes)"
+  },
+  {
+    "operationId": "sync",
+    "method": "PUT",
+    "path": "/api/v1/bag",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "sync",
+    "method": "PUT",
+    "path": "/api/v1/bag",
+    "principal": "non-member",
+    "expected": {
+      "status": 200,
+      "kind": "allowed-app-defined"
+    },
+    "notes": "input is validated BEFORE the org/role gates — the runner must send a schema-valid body to observe them; execute() is app code over the scoped db"
+  },
+  {
+    "operationId": "sync",
+    "method": "PUT",
+    "path": "/api/v1/bag",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 200,
+      "kind": "allowed-app-defined"
+    },
+    "notes": "input is validated BEFORE the org/role gates — the runner must send a schema-valid body to observe them; execute() is app code over the scoped db — writes/reads confined to the CALLER's org (scoped-db); Stage B asserts no target-tenant mutation"
+  },
+  {
+    "operationId": "sync",
+    "method": "PUT",
+    "path": "/api/v1/bag",
+    "principal": "role:member",
+    "expected": {
+      "status": 200,
+      "kind": "allowed-app-defined"
+    },
+    "notes": "input is validated BEFORE the org/role gates — the runner must send a schema-valid body to observe them; execute() is app code over the scoped db"
+  },
+  {
+    "operationId": "sync",
+    "method": "PUT",
+    "path": "/api/v1/bag",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed-app-defined"
+    },
+    "notes": "input is validated BEFORE the org/role gates — the runner must send a schema-valid body to observe them; execute() is app code over the scoped db"
+  },
+  {
+    "operationId": "updateBagItems",
+    "method": "PATCH",
+    "path": "/api/v1/bag-items/{id}",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "updateBagItems",
+    "method": "PATCH",
+    "path": "/api/v1/bag-items/{id}",
+    "principal": "non-member",
+    "expected": {
+      "status": 403,
+      "kind": "cross-tenant-miss"
+    }
+  },
+  {
+    "operationId": "updateBagItems",
+    "method": "PATCH",
+    "path": "/api/v1/bag-items/{id}",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 403,
+      "kind": "cross-tenant-miss"
+    }
+  },
+  {
+    "operationId": "updateBagItems",
+    "method": "PATCH",
+    "path": "/api/v1/bag-items/{id}",
+    "principal": "role:member",
+    "expected": {
+      "status": 403,
+      "kind": "cross-tenant-miss"
+    },
+    "notes": "owner-scoped: non-owner caller — the provisioned row belongs to the owner principal"
+  },
+  {
+    "operationId": "updateBagItems",
+    "method": "PATCH",
+    "path": "/api/v1/bag-items/{id}",
+    "principal": "owner",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    },
+    "notes": "owner-positive: the caller owns the provisioned row — the owner firewall bind matches"
+  },
+  {
+    "operationId": "updateBagItems",
+    "method": "PATCH",
+    "path": "/api/v1/bag-items/{id}",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    }
+  },
+  {
+    "operationId": "updateCustomView",
+    "method": "PATCH",
+    "path": "/api/v1/custom-view/{id}",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "updateCustomView",
+    "method": "PATCH",
+    "path": "/api/v1/custom-view/{id}",
+    "principal": "non-member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "updateCustomView",
+    "method": "PATCH",
+    "path": "/api/v1/custom-view/{id}",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "updateCustomView",
+    "method": "PATCH",
+    "path": "/api/v1/custom-view/{id}",
+    "principal": "role:member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "updateCustomView",
+    "method": "PATCH",
+    "path": "/api/v1/custom-view/{id}",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    }
+  },
+  {
+    "operationId": "updateProducts",
+    "method": "PATCH",
+    "path": "/api/v1/products/{id}",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "updateProducts",
+    "method": "PATCH",
+    "path": "/api/v1/products/{id}",
+    "principal": "non-member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "updateProducts",
+    "method": "PATCH",
+    "path": "/api/v1/products/{id}",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "updateProducts",
+    "method": "PATCH",
+    "path": "/api/v1/products/{id}",
+    "principal": "role:member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "updateProducts",
+    "method": "PATCH",
+    "path": "/api/v1/products/{id}",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    }
+  },
+  {
+    "operationId": "updatePromoCodes",
+    "method": "PATCH",
+    "path": "/api/v1/promo-codes/{id}",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "updatePromoCodes",
+    "method": "PATCH",
+    "path": "/api/v1/promo-codes/{id}",
+    "principal": "non-member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "updatePromoCodes",
+    "method": "PATCH",
+    "path": "/api/v1/promo-codes/{id}",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "updatePromoCodes",
+    "method": "PATCH",
+    "path": "/api/v1/promo-codes/{id}",
+    "principal": "role:member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "updatePromoCodes",
+    "method": "PATCH",
+    "path": "/api/v1/promo-codes/{id}",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    }
+  },
+  {
+    "operationId": "updateStock",
+    "method": "PATCH",
+    "path": "/api/v1/stock/{id}",
+    "principal": "anon",
+    "expected": {
+      "status": 401,
+      "kind": "auth-required"
+    }
+  },
+  {
+    "operationId": "updateStock",
+    "method": "PATCH",
+    "path": "/api/v1/stock/{id}",
+    "principal": "non-member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "updateStock",
+    "method": "PATCH",
+    "path": "/api/v1/stock/{id}",
+    "principal": "member-other-org",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "updateStock",
+    "method": "PATCH",
+    "path": "/api/v1/stock/{id}",
+    "principal": "role:member",
+    "expected": {
+      "status": 403,
+      "kind": "role-denied"
+    }
+  },
+  {
+    "operationId": "updateStock",
+    "method": "PATCH",
+    "path": "/api/v1/stock/{id}",
+    "principal": "sysadmin",
+    "expected": {
+      "status": 200,
+      "kind": "allowed"
+    }
+  }
+]

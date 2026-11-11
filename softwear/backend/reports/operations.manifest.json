@@ -1,0 +1,810 @@
+[
+  {
+    "operationId": "acceptInvitation",
+    "method": "POST",
+    "path": "/auth/v1/organization/accept-invitation",
+    "auth": "session",
+    "feature": "auth",
+    "kind": "auth"
+  },
+  {
+    "operationId": "adminBanUser",
+    "method": "POST",
+    "path": "/auth/v1/admin/ban-user",
+    "auth": "session",
+    "feature": "auth",
+    "kind": "auth"
+  },
+  {
+    "operationId": "adminCreateUser",
+    "method": "POST",
+    "path": "/auth/v1/admin/create-user",
+    "auth": "session",
+    "feature": "auth",
+    "kind": "auth"
+  },
+  {
+    "operationId": "adminImpersonateUser",
+    "method": "POST",
+    "path": "/auth/v1/admin/impersonate-user",
+    "auth": "session",
+    "feature": "auth",
+    "kind": "auth"
+  },
+  {
+    "operationId": "adminListUsers",
+    "method": "GET",
+    "path": "/auth/v1/admin/list-users",
+    "auth": "session",
+    "feature": "auth",
+    "kind": "auth"
+  },
+  {
+    "operationId": "adminRemoveUser",
+    "method": "POST",
+    "path": "/auth/v1/admin/remove-user",
+    "auth": "session",
+    "feature": "auth",
+    "kind": "auth"
+  },
+  {
+    "operationId": "adminRevokeUserSession",
+    "method": "POST",
+    "path": "/auth/v1/admin/revoke-user-session",
+    "auth": "session",
+    "feature": "auth",
+    "kind": "auth"
+  },
+  {
+    "operationId": "adminSetRole",
+    "method": "POST",
+    "path": "/auth/v1/admin/set-role",
+    "auth": "session",
+    "feature": "auth",
+    "kind": "auth"
+  },
+  {
+    "operationId": "adminStopImpersonating",
+    "method": "POST",
+    "path": "/auth/v1/admin/stop-impersonating",
+    "auth": "session",
+    "feature": "auth",
+    "kind": "auth"
+  },
+  {
+    "operationId": "adminUnbanUser",
+    "method": "POST",
+    "path": "/auth/v1/admin/unban-user",
+    "auth": "session",
+    "feature": "auth",
+    "kind": "auth"
+  },
+  {
+    "operationId": "batchCreateBagItems",
+    "method": "POST",
+    "path": "/api/v1/bag-items/batch",
+    "auth": "session",
+    "feature": "bag-items",
+    "kind": "batchCreate"
+  },
+  {
+    "operationId": "batchCreateCustomView",
+    "method": "POST",
+    "path": "/api/v1/custom-view/batch",
+    "auth": "session",
+    "feature": "custom-view",
+    "kind": "batchCreate"
+  },
+  {
+    "operationId": "batchCreateProducts",
+    "method": "POST",
+    "path": "/api/v1/products/batch",
+    "auth": "session",
+    "feature": "products",
+    "kind": "batchCreate"
+  },
+  {
+    "operationId": "batchCreatePromoCodes",
+    "method": "POST",
+    "path": "/api/v1/promo-codes/batch",
+    "auth": "session",
+    "feature": "promo-codes",
+    "kind": "batchCreate"
+  },
+  {
+    "operationId": "batchCreateSavedStyles",
+    "method": "POST",
+    "path": "/api/v1/saved-styles/batch",
+    "auth": "session",
+    "feature": "saved-styles",
+    "kind": "batchCreate"
+  },
+  {
+    "operationId": "batchCreateStock",
+    "method": "POST",
+    "path": "/api/v1/stock/batch",
+    "auth": "session",
+    "feature": "stock",
+    "kind": "batchCreate"
+  },
+  {
+    "operationId": "batchDeleteBagItems",
+    "method": "DELETE",
+    "path": "/api/v1/bag-items/batch",
+    "auth": "session",
+    "feature": "bag-items",
+    "kind": "batchDelete"
+  },
+  {
+    "operationId": "batchDeleteCustomView",
+    "method": "DELETE",
+    "path": "/api/v1/custom-view/batch",
+    "auth": "session",
+    "feature": "custom-view",
+    "kind": "batchDelete"
+  },
+  {
+    "operationId": "batchDeleteProducts",
+    "method": "DELETE",
+    "path": "/api/v1/products/batch",
+    "auth": "session",
+    "feature": "products",
+    "kind": "batchDelete"
+  },
+  {
+    "operationId": "batchDeleteSavedStyles",
+    "method": "DELETE",
+    "path": "/api/v1/saved-styles/batch",
+    "auth": "session",
+    "feature": "saved-styles",
+    "kind": "batchDelete"
+  },
+  {
+    "operationId": "batchDeleteSubscribers",
+    "method": "DELETE",
+    "path": "/api/v1/subscribers/batch",
+    "auth": "session",
+    "feature": "subscribers",
+    "kind": "batchDelete"
+  },
+  {
+    "operationId": "batchUpdateBagItems",
+    "method": "PATCH",
+    "path": "/api/v1/bag-items/batch",
+    "auth": "session",
+    "feature": "bag-items",
+    "kind": "batchUpdate"
+  },
+  {
+    "operationId": "batchUpdateCustomView",
+    "method": "PATCH",
+    "path": "/api/v1/custom-view/batch",
+    "auth": "session",
+    "feature": "custom-view",
+    "kind": "batchUpdate"
+  },
+  {
+    "operationId": "batchUpdateProducts",
+    "method": "PATCH",
+    "path": "/api/v1/products/batch",
+    "auth": "session",
+    "feature": "products",
+    "kind": "batchUpdate"
+  },
+  {
+    "operationId": "batchUpdatePromoCodes",
+    "method": "PATCH",
+    "path": "/api/v1/promo-codes/batch",
+    "auth": "session",
+    "feature": "promo-codes",
+    "kind": "batchUpdate"
+  },
+  {
+    "operationId": "batchUpdateStock",
+    "method": "PATCH",
+    "path": "/api/v1/stock/batch",
+    "auth": "session",
+    "feature": "stock",
+    "kind": "batchUpdate"
+  },
+  {
+    "operationId": "cancelInvitation",
+    "method": "POST",
+    "path": "/auth/v1/organization/cancel-invitation",
+    "auth": "session",
+    "feature": "auth",
+    "kind": "auth"
+  },
+  {
+    "operationId": "changeEmail",
+    "method": "POST",
+    "path": "/auth/v1/change-email",
+    "auth": "session",
+    "feature": "auth",
+    "kind": "auth"
+  },
+  {
+    "operationId": "changePassword",
+    "method": "POST",
+    "path": "/auth/v1/change-password",
+    "auth": "session",
+    "feature": "auth",
+    "kind": "auth"
+  },
+  {
+    "operationId": "check",
+    "method": "GET",
+    "path": "/api/v1/promo",
+    "auth": "session",
+    "feature": "promo-codes",
+    "kind": "action"
+  },
+  {
+    "operationId": "checkout",
+    "method": "POST",
+    "path": "/api/v1/checkout",
+    "auth": "session",
+    "feature": "orders",
+    "kind": "action"
+  },
+  {
+    "operationId": "createApiKey",
+    "method": "POST",
+    "path": "/auth/v1/api-key/create",
+    "auth": "session",
+    "feature": "auth",
+    "kind": "auth"
+  },
+  {
+    "operationId": "createBagItems",
+    "method": "POST",
+    "path": "/api/v1/bag-items",
+    "auth": "session",
+    "feature": "bag-items",
+    "kind": "create"
+  },
+  {
+    "operationId": "createCustomView",
+    "method": "POST",
+    "path": "/api/v1/custom-view",
+    "auth": "session",
+    "feature": "custom-view",
+    "kind": "create"
+  },
+  {
+    "operationId": "createOrganization",
+    "method": "POST",
+    "path": "/auth/v1/organization/create",
+    "auth": "session",
+    "feature": "auth",
+    "kind": "auth"
+  },
+  {
+    "operationId": "createProducts",
+    "method": "POST",
+    "path": "/api/v1/products",
+    "auth": "session",
+    "feature": "products",
+    "kind": "create"
+  },
+  {
+    "operationId": "createPromoCodes",
+    "method": "POST",
+    "path": "/api/v1/promo-codes",
+    "auth": "session",
+    "feature": "promo-codes",
+    "kind": "create"
+  },
+  {
+    "operationId": "createSavedStyles",
+    "method": "POST",
+    "path": "/api/v1/saved-styles",
+    "auth": "session",
+    "feature": "saved-styles",
+    "kind": "create"
+  },
+  {
+    "operationId": "createStock",
+    "method": "POST",
+    "path": "/api/v1/stock",
+    "auth": "session",
+    "feature": "stock",
+    "kind": "create"
+  },
+  {
+    "operationId": "deleteApiKey",
+    "method": "POST",
+    "path": "/auth/v1/api-key/delete",
+    "auth": "session",
+    "feature": "auth",
+    "kind": "auth"
+  },
+  {
+    "operationId": "deleteBagItems",
+    "method": "DELETE",
+    "path": "/api/v1/bag-items/{id}",
+    "auth": "session",
+    "feature": "bag-items",
+    "kind": "delete"
+  },
+  {
+    "operationId": "deleteCustomView",
+    "method": "DELETE",
+    "path": "/api/v1/custom-view/{id}",
+    "auth": "session",
+    "feature": "custom-view",
+    "kind": "delete"
+  },
+  {
+    "operationId": "deleteOrganization",
+    "method": "POST",
+    "path": "/auth/v1/organization/delete",
+    "auth": "session",
+    "feature": "auth",
+    "kind": "auth"
+  },
+  {
+    "operationId": "deleteProducts",
+    "method": "DELETE",
+    "path": "/api/v1/products/{id}",
+    "auth": "session",
+    "feature": "products",
+    "kind": "delete"
+  },
+  {
+    "operationId": "deleteSavedStyles",
+    "method": "DELETE",
+    "path": "/api/v1/saved-styles/{id}",
+    "auth": "session",
+    "feature": "saved-styles",
+    "kind": "delete"
+  },
+  {
+    "operationId": "deleteSubscribers",
+    "method": "DELETE",
+    "path": "/api/v1/subscribers/{id}",
+    "auth": "session",
+    "feature": "subscribers",
+    "kind": "delete"
+  },
+  {
+    "operationId": "deleteUser",
+    "method": "POST",
+    "path": "/auth/v1/delete-user",
+    "auth": "session",
+    "feature": "auth",
+    "kind": "auth"
+  },
+  {
+    "operationId": "forgetPassword",
+    "method": "POST",
+    "path": "/auth/v1/forget-password",
+    "auth": "session",
+    "feature": "auth",
+    "kind": "auth"
+  },
+  {
+    "operationId": "getBagItems",
+    "method": "GET",
+    "path": "/api/v1/bag-items/{id}",
+    "auth": "session",
+    "feature": "bag-items",
+    "kind": "get"
+  },
+  {
+    "operationId": "getCustomView",
+    "method": "GET",
+    "path": "/api/v1/custom-view/{id}",
+    "auth": "session",
+    "feature": "custom-view",
+    "kind": "get"
+  },
+  {
+    "operationId": "getEmailStatus",
+    "method": "GET",
+    "path": "/api/v1/auth/email-status",
+    "auth": "session",
+    "feature": "auth",
+    "kind": "auth"
+  },
+  {
+    "operationId": "getFullOrganization",
+    "method": "GET",
+    "path": "/auth/v1/organization/get-full-organization",
+    "auth": "session",
+    "feature": "auth",
+    "kind": "auth"
+  },
+  {
+    "operationId": "getOrderLines",
+    "method": "GET",
+    "path": "/api/v1/order-lines/{id}",
+    "auth": "session",
+    "feature": "order-lines",
+    "kind": "get"
+  },
+  {
+    "operationId": "getOrders",
+    "method": "GET",
+    "path": "/api/v1/orders/{id}",
+    "auth": "session",
+    "feature": "orders",
+    "kind": "get"
+  },
+  {
+    "operationId": "getProducts",
+    "method": "GET",
+    "path": "/api/v1/products/{id}",
+    "auth": "public",
+    "feature": "products",
+    "kind": "get"
+  },
+  {
+    "operationId": "getPromoCodes",
+    "method": "GET",
+    "path": "/api/v1/promo-codes/{id}",
+    "auth": "session",
+    "feature": "promo-codes",
+    "kind": "get"
+  },
+  {
+    "operationId": "getPromoRedemptions",
+    "method": "GET",
+    "path": "/api/v1/promo-redemptions/{id}",
+    "auth": "session",
+    "feature": "promo-redemptions",
+    "kind": "get"
+  },
+  {
+    "operationId": "getRestockRequests",
+    "method": "GET",
+    "path": "/api/v1/restock-requests/{id}",
+    "auth": "session",
+    "feature": "restock-requests",
+    "kind": "get"
+  },
+  {
+    "operationId": "getSavedStyles",
+    "method": "GET",
+    "path": "/api/v1/saved-styles/{id}",
+    "auth": "session",
+    "feature": "saved-styles",
+    "kind": "get"
+  },
+  {
+    "operationId": "getSession",
+    "method": "GET",
+    "path": "/auth/v1/get-session",
+    "auth": "session",
+    "feature": "auth",
+    "kind": "auth"
+  },
+  {
+    "operationId": "getStock",
+    "method": "GET",
+    "path": "/api/v1/stock/{id}",
+    "auth": "public",
+    "feature": "stock",
+    "kind": "get"
+  },
+  {
+    "operationId": "getSubscribers",
+    "method": "GET",
+    "path": "/api/v1/subscribers/{id}",
+    "auth": "session",
+    "feature": "subscribers",
+    "kind": "get"
+  },
+  {
+    "operationId": "inviteMember",
+    "method": "POST",
+    "path": "/auth/v1/organization/invite-member",
+    "auth": "session",
+    "feature": "auth",
+    "kind": "auth"
+  },
+  {
+    "operationId": "join",
+    "method": "POST",
+    "path": "/api/v1/subscribe",
+    "auth": "session",
+    "feature": "subscribers",
+    "kind": "action"
+  },
+  {
+    "operationId": "listApiKeys",
+    "method": "GET",
+    "path": "/auth/v1/api-key/list",
+    "auth": "session",
+    "feature": "auth",
+    "kind": "auth"
+  },
+  {
+    "operationId": "listBagItems",
+    "method": "GET",
+    "path": "/api/v1/bag-items",
+    "auth": "session",
+    "feature": "bag-items",
+    "kind": "list"
+  },
+  {
+    "operationId": "listCustomView",
+    "method": "GET",
+    "path": "/api/v1/custom-view",
+    "auth": "session",
+    "feature": "custom-view",
+    "kind": "list"
+  },
+  {
+    "operationId": "listOrderLines",
+    "method": "GET",
+    "path": "/api/v1/order-lines",
+    "auth": "session",
+    "feature": "order-lines",
+    "kind": "list"
+  },
+  {
+    "operationId": "listOrders",
+    "method": "GET",
+    "path": "/api/v1/orders",
+    "auth": "session",
+    "feature": "orders",
+    "kind": "list"
+  },
+  {
+    "operationId": "listOrganizations",
+    "method": "GET",
+    "path": "/auth/v1/organization/list",
+    "auth": "session",
+    "feature": "auth",
+    "kind": "auth"
+  },
+  {
+    "operationId": "listProducts",
+    "method": "GET",
+    "path": "/api/v1/products",
+    "auth": "public",
+    "feature": "products",
+    "kind": "list"
+  },
+  {
+    "operationId": "listPromoCodes",
+    "method": "GET",
+    "path": "/api/v1/promo-codes",
+    "auth": "session",
+    "feature": "promo-codes",
+    "kind": "list"
+  },
+  {
+    "operationId": "listPromoRedemptions",
+    "method": "GET",
+    "path": "/api/v1/promo-redemptions",
+    "auth": "session",
+    "feature": "promo-redemptions",
+    "kind": "list"
+  },
+  {
+    "operationId": "listRestockRequests",
+    "method": "GET",
+    "path": "/api/v1/restock-requests",
+    "auth": "session",
+    "feature": "restock-requests",
+    "kind": "list"
+  },
+  {
+    "operationId": "listSavedStyles",
+    "method": "GET",
+    "path": "/api/v1/saved-styles",
+    "auth": "session",
+    "feature": "saved-styles",
+    "kind": "list"
+  },
+  {
+    "operationId": "listSessions",
+    "method": "GET",
+    "path": "/auth/v1/list-sessions",
+    "auth": "session",
+    "feature": "auth",
+    "kind": "auth"
+  },
+  {
+    "operationId": "listStock",
+    "method": "GET",
+    "path": "/api/v1/stock",
+    "auth": "public",
+    "feature": "stock",
+    "kind": "list"
+  },
+  {
+    "operationId": "listSubscribers",
+    "method": "GET",
+    "path": "/api/v1/subscribers",
+    "auth": "session",
+    "feature": "subscribers",
+    "kind": "list"
+  },
+  {
+    "operationId": "me",
+    "method": "GET",
+    "path": "/api/v1/me",
+    "auth": "session",
+    "feature": "account",
+    "kind": "action"
+  },
+  {
+    "operationId": "notify",
+    "method": "POST",
+    "path": "/api/v1/notify",
+    "auth": "session",
+    "feature": "restock-requests",
+    "kind": "action"
+  },
+  {
+    "operationId": "ordersCancel",
+    "method": "POST",
+    "path": "/api/v1/orders/{id}/cancel",
+    "auth": "session",
+    "feature": "orders",
+    "kind": "action"
+  },
+  {
+    "operationId": "ordersDeliver",
+    "method": "POST",
+    "path": "/api/v1/orders/{id}/deliver",
+    "auth": "session",
+    "feature": "orders",
+    "kind": "action"
+  },
+  {
+    "operationId": "ordersShip",
+    "method": "POST",
+    "path": "/api/v1/orders/{id}/ship",
+    "auth": "session",
+    "feature": "orders",
+    "kind": "action"
+  },
+  {
+    "operationId": "rejectInvitation",
+    "method": "POST",
+    "path": "/auth/v1/organization/reject-invitation",
+    "auth": "session",
+    "feature": "auth",
+    "kind": "auth"
+  },
+  {
+    "operationId": "removeMember",
+    "method": "POST",
+    "path": "/auth/v1/organization/remove-member",
+    "auth": "session",
+    "feature": "auth",
+    "kind": "auth"
+  },
+  {
+    "operationId": "resetPassword",
+    "method": "POST",
+    "path": "/auth/v1/reset-password",
+    "auth": "session",
+    "feature": "auth",
+    "kind": "auth"
+  },
+  {
+    "operationId": "revokeOtherSessions",
+    "method": "POST",
+    "path": "/auth/v1/revoke-other-sessions",
+    "auth": "session",
+    "feature": "auth",
+    "kind": "auth"
+  },
+  {
+    "operationId": "revokeSession",
+    "method": "POST",
+    "path": "/auth/v1/revoke-session",
+    "auth": "session",
+    "feature": "auth",
+    "kind": "auth"
+  },
+  {
+    "operationId": "setActiveOrganization",
+    "method": "POST",
+    "path": "/auth/v1/organization/set-active",
+    "auth": "session",
+    "feature": "auth",
+    "kind": "auth"
+  },
+  {
+    "operationId": "signInEmail",
+    "method": "POST",
+    "path": "/auth/v1/sign-in/email",
+    "auth": "session",
+    "feature": "auth",
+    "kind": "auth"
+  },
+  {
+    "operationId": "signOut",
+    "method": "POST",
+    "path": "/auth/v1/sign-out",
+    "auth": "session",
+    "feature": "auth",
+    "kind": "auth"
+  },
+  {
+    "operationId": "signUpEmail",
+    "method": "POST",
+    "path": "/auth/v1/sign-up/email",
+    "auth": "session",
+    "feature": "auth",
+    "kind": "auth"
+  },
+  {
+    "operationId": "sync",
+    "method": "PUT",
+    "path": "/api/v1/bag",
+    "auth": "session",
+    "feature": "bag-items",
+    "kind": "action"
+  },
+  {
+    "operationId": "updateBagItems",
+    "method": "PATCH",
+    "path": "/api/v1/bag-items/{id}",
+    "auth": "session",
+    "feature": "bag-items",
+    "kind": "update"
+  },
+  {
+    "operationId": "updateCustomView",
+    "method": "PATCH",
+    "path": "/api/v1/custom-view/{id}",
+    "auth": "session",
+    "feature": "custom-view",
+    "kind": "update"
+  },
+  {
+    "operationId": "updateMemberRole",
+    "method": "POST",
+    "path": "/auth/v1/organization/update-member-role",
+    "auth": "session",
+    "feature": "auth",
+    "kind": "auth"
+  },
+  {
+    "operationId": "updateOrganization",
+    "method": "POST",
+    "path": "/auth/v1/organization/update",
+    "auth": "session",
+    "feature": "auth",
+    "kind": "auth"
+  },
+  {
+    "operationId": "updateProducts",
+    "method": "PATCH",
+    "path": "/api/v1/products/{id}",
+    "auth": "session",
+    "feature": "products",
+    "kind": "update"
+  },
+  {
+    "operationId": "updatePromoCodes",
+    "method": "PATCH",
+    "path": "/api/v1/promo-codes/{id}",
+    "auth": "session",
+    "feature": "promo-codes",
+    "kind": "update"
+  },
+  {
+    "operationId": "updateStock",
+    "method": "PATCH",
+    "path": "/api/v1/stock/{id}",
+    "auth": "session",
+    "feature": "stock",
+    "kind": "update"
+  },
+  {
+    "operationId": "updateUser",
+    "method": "POST",
+    "path": "/auth/v1/update-user",
+    "auth": "session",
+    "feature": "auth",
+    "kind": "auth"
+  }
+]

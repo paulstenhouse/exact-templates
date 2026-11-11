@@ -1,0 +1,34 @@
+{
+  "kind": "quickback-ops-manifest",
+  "version": 1,
+  "compiler": {
+    "version": "0.72.7",
+    "gitSha": "27f5025"
+  },
+  "targets": [
+    {
+      "target": null,
+      "workerName": "softwear",
+      "wranglerEnv": null,
+      "apiOrigin": null
+    }
+  ],
+  "secrets": {
+    "required": [
+      "BETTER_AUTH_SECRET"
+    ],
+    "optional": [],
+    "declared": [
+      {
+        "name": "BETTER_AUTH_SECRET",
+        "required": true,
+        "bootGuarded": true,
+        "source": "compiler"
+      }
+    ]
+  },
+  "release": {
+    "stampVars": false
+  },
+  "dataMigrations": null
+}
