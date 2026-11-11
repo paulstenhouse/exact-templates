@@ -55,7 +55,7 @@ With the Quickback backend, on the pinned Exact, in `softwear/app` made runnable
 - `bun test tools/server.test.ts tools/data.test.ts`: 8 tests pass. `tools/browser.test.ts`: 4 pass.
 - macOS (`bun exact.mjs mac`, then `bun exact.mjs agent macos …`): the same sign-up, bag, WELCOME15, checkout and order, driven by hand against the backend; `docs/macos-*.png`. Its test file has not been run there.
 
-Not run since the backend replaced the Bun server: `bun exact.mjs verify` and `verify ios`, the tests on macOS, Android, and an app made by `new.mjs` rather than `--develop`. The web flagship is deployed at https://softwear.examples.quickback.dev with its Quickback backend on Cloudflare. Nine live HTTP check groups cover pages, catalogue, accounts, bags, simulated checkout, private orders and persistence across login sessions. `hosting/README.md` describes the release workflow; `hosting/deployment.json` records the deployed versions. Native distribution has not been performed.
+Not run since the backend replaced the Bun server: `bun exact.mjs verify` and `verify ios`, the tests on macOS, Android, and an app made by `new.mjs` rather than `--develop`. The web flagship is deployed at https://softwear.examples.quickback.dev with its Quickback backend on Cloudflare. Nine live HTTP check groups cover pages, catalogue, accounts, bags, simulated checkout, private orders and persistence across login sessions. `hosting/README.md` describes the release workflow; `hosting/deployment.json` records the deployed versions. The header publishes shared shopper and CMS admin credentials; demo records reset every 30 minutes. Native distribution has not been performed.
 
 ## Needs
 

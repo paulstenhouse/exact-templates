@@ -8,7 +8,9 @@
     "deploy": "cf deploy",
     "typecheck": "cf workers types && tsc",
     "test:live": "bun smoke.mjs",
-    "release": "node release.mjs"
+    "release": "node release.mjs",
+    "test": "node prepare-demo.mjs && node --test demo.test.mjs",
+    "test:reset": "node reset-runtime.test.mjs"
   },
   "devDependencies": {
     "@cloudflare/vite-plugin": "beta",

@@ -4,6 +4,16 @@ Public site and API origin: **https://softwear.examples.quickback.dev**.
 
 The `softwear-flagship` Worker serves Exact's release assets and proxies API/auth requests to the `softwear` Quickback Worker through a service binding. Exact's native clients can use the same public origin. Both Workers deploy into the account selected by `CLOUDFLARE_ACCOUNT_ID` and the CLI's authentication profile.
 
+## Public demo logins
+
+- Shopper: `shopper@softwear.example` at `/account`.
+- CMS admin: `admin@softwear.example` at `/cms/` (redirects to `/account/login`).
+- Password for both: `SoftwearDemo2026!`.
+
+These credentials are intentionally public and appear in the site header. Accounts and shop data are shared with other visitors. Use fictitious details only. Catalogue, stock, promo codes, bags, saved styles, orders, subscribers and restock requests reset at :00 and :30 UTC. The reset restores a sample shopper bag/order, subscriber and restock request. Demo sessions survive the reset; refresh a page to see the restored records.
+
+The public gateway permits sign-in, sign-out and session reads. New signups, password/profile changes and identity administration are blocked, including for the demo admin. The CMS admin can manage shop data through the generated access rules. `/account` remains the Exact shopper screen; `/account/*` serves Quickback's Account UI. The generated backend has no public workers.dev or preview URL: only the frontend service binding reaches it. `prepare-demo.mjs` derives a deployment policy overlay from the compiler's config, leaving generated files untouched. Always deploy the backend with `demo.wrangler.toml`; deploying its unmodified config would reopen direct ingress.
+
 This is a demonstration. Orders are simulated; nothing is charged or shipped. Use fictitious details when trying checkout. The existing app displays this notice. Email and password accounts work without a real-store verification/fulfilment setup; this deployment is not a production shop.
 
 ## Build and deploy again
@@ -37,7 +47,7 @@ node release.mjs
 
 On the first deployment only, generate `BETTER_AUTH_SECRET` into a private temporary JSON file and pass its path as `SOFTWEAR_SECRETS_FILE`. The release script passes that file to `wrangler deploy --secrets-file`. Secret values are never stored in this repository. Subsequent deployments preserve Cloudflare's existing secret when no file is supplied. Do not regenerate it on every release, which would invalidate sessions.
 
-Set `SOFTWEAR_SEED=1` on the first empty database to load `backend/seed/catalog.sql`. The catalogue has 46 styles, stock and the two demonstration promo codes. Normal releases do not reseed inventory.
+Set `SOFTWEAR_RESET=1` for the first demo deployment or an intentional immediate reset. It applies the same authored reset statements as the scheduled handler, provisions/repairs the two public accounts and restores 46 styles, stock, two promo codes and fictional sample records. Normal releases do not immediately reset inventory; the scheduled reset runs every 30 minutes. Never copy this reset configuration or the public accounts into a real store. Non-demo auth accounts and migration history are not deleted by the reset.
 
 The authored config records the deployed database/KV IDs. A fork targeting another account must provision its own resources and choose its own public domain; it must not reuse this flagship's resource IDs.
 
@@ -47,7 +57,9 @@ The authored config records the deployed database/KV IDs. A fork targeting anoth
 bun smoke.mjs
 ```
 
-This checks static pages, dynamic deep links, missing assets, the demo notice, the same-origin API proxy, the real D1 catalogue, two fictitious accounts, bag persistence, simulated promo checkout, private order access and persistence across login sessions. It creates a simulated order and signs its sessions out; it does not send a payment or place a real order.
+This checks pages, deep links, 404s, header credentials, both public logins, a cookie-based CMS session/schema, admin product editing and sample lists, denied staff/identity operations, simulated checkout and persistence across login sessions. It creates a simulated order and signs its sessions out; no payment or real order occurs.
+
+After compiling the backend, `npm test` checks the gateway policy and reset SQL against the actual migrations. After a frontend build (`npm run build`), `npm run test:reset` runs the built scheduled handler twice against isolated Miniflare D1 databases. It does not touch remote data.
 
 Local development keeps using `app/`, the backend's normal local output and the template's existing `bun exact.mjs test web` tests. A public-origin build lowers the auth test limits to 10 sign-ins / 5 sign-ups per minute.
 

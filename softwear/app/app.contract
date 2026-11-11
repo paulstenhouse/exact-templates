@@ -1340,8 +1340,14 @@ component SiteHeader
     header appearance="none" border-bottom="1px solid var(--line)" background-color="page"
       view background-color="band" color="onband" testId="demo-notice"
         column class=Wrap gap=4 padding-top=12 padding-bottom=12 font-size="0.8125rem" line-height=1.5 text-align="center"
-          text "This is a demonstration app for Exact. Its product catalog features Alternative Apparel gear, which is not currently sold direct to consumers. The app runs on web, iOS, macOS, Android, Windows, and Linux."
+          text "Softwear demonstrates an Exact frontend with a Quickback backend on Cloudflare. The catalogue features Alternative Apparel gear, which is not currently sold direct to consumers. Exact supports web, iOS, macOS, Android, Windows, and Linux."
           text "Orders are simulated: no real orders are placed, no payments are taken, and nothing ships." font-weight=600
+          row justify-content="center" flex-wrap="wrap" gap="4px 20px"
+            link href="/account" text-decoration="underline" color="onband"
+              text "Shopper login: shopper@softwear.example"
+            link href="/cms/" text-decoration="underline" color="onband"
+              text "CMS admin login: admin@softwear.example"
+          text "Password for both: SoftwearDemo2026! · Shared demo data resets every 30 minutes, at :00 and :30 UTC. Use fictitious details only; changes are public and temporary."
       row class=Wrap flex-wrap="wrap" align-items="center" gap="8px 20px" padding-top=12 padding-bottom=12
         link href="/" aria-label="Softwear home" color="ink" text-decoration="none" display="flex" flex-wrap="wrap" align-items="center" gap=9 min-width=0 max-width="100%" testId="home"
           image "symbol:icon.mark" font-size="1.5rem" aria-hidden=true testId="mark"

@@ -1,3 +1,5 @@
+import { demoDenied } from "./demo-policy";
+import { resetDemo } from "./demo-reset";
 import { env } from "cloudflare:workers";
 import { routes } from "../../.deploy/app/target/web-dist/routes.json";
 
@@ -16,8 +18,13 @@ function assetRequest(request: Request, path: string): Request {
 }
 
 export default {
+  async scheduled() {
+    await resetDemo(env.DEMO_DB, env.DEMO_AUTH);
+  },
   async fetch(request: Request): Promise<Response> {
     const path = new URL(request.url).pathname;
+    if (demoDenied(path, request.method)) return Response.json({ code: "DEMO_RESTRICTED", detail: "Use the shared demo logins. Account administration and credential changes are disabled." }, { status: 403 });
+    if (path.startsWith("/account/")) return env.BACKEND.fetch(request);
     if (api.some((prefix) => path === prefix || path.startsWith(prefix + "/"))) return env.BACKEND.fetch(request);
     const direct = await env.ASSETS.fetch(request);
     if (direct.status !== 404 || !["GET", "HEAD"].includes(request.method)) return direct;

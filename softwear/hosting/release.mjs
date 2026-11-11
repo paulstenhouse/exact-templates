@@ -21,9 +21,14 @@ const backend = resolve(root, 'backend/.deploy');
 run('npm', ['install', '--no-audit', '--no-fund'], backend);
 run('npm', ['run', 'db:migrate:remote'], backend);
 if (process.env.SOFTWEAR_SEED === '1') run('npx', ['wrangler', 'd1', 'execute', 'DB', '--remote', '--file', '../seed/catalog.sql', '--yes'], backend);
-const deployArgs = ['wrangler', 'deploy'];
+run('node', ['prepare-demo.mjs'], hosting);
+const deployArgs = ['wrangler', 'deploy', '--config', 'demo.wrangler.toml'];
 if (process.env.SOFTWEAR_SECRETS_FILE) deployArgs.push('--secrets-file', process.env.SOFTWEAR_SECRETS_FILE);
 run('npx', deployArgs, backend);
+if (process.env.SOFTWEAR_RESET === '1') {
+  run('npx', ['wrangler', 'd1', 'execute', 'AUTH_DB', '--remote', '--file', '../../.deploy/demo-auth.sql', '--yes'], backend);
+  run('npx', ['wrangler', 'd1', 'execute', 'DB', '--remote', '--file', '../../.deploy/demo-features.sql', '--yes'], backend);
+}
 run('bun', ['exact.mjs', 'web-build', '--out', 'target/web-dist'], resolve(root, '.deploy/app'));
 run('npm', ['run', 'typecheck'], hosting);
 run('npm', ['run', 'deploy'], hosting);
