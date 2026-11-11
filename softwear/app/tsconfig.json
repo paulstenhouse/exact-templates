@@ -1,0 +1,1 @@
+{ "compilerOptions": { "baseUrl": ".", "paths": { "@backend/*": ["backend/*", "../backend/*"] } } }

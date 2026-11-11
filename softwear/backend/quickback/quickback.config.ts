@@ -14,6 +14,7 @@ export default {
     name: "softwear",
     template: "hono",
     cms: { sysadmin: true },
+    client: true,
     // The Exact app's own origins while developing: `bun exact.mjs web` and `serve`.
     // The installed apps send no Origin and sign in with a bearer token.
     trustedOrigins: [

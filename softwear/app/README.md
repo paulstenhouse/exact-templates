@@ -90,6 +90,7 @@ database.
 |---|---|
 | `app.contract` | Every page and screen, the bag's arithmetic, the garment drawings |
 | `app.ts` | The data module: the API's reads and writes, and the session token it keeps in the secret store |
+| `quickback.client.ts` | The backend's generated fetch client, vendored with two Exact edits (its header names them); `app.json`'s `typescript.sources` and `tsconfig.json`'s `@backend` alias reach `../backend/quickback.gen.ts` |
 | `catalog.ts` | The products, each naming its photos: what the backend is seeded from, and what a build renders ahead |
 | `photos/` | The photos as found, with where each came from; `assets/p` and `assets/t` are the sizes the site ships |
 | `server.ts` | Runs the API, `../backend`, for development |

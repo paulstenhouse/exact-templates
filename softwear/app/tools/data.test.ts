@@ -5,19 +5,21 @@ const originalFetch = globalThis.fetch;
 afterEach(() => { globalThis.fetch = originalFetch; });
 // A signed-in shopper: the session token is the store's secret, not an argument.
 const store = { get: () => 'token', set: () => {}, forget: () => {} } as never;
+// The API answers a failure as a problem document (RFC 9457), and the generated client reads `detail` only from one.
+const problem = (detail: string, status: number) => new Response(JSON.stringify({ status, detail }), { status, headers: { 'content-type': 'application/problem+json' } });
 const order = () => answer('loadOrder', ['SW-100001', 'ada@example.com'], store, undefined as never, undefined as never);
 
 test('an order the server does not list is not found; a failed read is a failure, not a missing order', async () => {
   globalThis.fetch = (async () => Response.json({ data: [] })) as typeof fetch;
   expect(await order()).toMatchObject({ found: false });
-  globalThis.fetch = (async () => Response.json({ detail: 'Temporarily unavailable.' }, { status: 503 })) as typeof fetch;
+  globalThis.fetch = (async () => problem('Temporarily unavailable.', 503)) as typeof fetch;
   await expect(order()).rejects.toThrow('Temporarily unavailable.');
   globalThis.fetch = (async () => { throw new Error('offline'); }) as typeof fetch;
   await expect(order()).rejects.toThrow('Can’t reach the store');
 });
 
 test('a session the server no longer knows says to sign in again', async () => {
-  globalThis.fetch = (async () => Response.json({ detail: 'Authentication required' }, { status: 401 })) as typeof fetch;
+  globalThis.fetch = (async () => problem('Authentication required', 401)) as typeof fetch;
   await expect(order()).rejects.toThrow('Your session has ended');
 });
 

@@ -42,5 +42,10 @@
   },
   "env": [
     "API_BASE_URL"
-  ]
+  ],
+  "typescript": {
+    "sources": {
+      "backend": "../backend"
+    }
+  }
 }

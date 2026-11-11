@@ -80,7 +80,7 @@ test "a failed stock request does not use the previous product's sizes" on web
   at "/p/challenger-eco-fleece-hoodie"
   clock data
   expect disabled "size-3XL"
-  fail fetch "/api/v1/stock?limit=100&productSlug=rocky-eco-fleece-zip-hoodie"
+  fail fetch "/api/v1/stock?productSlug=rocky-eco-fleece-zip-hoodie&limit=100"
   tap "card-rocky-eco-fleece-zip-hoodie"
   clock data
   clock settle
@@ -94,12 +94,12 @@ test "an unavailable order can be retried and a real 404 is distinct" on web
   type "signin-password" "softwear-demo"
   tap "signin"
   clock data
-  fail fetch "/api/v1/orders?limit=100&number=SW-no-such-order"
+  fail fetch "/api/v1/orders?number=SW-no-such-order&limit=100"
   type "app" "/order/SW-no-such-order"
   clock data
   expect tree has "order-retry"
   expect tree missing "order-missing-account"
-  pass fetch "/api/v1/orders?limit=100&number=SW-no-such-order"
+  pass fetch "/api/v1/orders?number=SW-no-such-order&limit=100"
   tap "order-retry"
   clock data
   expect tree missing "order-retry"
