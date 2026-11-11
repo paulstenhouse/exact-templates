@@ -1,17 +1,15 @@
 import type { Answer, Result, Sources, Store } from './app.contract.d.ts';
 import { CATALOG } from './catalog.ts';
-// The backend's own generated client (vendored: see its header) and type tree (`client: true` in ../backend/quickback/quickback.config.ts):
-// every path, method, query and body below is checked against the compiled API, and so is every reply's shape.
-import { createClient, QuickbackError, type Client, type TokenStore } from './quickback.client.ts';
+import { QuickbackError, type Client } from '@backend/quickback.client.ts';
+import { createExactClient, createExactGuestClient } from '@backend/quickback.exact.ts';
+// Exact reads app.ts grants statically; imported/re-exported grants are not followed.
+export const grants = 'net.fetch http://127.0.0.1:8787\nsecret.keep softwear.session';
 import type { Api, Qb } from '@backend/quickback.gen.ts';
 
 // The API's origin, a setting (app.json's "env"): the environment's value, else .env.local's, else .env's.
 // It is the Quickback backend in ../backend (server.ts runs it for development). It is inlined into the
 // module on every host, so it is public: never a secret.
 export const API = import.meta.env.API_BASE_URL;
-// The store's API, and the one secret this module keeps: the signed session token Better Auth gives at sign-in.
-// It is the Keychain's on Apple and the page's localStorage on the web, and it is never in an answer.
-export const grants = [`net.fetch ${API}`, 'secret.keep softwear.session'].join('\n');
 const SESSION = 'softwear.session';
 
 type Product = Result<'loadCatalog'>[number];
@@ -33,14 +31,6 @@ const ADDRESS_PLEASE = 'Enter an email address, like you@example.com.';
 const SIGN_IN_AGAIN = 'Your session has ended. Sign out, then sign in again.';
 // `INVALID_EMAIL` is the subscribe/notify actions' own ActionError code: it is not in this compile's `Qb.ProblemCode`.
 const BAD_ADDRESS: ReadonlyArray<string> = ['VALIDATION_ERROR', 'INVALID_EMAIL'] satisfies ReadonlyArray<Qb.ProblemCode | 'INVALID_EMAIL'>;
-
-// Exact's fetch, given its deadline, and never a cached reply: a mutation's refresh must reach the API.
-const exactFetch = ((input: RequestInfo | URL, init?: RequestInit) => fetch(input, { ...init, exactTimeout: 10000, cache: 'no-store' })) as typeof fetch;
-// The secret store as the client's session store. Exact hands the store to each answer, so a client is made per answer.
-const keep = (store: Store): TokenStore => ({ get: () => store.get(SESSION), set: (t) => (t ? store.set(SESSION, t) : store.forget(SESSION)) });
-// A guest's calls carry no session, even when one is kept (a stale one would be refused).
-const NONE: TokenStore = { get: () => null, set: () => {} };
-const api = (session: TokenStore = NONE): Client => createClient({ baseUrl: API, auth: 'bearer', fetch: exactFetch, sessionStore: session });
 
 type Failed = { status: number; error: string; code: string };
 // Why a call failed: the problem document's `detail` (RFC 9457) is the sentence to show. At build there is no server
@@ -94,14 +84,14 @@ const sources: Sources = {
   loadCatalog: async () => {
     // `position,id`, not `position`: in this compile (0.72.7) a lone unprefixed field sorts DESCENDING unless `?order=asc`
     // is sent, and the client has no `order`. A comma takes the multi-sort path, where unprefixed is ascending.
-    try { return (await api().products.list({ limit: 100, sort: 'position,id' })).data.map(toProduct); }
+    try { return (await createExactGuestClient({ baseUrl: API }).products.list({ limit: 100, sort: 'position,id' })).data.map(toProduct); }
     catch (e) { failed(e); return CATALOG; }
   },
   // What is left of each size, asked when a product page renders. A failed read fails the resource: the page then
   // shows every size and says nothing about stock.
   loadStock: async ([slug]): Promise<Stock> => {
     if (!slug) return { slug: '', ready: false, sizes: [] };
-    const found = (await api().stock.list({ limit: 100, filter: { productSlug: slug } }).catch(fail())).data;
+    const found = (await createExactGuestClient({ baseUrl: API }).stock.list({ limit: 100, filter: { productSlug: slug } }).catch(fail())).data;
     if (found.length === 0) throw new Error('No such product.');
     return { slug, ready: true, sizes: found.map((s) => ({ size: s.size, count: s.count })) };
   },
@@ -112,9 +102,9 @@ const sources: Sources = {
   loadBagStock: async ([bag, member], store): Promise<LineStock[]> => {
     if (bag.length === 0 && !member) return [];
     const lines = bag.map(fromLine);
-    if (member && session(store)) await api(keep(store)).bagItems.actions.sync({ lines }).catch(failed);
+    if (member && session(store)) await createExactClient({ store, baseUrl: API }).bagItems.actions.sync({ lines }).catch(failed);
     if (lines.length === 0) return [];
-    const left = (await api().stock.list({ limit: 100, filter: { 'productSlug.in': [...new Set(lines.map((l) => l.slug))] } }).catch(fail())).data;
+    const left = (await createExactGuestClient({ baseUrl: API }).stock.list({ limit: 100, filter: { 'productSlug.in': [...new Set(lines.map((l) => l.slug))] } }).catch(fail())).data;
     return lines.map((l) => ({ key: `${l.slug}|${l.color}|${l.size}`, count: left.find((s) => s.productSlug === l.slug && s.size === l.size)?.count ?? 0 }));
   },
   // A promo code's worth to this shopper, from the server: the codes are not listed anywhere, and WELCOME15 is
@@ -122,60 +112,58 @@ const sources: Sources = {
   checkPromo: async ([code, member], store): Promise<Promo> => {
     if (!code) return { code: '', pct: 0, used: false };
     if (!member || !session(store)) return { code, pct: 0, used: false };
-    return api(keep(store)).promoCodes.actions.check({ code }).catch(fail(true));
+    return createExactClient({ store, baseUrl: API }).promoCodes.actions.check({ code }).catch(fail(true));
   },
   notifyMe: async ([email, slug]): Promise<Notified> => {
-    try { await api().restockRequests.actions.notify({ email, slug }); return { ok: true, error: '', slug }; }
+    try { await createExactGuestClient({ baseUrl: API }).restockRequests.actions.notify({ email, slug }); return { ok: true, error: '', slug }; }
     catch (e) { return { ok: false, error: addressOr(failed(e)), slug }; }
   },
   subscribe: async ([email]): Promise<Joined> => {
-    try { return { ok: true, error: '', ...(await api().subscribers.actions.join({ email })) }; }
+    try { return { ok: true, error: '', ...(await createExactGuestClient({ baseUrl: API }).subscribers.actions.join({ email })) }; }
     catch (e) { return { ok: false, error: addressOr(failed(e)), code: '', returning: false }; }
   },
   // Sign in, or make the account on first sight: Better Auth's email and password. An address it has not seen and
   // a wrong password are refused alike, so a refusal is followed by a sign-up; if that makes nothing new, the
   // password was wrong. The client saves the session token (`set-auth-token` under /auth/v1) to the secret store;
-  // the answer carries what the shopper kept on the server. Better Auth's routes are not in the type tree, so these
-  // three calls are `request()`, untyped.
+  // the answer carries what the shopper kept on the server. Auth calls use the generated typed methods.
   signIn: async ([email, password], store): Promise<SignedIn> => {
     const address = email.trim().toLowerCase(), body = { email: address, password };
     if (password.length < 8) return { ...NOT_SIGNED_IN, error: 'Choose a password of 8 characters or more.' };
     store.forget(SESSION);
-    const client = api({ get: () => null, set: keep(store).set });
-    const signIn = () => client.request('POST', '/auth/v1/sign-in/email', { body }).then(() => null, failed);
+    const client = createExactClient({ store, baseUrl: API, guest: true });
+    const signIn = () => client.auth.signIn.email(body).then(() => null, failed);
     let refused = await signIn();
     if (refused?.status === 401) {
-      const made = await client.request('POST', '/auth/v1/sign-up/email', { body: { ...body, name: '' } }).then(() => null, failed);
+      const made = await client.auth.signUp.email({ ...body, name: '' }).then(() => null, failed);
       if (made) return { ...NOT_SIGNED_IN, error: addressOr(made) };
       store.forget(SESSION); // sign-up's own session: the sign-in below is the one kept
       refused = await signIn();
     }
     if (refused) return { ...NOT_SIGNED_IN, error: refused.status === 401 ? 'That password doesn’t match this email.' : addressOr(refused) };
     if (!session(store)) return { ...NOT_SIGNED_IN, error: 'The store signed you in without a session. Try again.' };
-    const shopper = api(keep(store));
+    const shopper = createExactClient({ store, baseUrl: API });
     const [bag, saved] = await Promise.all([shopper.bagItems.list({ limit: 100 }).catch(() => null), shopper.savedStyles.list({ limit: 100 }).catch(() => null)]);
     return { ok: true, error: '', email: address, bag: bag?.data.map(toLine) ?? [], saved: saved?.data.map((s) => s.productSlug) ?? [] };
   },
   signOut: async (_args, store) => {
-    const token = session(store);
+    if (session(store)) await createExactClient({ store, baseUrl: API }).auth.signOut().catch(failed);
     store.forget(SESSION);
-    if (token) await api({ get: () => token, set: () => {} }).request('POST', '/auth/v1/sign-out', { body: {} }).catch(failed);
     return { ok: true };
   },
   loadAccount: async ([member], store): Promise<Account> => {
     if (!member) return NO_ACCOUNT;
-    return session(store) ? me(api(keep(store))) : { ...NO_ACCOUNT, error: SIGN_IN_AGAIN };
+    return session(store) ? me(createExactClient({ store, baseUrl: API })) : { ...NO_ACCOUNT, error: SIGN_IN_AGAIN };
   },
   saveName: async ([_member, name], store): Promise<Account> => {
     if (!session(store)) return { ...NO_ACCOUNT, error: SIGN_IN_AGAIN };
-    const client = api(keep(store));
-    const refused = await client.request('POST', '/auth/v1/update-user', { body: { name: name.slice(0, 80) } }).then(() => null, (e) => failed(e, true));
+    const client = createExactClient({ store, baseUrl: API });
+    const refused = await client.auth.updateUser({ name: name.slice(0, 80) }).then(() => null, (e) => failed(e, true));
     return refused ? { ...NO_ACCOUNT, error: refused.error } : me(client);
   },
   // The saved styles, kept on the device and, signed in, on the server: what the server has is made to match.
   syncSaved: async ([_member, saved], store): Promise<Saved> => {
     if (!session(store)) return { ok: false };
-    const client = api(keep(store));
+    const client = createExactClient({ store, baseUrl: API });
     const kept = await client.savedStyles.list({ limit: 100 }).catch(() => null);
     if (!kept) return { ok: false };
     await Promise.all([
@@ -187,7 +175,7 @@ const sources: Sources = {
   // A shopper's orders are theirs alone: the API's firewall answers only the caller's rows.
   loadOrders: async ([member], store): Promise<Order[]> => {
     if (!member || !session(store)) return [];
-    const client = api(keep(store));
+    const client = createExactClient({ store, baseUrl: API });
     const found = (await client.orders.list({ limit: 100, sort: '-placedAt' }).catch(fail(true))).data;
     if (found.length === 0) return [];
     const lines = (await client.orderLines.list({ limit: 100, filter: { 'orderNumber.in': found.map((o) => o.number) } }).catch(fail(true))).data;
@@ -195,7 +183,7 @@ const sources: Sources = {
   },
   loadOrder: async ([id, member], store): Promise<Order> => {
     if (!id || !member || !session(store)) return NO_ORDER;
-    const client = api(keep(store));
+    const client = createExactClient({ store, baseUrl: API });
     const [found] = (await client.orders.list({ limit: 100, filter: { number: id } }).catch(fail(true))).data;
     if (!found) return NO_ORDER;
     const lines = (await client.orderLines.list({ limit: 100, filter: { orderNumber: id } }).catch(fail(true))).data;
@@ -205,7 +193,7 @@ const sources: Sources = {
   // so what checkout reads is exactly what was on screen at the press.
   placeOrder: async ([email, name, address, city, zip, shipping, lines, promo], store): Promise<Placed> => {
     if (!session(store)) return { ok: false, error: 'Sign in to place your order.', id: '' };
-    const client = api(keep(store));
+    const client = createExactClient({ store, baseUrl: API });
     try {
       await client.bagItems.actions.sync({ lines: lines.map(fromLine) });
       const placed = await client.orders.actions.checkout({ email, name, address, city, zip, shipping: shipping === 'express' ? 'express' : 'standard', ...(promo ? { promo } : {}) });

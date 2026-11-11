@@ -1,0 +1,2343 @@
+{
+  "schemaVersion": "1",
+  "kind": "quickback-access-manifest",
+  "project": "softwear",
+  "routes": [
+    {
+      "key": "DELETE /api/v1/bag-items/{id}",
+      "method": "DELETE",
+      "path": "/api/v1/bag-items/{id}",
+      "operation": "delete",
+      "operationId": "deleteBagItems",
+      "feature": "bag-items",
+      "table": "bagItems",
+      "action": null,
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [
+        "USER"
+      ],
+      "userRole": [],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "pseudoRoles": [
+          "USER"
+        ]
+      },
+      "firewall": {
+        "mode": "scoped",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "ownerId = ctx.userId",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "DELETE /api/v1/bag-items/batch",
+      "method": "DELETE",
+      "path": "/api/v1/bag-items/batch",
+      "operation": "batchDelete",
+      "operationId": "batchDeleteBagItems",
+      "feature": "bag-items",
+      "table": "bagItems",
+      "action": null,
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [
+        "USER"
+      ],
+      "userRole": [],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "pseudoRoles": [
+          "USER"
+        ]
+      },
+      "firewall": {
+        "mode": "scoped",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "ownerId = ctx.userId",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "DELETE /api/v1/custom-view/{id}",
+      "method": "DELETE",
+      "path": "/api/v1/custom-view/{id}",
+      "operation": "delete",
+      "operationId": "deleteCustomView",
+      "feature": "custom-view",
+      "table": "customView",
+      "action": null,
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [],
+      "userRole": [
+        "sysadmin"
+      ],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "userRole": [
+          "sysadmin"
+        ]
+      },
+      "firewall": {
+        "mode": "exception",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "exception",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "DELETE /api/v1/custom-view/batch",
+      "method": "DELETE",
+      "path": "/api/v1/custom-view/batch",
+      "operation": "batchDelete",
+      "operationId": "batchDeleteCustomView",
+      "feature": "custom-view",
+      "table": "customView",
+      "action": null,
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [],
+      "userRole": [
+        "sysadmin"
+      ],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "userRole": [
+          "sysadmin"
+        ]
+      },
+      "firewall": {
+        "mode": "exception",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "exception",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "DELETE /api/v1/products/{id}",
+      "method": "DELETE",
+      "path": "/api/v1/products/{id}",
+      "operation": "delete",
+      "operationId": "deleteProducts",
+      "feature": "products",
+      "table": "products",
+      "action": null,
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [],
+      "userRole": [
+        "sysadmin"
+      ],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "userRole": [
+          "sysadmin"
+        ]
+      },
+      "firewall": {
+        "mode": "scoped",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "deletedAt is null",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "DELETE /api/v1/products/batch",
+      "method": "DELETE",
+      "path": "/api/v1/products/batch",
+      "operation": "batchDelete",
+      "operationId": "batchDeleteProducts",
+      "feature": "products",
+      "table": "products",
+      "action": null,
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [],
+      "userRole": [
+        "sysadmin"
+      ],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "userRole": [
+          "sysadmin"
+        ]
+      },
+      "firewall": {
+        "mode": "scoped",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "deletedAt is null",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "DELETE /api/v1/saved-styles/{id}",
+      "method": "DELETE",
+      "path": "/api/v1/saved-styles/{id}",
+      "operation": "delete",
+      "operationId": "deleteSavedStyles",
+      "feature": "saved-styles",
+      "table": "savedStyles",
+      "action": null,
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [
+        "USER"
+      ],
+      "userRole": [],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "pseudoRoles": [
+          "USER"
+        ]
+      },
+      "firewall": {
+        "mode": "scoped",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "ownerId = ctx.userId",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "DELETE /api/v1/saved-styles/batch",
+      "method": "DELETE",
+      "path": "/api/v1/saved-styles/batch",
+      "operation": "batchDelete",
+      "operationId": "batchDeleteSavedStyles",
+      "feature": "saved-styles",
+      "table": "savedStyles",
+      "action": null,
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [
+        "USER"
+      ],
+      "userRole": [],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "pseudoRoles": [
+          "USER"
+        ]
+      },
+      "firewall": {
+        "mode": "scoped",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "ownerId = ctx.userId",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "DELETE /api/v1/subscribers/{id}",
+      "method": "DELETE",
+      "path": "/api/v1/subscribers/{id}",
+      "operation": "delete",
+      "operationId": "deleteSubscribers",
+      "feature": "subscribers",
+      "table": "subscribers",
+      "action": null,
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [
+        "SYSADMIN"
+      ],
+      "userRole": [],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "pseudoRoles": [
+          "SYSADMIN"
+        ]
+      },
+      "firewall": {
+        "mode": "exception",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "exception",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "DELETE /api/v1/subscribers/batch",
+      "method": "DELETE",
+      "path": "/api/v1/subscribers/batch",
+      "operation": "batchDelete",
+      "operationId": "batchDeleteSubscribers",
+      "feature": "subscribers",
+      "table": "subscribers",
+      "action": null,
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [
+        "SYSADMIN"
+      ],
+      "userRole": [],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "pseudoRoles": [
+          "SYSADMIN"
+        ]
+      },
+      "firewall": {
+        "mode": "exception",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "exception",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "GET /api/v1/bag-items",
+      "method": "GET",
+      "path": "/api/v1/bag-items",
+      "operation": "list",
+      "operationId": "listBagItems",
+      "feature": "bag-items",
+      "table": "bagItems",
+      "action": null,
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [
+        "USER"
+      ],
+      "userRole": [],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "pseudoRoles": [
+          "USER"
+        ]
+      },
+      "firewall": {
+        "mode": "scoped",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "ownerId = ctx.userId",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "GET /api/v1/bag-items/{id}",
+      "method": "GET",
+      "path": "/api/v1/bag-items/{id}",
+      "operation": "get",
+      "operationId": "getBagItems",
+      "feature": "bag-items",
+      "table": "bagItems",
+      "action": null,
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [
+        "USER"
+      ],
+      "userRole": [],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "pseudoRoles": [
+          "USER"
+        ]
+      },
+      "firewall": {
+        "mode": "scoped",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "ownerId = ctx.userId",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "GET /api/v1/custom-view",
+      "method": "GET",
+      "path": "/api/v1/custom-view",
+      "operation": "list",
+      "operationId": "listCustomView",
+      "feature": "custom-view",
+      "table": "customView",
+      "action": null,
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [],
+      "userRole": [
+        "sysadmin"
+      ],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "userRole": [
+          "sysadmin"
+        ]
+      },
+      "firewall": {
+        "mode": "exception",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "exception",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "GET /api/v1/custom-view/{id}",
+      "method": "GET",
+      "path": "/api/v1/custom-view/{id}",
+      "operation": "get",
+      "operationId": "getCustomView",
+      "feature": "custom-view",
+      "table": "customView",
+      "action": null,
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [],
+      "userRole": [
+        "sysadmin"
+      ],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "userRole": [
+          "sysadmin"
+        ]
+      },
+      "firewall": {
+        "mode": "exception",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "exception",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "GET /api/v1/me",
+      "method": "GET",
+      "path": "/api/v1/me",
+      "operation": "action",
+      "operationId": "me",
+      "feature": "account",
+      "table": null,
+      "action": "me",
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [
+        "AUTHENTICATED"
+      ],
+      "userRole": [],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "pseudoRoles": [
+          "AUTHENTICATED"
+        ]
+      },
+      "firewall": {
+        "mode": "none",
+        "arms": []
+      }
+    },
+    {
+      "key": "GET /api/v1/order-lines",
+      "method": "GET",
+      "path": "/api/v1/order-lines",
+      "operation": "list",
+      "operationId": "listOrderLines",
+      "feature": "order-lines",
+      "table": "orderLines",
+      "action": null,
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [
+        "SYSADMIN",
+        "USER"
+      ],
+      "userRole": [],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "combinator": "or",
+        "arms": [
+          {
+            "kind": "declarative",
+            "pseudoRoles": [
+              "USER"
+            ]
+          },
+          {
+            "kind": "declarative",
+            "pseudoRoles": [
+              "SYSADMIN"
+            ]
+          }
+        ]
+      },
+      "firewall": {
+        "mode": "scoped",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "deletedAt is null",
+            "tenantBound": false
+          },
+          {
+            "path": "and",
+            "predicate": "ownerId = ctx.userId",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "GET /api/v1/order-lines/{id}",
+      "method": "GET",
+      "path": "/api/v1/order-lines/{id}",
+      "operation": "get",
+      "operationId": "getOrderLines",
+      "feature": "order-lines",
+      "table": "orderLines",
+      "action": null,
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [
+        "SYSADMIN",
+        "USER"
+      ],
+      "userRole": [],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "combinator": "or",
+        "arms": [
+          {
+            "kind": "declarative",
+            "pseudoRoles": [
+              "USER"
+            ]
+          },
+          {
+            "kind": "declarative",
+            "pseudoRoles": [
+              "SYSADMIN"
+            ]
+          }
+        ]
+      },
+      "firewall": {
+        "mode": "scoped",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "deletedAt is null",
+            "tenantBound": false
+          },
+          {
+            "path": "and",
+            "predicate": "ownerId = ctx.userId",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "GET /api/v1/orders",
+      "method": "GET",
+      "path": "/api/v1/orders",
+      "operation": "list",
+      "operationId": "listOrders",
+      "feature": "orders",
+      "table": "orders",
+      "action": null,
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [
+        "SYSADMIN",
+        "USER"
+      ],
+      "userRole": [],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "combinator": "or",
+        "arms": [
+          {
+            "kind": "declarative",
+            "pseudoRoles": [
+              "USER"
+            ]
+          },
+          {
+            "kind": "declarative",
+            "pseudoRoles": [
+              "SYSADMIN"
+            ]
+          }
+        ]
+      },
+      "firewall": {
+        "mode": "scoped",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "deletedAt is null",
+            "tenantBound": false
+          },
+          {
+            "path": "and",
+            "predicate": "ownerId = ctx.userId",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "GET /api/v1/orders/{id}",
+      "method": "GET",
+      "path": "/api/v1/orders/{id}",
+      "operation": "get",
+      "operationId": "getOrders",
+      "feature": "orders",
+      "table": "orders",
+      "action": null,
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [
+        "SYSADMIN",
+        "USER"
+      ],
+      "userRole": [],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "combinator": "or",
+        "arms": [
+          {
+            "kind": "declarative",
+            "pseudoRoles": [
+              "USER"
+            ]
+          },
+          {
+            "kind": "declarative",
+            "pseudoRoles": [
+              "SYSADMIN"
+            ]
+          }
+        ]
+      },
+      "firewall": {
+        "mode": "scoped",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "deletedAt is null",
+            "tenantBound": false
+          },
+          {
+            "path": "and",
+            "predicate": "ownerId = ctx.userId",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "GET /api/v1/products",
+      "method": "GET",
+      "path": "/api/v1/products",
+      "operation": "list",
+      "operationId": "listProducts",
+      "feature": "products",
+      "table": "products",
+      "action": null,
+      "auth": "public",
+      "roles": [],
+      "pseudoRoles": [
+        "PUBLIC"
+      ],
+      "userRole": [],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "pseudoRoles": [
+          "PUBLIC"
+        ]
+      },
+      "firewall": {
+        "mode": "scoped",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "deletedAt is null",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "GET /api/v1/products/{id}",
+      "method": "GET",
+      "path": "/api/v1/products/{id}",
+      "operation": "get",
+      "operationId": "getProducts",
+      "feature": "products",
+      "table": "products",
+      "action": null,
+      "auth": "public",
+      "roles": [],
+      "pseudoRoles": [
+        "PUBLIC"
+      ],
+      "userRole": [],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "pseudoRoles": [
+          "PUBLIC"
+        ]
+      },
+      "firewall": {
+        "mode": "scoped",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "deletedAt is null",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "GET /api/v1/promo",
+      "method": "GET",
+      "path": "/api/v1/promo",
+      "operation": "action",
+      "operationId": "check",
+      "feature": "promo-codes",
+      "table": null,
+      "action": "check",
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [
+        "USER"
+      ],
+      "userRole": [],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "pseudoRoles": [
+          "USER"
+        ]
+      },
+      "firewall": {
+        "mode": "none",
+        "arms": []
+      }
+    },
+    {
+      "key": "GET /api/v1/promo-codes",
+      "method": "GET",
+      "path": "/api/v1/promo-codes",
+      "operation": "list",
+      "operationId": "listPromoCodes",
+      "feature": "promo-codes",
+      "table": "promoCodes",
+      "action": null,
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [
+        "SYSADMIN"
+      ],
+      "userRole": [],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "pseudoRoles": [
+          "SYSADMIN"
+        ]
+      },
+      "firewall": {
+        "mode": "exception",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "exception",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "GET /api/v1/promo-codes/{id}",
+      "method": "GET",
+      "path": "/api/v1/promo-codes/{id}",
+      "operation": "get",
+      "operationId": "getPromoCodes",
+      "feature": "promo-codes",
+      "table": "promoCodes",
+      "action": null,
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [
+        "SYSADMIN"
+      ],
+      "userRole": [],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "pseudoRoles": [
+          "SYSADMIN"
+        ]
+      },
+      "firewall": {
+        "mode": "exception",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "exception",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "GET /api/v1/promo-redemptions",
+      "method": "GET",
+      "path": "/api/v1/promo-redemptions",
+      "operation": "list",
+      "operationId": "listPromoRedemptions",
+      "feature": "promo-redemptions",
+      "table": "promoRedemptions",
+      "action": null,
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [
+        "SYSADMIN",
+        "USER"
+      ],
+      "userRole": [],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "combinator": "or",
+        "arms": [
+          {
+            "kind": "declarative",
+            "pseudoRoles": [
+              "USER"
+            ]
+          },
+          {
+            "kind": "declarative",
+            "pseudoRoles": [
+              "SYSADMIN"
+            ]
+          }
+        ]
+      },
+      "firewall": {
+        "mode": "scoped",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "deletedAt is null",
+            "tenantBound": false
+          },
+          {
+            "path": "and",
+            "predicate": "ownerId = ctx.userId",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "GET /api/v1/promo-redemptions/{id}",
+      "method": "GET",
+      "path": "/api/v1/promo-redemptions/{id}",
+      "operation": "get",
+      "operationId": "getPromoRedemptions",
+      "feature": "promo-redemptions",
+      "table": "promoRedemptions",
+      "action": null,
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [
+        "SYSADMIN",
+        "USER"
+      ],
+      "userRole": [],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "combinator": "or",
+        "arms": [
+          {
+            "kind": "declarative",
+            "pseudoRoles": [
+              "USER"
+            ]
+          },
+          {
+            "kind": "declarative",
+            "pseudoRoles": [
+              "SYSADMIN"
+            ]
+          }
+        ]
+      },
+      "firewall": {
+        "mode": "scoped",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "deletedAt is null",
+            "tenantBound": false
+          },
+          {
+            "path": "and",
+            "predicate": "ownerId = ctx.userId",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "GET /api/v1/restock-requests",
+      "method": "GET",
+      "path": "/api/v1/restock-requests",
+      "operation": "list",
+      "operationId": "listRestockRequests",
+      "feature": "restock-requests",
+      "table": "restockRequests",
+      "action": null,
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [
+        "SYSADMIN"
+      ],
+      "userRole": [
+        "appmanager"
+      ],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "combinator": "or",
+        "arms": [
+          {
+            "kind": "declarative",
+            "pseudoRoles": [
+              "SYSADMIN"
+            ]
+          },
+          {
+            "kind": "declarative",
+            "userRole": [
+              "appmanager"
+            ]
+          }
+        ]
+      },
+      "firewall": {
+        "mode": "exception",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "exception",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "GET /api/v1/restock-requests/{id}",
+      "method": "GET",
+      "path": "/api/v1/restock-requests/{id}",
+      "operation": "get",
+      "operationId": "getRestockRequests",
+      "feature": "restock-requests",
+      "table": "restockRequests",
+      "action": null,
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [
+        "SYSADMIN"
+      ],
+      "userRole": [
+        "appmanager"
+      ],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "combinator": "or",
+        "arms": [
+          {
+            "kind": "declarative",
+            "pseudoRoles": [
+              "SYSADMIN"
+            ]
+          },
+          {
+            "kind": "declarative",
+            "userRole": [
+              "appmanager"
+            ]
+          }
+        ]
+      },
+      "firewall": {
+        "mode": "exception",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "exception",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "GET /api/v1/saved-styles",
+      "method": "GET",
+      "path": "/api/v1/saved-styles",
+      "operation": "list",
+      "operationId": "listSavedStyles",
+      "feature": "saved-styles",
+      "table": "savedStyles",
+      "action": null,
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [
+        "USER"
+      ],
+      "userRole": [],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "pseudoRoles": [
+          "USER"
+        ]
+      },
+      "firewall": {
+        "mode": "scoped",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "ownerId = ctx.userId",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "GET /api/v1/saved-styles/{id}",
+      "method": "GET",
+      "path": "/api/v1/saved-styles/{id}",
+      "operation": "get",
+      "operationId": "getSavedStyles",
+      "feature": "saved-styles",
+      "table": "savedStyles",
+      "action": null,
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [
+        "USER"
+      ],
+      "userRole": [],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "pseudoRoles": [
+          "USER"
+        ]
+      },
+      "firewall": {
+        "mode": "scoped",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "ownerId = ctx.userId",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "GET /api/v1/stock",
+      "method": "GET",
+      "path": "/api/v1/stock",
+      "operation": "list",
+      "operationId": "listStock",
+      "feature": "stock",
+      "table": "stock",
+      "action": null,
+      "auth": "public",
+      "roles": [],
+      "pseudoRoles": [
+        "PUBLIC"
+      ],
+      "userRole": [],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "pseudoRoles": [
+          "PUBLIC"
+        ]
+      },
+      "firewall": {
+        "mode": "scoped",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "deletedAt is null",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "GET /api/v1/stock/{id}",
+      "method": "GET",
+      "path": "/api/v1/stock/{id}",
+      "operation": "get",
+      "operationId": "getStock",
+      "feature": "stock",
+      "table": "stock",
+      "action": null,
+      "auth": "public",
+      "roles": [],
+      "pseudoRoles": [
+        "PUBLIC"
+      ],
+      "userRole": [],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "pseudoRoles": [
+          "PUBLIC"
+        ]
+      },
+      "firewall": {
+        "mode": "scoped",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "deletedAt is null",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "GET /api/v1/subscribers",
+      "method": "GET",
+      "path": "/api/v1/subscribers",
+      "operation": "list",
+      "operationId": "listSubscribers",
+      "feature": "subscribers",
+      "table": "subscribers",
+      "action": null,
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [
+        "SYSADMIN"
+      ],
+      "userRole": [
+        "appmanager"
+      ],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "combinator": "or",
+        "arms": [
+          {
+            "kind": "declarative",
+            "pseudoRoles": [
+              "SYSADMIN"
+            ]
+          },
+          {
+            "kind": "declarative",
+            "userRole": [
+              "appmanager"
+            ]
+          }
+        ]
+      },
+      "firewall": {
+        "mode": "exception",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "exception",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "GET /api/v1/subscribers/{id}",
+      "method": "GET",
+      "path": "/api/v1/subscribers/{id}",
+      "operation": "get",
+      "operationId": "getSubscribers",
+      "feature": "subscribers",
+      "table": "subscribers",
+      "action": null,
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [
+        "SYSADMIN"
+      ],
+      "userRole": [
+        "appmanager"
+      ],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "combinator": "or",
+        "arms": [
+          {
+            "kind": "declarative",
+            "pseudoRoles": [
+              "SYSADMIN"
+            ]
+          },
+          {
+            "kind": "declarative",
+            "userRole": [
+              "appmanager"
+            ]
+          }
+        ]
+      },
+      "firewall": {
+        "mode": "exception",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "exception",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "PATCH /api/v1/bag-items/{id}",
+      "method": "PATCH",
+      "path": "/api/v1/bag-items/{id}",
+      "operation": "update",
+      "operationId": "updateBagItems",
+      "feature": "bag-items",
+      "table": "bagItems",
+      "action": null,
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [
+        "USER"
+      ],
+      "userRole": [],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "pseudoRoles": [
+          "USER"
+        ]
+      },
+      "firewall": {
+        "mode": "scoped",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "ownerId = ctx.userId",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "PATCH /api/v1/bag-items/batch",
+      "method": "PATCH",
+      "path": "/api/v1/bag-items/batch",
+      "operation": "batchUpdate",
+      "operationId": "batchUpdateBagItems",
+      "feature": "bag-items",
+      "table": "bagItems",
+      "action": null,
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [
+        "USER"
+      ],
+      "userRole": [],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "pseudoRoles": [
+          "USER"
+        ]
+      },
+      "firewall": {
+        "mode": "scoped",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "ownerId = ctx.userId",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "PATCH /api/v1/custom-view/{id}",
+      "method": "PATCH",
+      "path": "/api/v1/custom-view/{id}",
+      "operation": "update",
+      "operationId": "updateCustomView",
+      "feature": "custom-view",
+      "table": "customView",
+      "action": null,
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [],
+      "userRole": [
+        "sysadmin"
+      ],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "userRole": [
+          "sysadmin"
+        ]
+      },
+      "firewall": {
+        "mode": "exception",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "exception",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "PATCH /api/v1/custom-view/batch",
+      "method": "PATCH",
+      "path": "/api/v1/custom-view/batch",
+      "operation": "batchUpdate",
+      "operationId": "batchUpdateCustomView",
+      "feature": "custom-view",
+      "table": "customView",
+      "action": null,
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [],
+      "userRole": [
+        "sysadmin"
+      ],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "userRole": [
+          "sysadmin"
+        ]
+      },
+      "firewall": {
+        "mode": "exception",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "exception",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "PATCH /api/v1/products/{id}",
+      "method": "PATCH",
+      "path": "/api/v1/products/{id}",
+      "operation": "update",
+      "operationId": "updateProducts",
+      "feature": "products",
+      "table": "products",
+      "action": null,
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [],
+      "userRole": [
+        "sysadmin"
+      ],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "userRole": [
+          "sysadmin"
+        ]
+      },
+      "firewall": {
+        "mode": "scoped",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "deletedAt is null",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "PATCH /api/v1/products/batch",
+      "method": "PATCH",
+      "path": "/api/v1/products/batch",
+      "operation": "batchUpdate",
+      "operationId": "batchUpdateProducts",
+      "feature": "products",
+      "table": "products",
+      "action": null,
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [],
+      "userRole": [
+        "sysadmin"
+      ],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "userRole": [
+          "sysadmin"
+        ]
+      },
+      "firewall": {
+        "mode": "scoped",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "deletedAt is null",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "PATCH /api/v1/promo-codes/{id}",
+      "method": "PATCH",
+      "path": "/api/v1/promo-codes/{id}",
+      "operation": "update",
+      "operationId": "updatePromoCodes",
+      "feature": "promo-codes",
+      "table": "promoCodes",
+      "action": null,
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [
+        "SYSADMIN"
+      ],
+      "userRole": [],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "pseudoRoles": [
+          "SYSADMIN"
+        ]
+      },
+      "firewall": {
+        "mode": "exception",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "exception",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "PATCH /api/v1/promo-codes/batch",
+      "method": "PATCH",
+      "path": "/api/v1/promo-codes/batch",
+      "operation": "batchUpdate",
+      "operationId": "batchUpdatePromoCodes",
+      "feature": "promo-codes",
+      "table": "promoCodes",
+      "action": null,
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [
+        "SYSADMIN"
+      ],
+      "userRole": [],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "pseudoRoles": [
+          "SYSADMIN"
+        ]
+      },
+      "firewall": {
+        "mode": "exception",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "exception",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "PATCH /api/v1/stock/{id}",
+      "method": "PATCH",
+      "path": "/api/v1/stock/{id}",
+      "operation": "update",
+      "operationId": "updateStock",
+      "feature": "stock",
+      "table": "stock",
+      "action": null,
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [],
+      "userRole": [
+        "sysadmin"
+      ],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "userRole": [
+          "sysadmin"
+        ]
+      },
+      "firewall": {
+        "mode": "scoped",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "deletedAt is null",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "PATCH /api/v1/stock/batch",
+      "method": "PATCH",
+      "path": "/api/v1/stock/batch",
+      "operation": "batchUpdate",
+      "operationId": "batchUpdateStock",
+      "feature": "stock",
+      "table": "stock",
+      "action": null,
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [],
+      "userRole": [
+        "sysadmin"
+      ],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "userRole": [
+          "sysadmin"
+        ]
+      },
+      "firewall": {
+        "mode": "scoped",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "deletedAt is null",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "POST /api/v1/bag-items",
+      "method": "POST",
+      "path": "/api/v1/bag-items",
+      "operation": "create",
+      "operationId": "createBagItems",
+      "feature": "bag-items",
+      "table": "bagItems",
+      "action": null,
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [
+        "USER"
+      ],
+      "userRole": [],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "pseudoRoles": [
+          "USER"
+        ]
+      },
+      "firewall": {
+        "mode": "scoped",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "ownerId = ctx.userId",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "POST /api/v1/bag-items/batch",
+      "method": "POST",
+      "path": "/api/v1/bag-items/batch",
+      "operation": "batchCreate",
+      "operationId": "batchCreateBagItems",
+      "feature": "bag-items",
+      "table": "bagItems",
+      "action": null,
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [
+        "USER"
+      ],
+      "userRole": [],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "pseudoRoles": [
+          "USER"
+        ]
+      },
+      "firewall": {
+        "mode": "scoped",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "ownerId = ctx.userId",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "POST /api/v1/checkout",
+      "method": "POST",
+      "path": "/api/v1/checkout",
+      "operation": "action",
+      "operationId": "checkout",
+      "feature": "orders",
+      "table": null,
+      "action": "checkout",
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [
+        "USER"
+      ],
+      "userRole": [],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "pseudoRoles": [
+          "USER"
+        ]
+      },
+      "firewall": {
+        "mode": "none",
+        "arms": []
+      }
+    },
+    {
+      "key": "POST /api/v1/custom-view",
+      "method": "POST",
+      "path": "/api/v1/custom-view",
+      "operation": "create",
+      "operationId": "createCustomView",
+      "feature": "custom-view",
+      "table": "customView",
+      "action": null,
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [],
+      "userRole": [
+        "sysadmin"
+      ],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "userRole": [
+          "sysadmin"
+        ]
+      },
+      "firewall": {
+        "mode": "exception",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "exception",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "POST /api/v1/custom-view/batch",
+      "method": "POST",
+      "path": "/api/v1/custom-view/batch",
+      "operation": "batchCreate",
+      "operationId": "batchCreateCustomView",
+      "feature": "custom-view",
+      "table": "customView",
+      "action": null,
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [],
+      "userRole": [
+        "sysadmin"
+      ],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "userRole": [
+          "sysadmin"
+        ]
+      },
+      "firewall": {
+        "mode": "exception",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "exception",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "POST /api/v1/notify",
+      "method": "POST",
+      "path": "/api/v1/notify",
+      "operation": "action",
+      "operationId": "notify",
+      "feature": "restock-requests",
+      "table": null,
+      "action": "notify",
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [
+        "PUBLIC"
+      ],
+      "userRole": [
+        "sysadmin"
+      ],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "combinator": "and",
+        "arms": [
+          {
+            "kind": "declarative",
+            "pseudoRoles": [
+              "PUBLIC"
+            ]
+          },
+          {
+            "kind": "declarative",
+            "userRole": [
+              "sysadmin"
+            ]
+          }
+        ]
+      },
+      "firewall": {
+        "mode": "none",
+        "arms": []
+      },
+      "unsafe": {
+        "adminOnly": true,
+        "crossTenant": false,
+        "targetScope": "organization"
+      }
+    },
+    {
+      "key": "POST /api/v1/orders/{id}/cancel",
+      "method": "POST",
+      "path": "/api/v1/orders/{id}/cancel",
+      "operation": "action",
+      "operationId": "ordersCancel",
+      "feature": "orders",
+      "table": "orders",
+      "action": "cancel",
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [
+        "SYSADMIN"
+      ],
+      "userRole": [],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "pseudoRoles": [
+          "SYSADMIN"
+        ]
+      },
+      "firewall": {
+        "mode": "scoped",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "deletedAt is null",
+            "tenantBound": false
+          },
+          {
+            "path": "and",
+            "predicate": "ownerId = ctx.userId",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "POST /api/v1/orders/{id}/deliver",
+      "method": "POST",
+      "path": "/api/v1/orders/{id}/deliver",
+      "operation": "action",
+      "operationId": "ordersDeliver",
+      "feature": "orders",
+      "table": "orders",
+      "action": "deliver",
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [
+        "SYSADMIN"
+      ],
+      "userRole": [],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "pseudoRoles": [
+          "SYSADMIN"
+        ]
+      },
+      "firewall": {
+        "mode": "scoped",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "deletedAt is null",
+            "tenantBound": false
+          },
+          {
+            "path": "and",
+            "predicate": "ownerId = ctx.userId",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "POST /api/v1/orders/{id}/ship",
+      "method": "POST",
+      "path": "/api/v1/orders/{id}/ship",
+      "operation": "action",
+      "operationId": "ordersShip",
+      "feature": "orders",
+      "table": "orders",
+      "action": "ship",
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [
+        "SYSADMIN"
+      ],
+      "userRole": [],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "pseudoRoles": [
+          "SYSADMIN"
+        ]
+      },
+      "firewall": {
+        "mode": "scoped",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "deletedAt is null",
+            "tenantBound": false
+          },
+          {
+            "path": "and",
+            "predicate": "ownerId = ctx.userId",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "POST /api/v1/products",
+      "method": "POST",
+      "path": "/api/v1/products",
+      "operation": "create",
+      "operationId": "createProducts",
+      "feature": "products",
+      "table": "products",
+      "action": null,
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [],
+      "userRole": [
+        "sysadmin"
+      ],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "userRole": [
+          "sysadmin"
+        ]
+      },
+      "firewall": {
+        "mode": "scoped",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "deletedAt is null",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "POST /api/v1/products/batch",
+      "method": "POST",
+      "path": "/api/v1/products/batch",
+      "operation": "batchCreate",
+      "operationId": "batchCreateProducts",
+      "feature": "products",
+      "table": "products",
+      "action": null,
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [],
+      "userRole": [
+        "sysadmin"
+      ],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "userRole": [
+          "sysadmin"
+        ]
+      },
+      "firewall": {
+        "mode": "scoped",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "deletedAt is null",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "POST /api/v1/promo-codes",
+      "method": "POST",
+      "path": "/api/v1/promo-codes",
+      "operation": "create",
+      "operationId": "createPromoCodes",
+      "feature": "promo-codes",
+      "table": "promoCodes",
+      "action": null,
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [
+        "SYSADMIN"
+      ],
+      "userRole": [],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "pseudoRoles": [
+          "SYSADMIN"
+        ]
+      },
+      "firewall": {
+        "mode": "exception",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "exception",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "POST /api/v1/promo-codes/batch",
+      "method": "POST",
+      "path": "/api/v1/promo-codes/batch",
+      "operation": "batchCreate",
+      "operationId": "batchCreatePromoCodes",
+      "feature": "promo-codes",
+      "table": "promoCodes",
+      "action": null,
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [
+        "SYSADMIN"
+      ],
+      "userRole": [],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "pseudoRoles": [
+          "SYSADMIN"
+        ]
+      },
+      "firewall": {
+        "mode": "exception",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "exception",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "POST /api/v1/saved-styles",
+      "method": "POST",
+      "path": "/api/v1/saved-styles",
+      "operation": "create",
+      "operationId": "createSavedStyles",
+      "feature": "saved-styles",
+      "table": "savedStyles",
+      "action": null,
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [
+        "USER"
+      ],
+      "userRole": [],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "pseudoRoles": [
+          "USER"
+        ]
+      },
+      "firewall": {
+        "mode": "scoped",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "ownerId = ctx.userId",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "POST /api/v1/saved-styles/batch",
+      "method": "POST",
+      "path": "/api/v1/saved-styles/batch",
+      "operation": "batchCreate",
+      "operationId": "batchCreateSavedStyles",
+      "feature": "saved-styles",
+      "table": "savedStyles",
+      "action": null,
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [
+        "USER"
+      ],
+      "userRole": [],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "pseudoRoles": [
+          "USER"
+        ]
+      },
+      "firewall": {
+        "mode": "scoped",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "ownerId = ctx.userId",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "POST /api/v1/stock",
+      "method": "POST",
+      "path": "/api/v1/stock",
+      "operation": "create",
+      "operationId": "createStock",
+      "feature": "stock",
+      "table": "stock",
+      "action": null,
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [],
+      "userRole": [
+        "sysadmin"
+      ],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "userRole": [
+          "sysadmin"
+        ]
+      },
+      "firewall": {
+        "mode": "scoped",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "deletedAt is null",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "POST /api/v1/stock/batch",
+      "method": "POST",
+      "path": "/api/v1/stock/batch",
+      "operation": "batchCreate",
+      "operationId": "batchCreateStock",
+      "feature": "stock",
+      "table": "stock",
+      "action": null,
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [],
+      "userRole": [
+        "sysadmin"
+      ],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "userRole": [
+          "sysadmin"
+        ]
+      },
+      "firewall": {
+        "mode": "scoped",
+        "arms": [
+          {
+            "path": "and",
+            "predicate": "deletedAt is null",
+            "tenantBound": false
+          }
+        ]
+      }
+    },
+    {
+      "key": "POST /api/v1/subscribe",
+      "method": "POST",
+      "path": "/api/v1/subscribe",
+      "operation": "action",
+      "operationId": "join",
+      "feature": "subscribers",
+      "table": null,
+      "action": "join",
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [
+        "PUBLIC"
+      ],
+      "userRole": [
+        "sysadmin"
+      ],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "combinator": "and",
+        "arms": [
+          {
+            "kind": "declarative",
+            "pseudoRoles": [
+              "PUBLIC"
+            ]
+          },
+          {
+            "kind": "declarative",
+            "userRole": [
+              "sysadmin"
+            ]
+          }
+        ]
+      },
+      "firewall": {
+        "mode": "none",
+        "arms": []
+      },
+      "unsafe": {
+        "adminOnly": true,
+        "crossTenant": false,
+        "targetScope": "organization"
+      }
+    },
+    {
+      "key": "PUT /api/v1/bag",
+      "method": "PUT",
+      "path": "/api/v1/bag",
+      "operation": "action",
+      "operationId": "sync",
+      "feature": "bag-items",
+      "table": null,
+      "action": "sync",
+      "auth": "session",
+      "roles": [],
+      "pseudoRoles": [
+        "USER"
+      ],
+      "userRole": [],
+      "scopeLanes": [],
+      "relationships": [],
+      "access": {
+        "kind": "declarative",
+        "pseudoRoles": [
+          "USER"
+        ]
+      },
+      "firewall": {
+        "mode": "none",
+        "arms": []
+      }
+    }
+  ],
+  "realtimeRooms": [],
+  "trustedOrigins": {
+    "bundle": [
+      "http://127.0.0.1:4173",
+      "http://127.0.0.1:8765",
+      "http://localhost:3000",
+      "http://localhost:4173",
+      "http://localhost:5173",
+      "http://localhost:8765",
+      "http://localhost:8787"
+    ],
+    "environments": {}
+  }
+}

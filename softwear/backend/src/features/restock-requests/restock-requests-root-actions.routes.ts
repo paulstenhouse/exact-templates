@@ -59,7 +59,9 @@ app.post('/notify', async (c) => {
   const unsafeDb = attachScopeTo(c.get('db'), ctx);
   const services = c.get('services');
 
-
+  // PUBLIC write lane: an anonymous caller has no actor, so the audit
+  // wrapper stamps null actors for this request (see audit-wrapper.ts).
+  if (!ctx.authenticated) (ctx as any).__qbPublicWrite = true;
   // Mandatory audit logging for PUBLIC action
   const writePublicAudit = async (result: SecurityAuditResult, details: any = {}) => {
     await logSecurityAudit(c, {

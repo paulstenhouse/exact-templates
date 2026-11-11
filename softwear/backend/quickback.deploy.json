@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "compiler": {
     "version": "0.72.7",
-    "sourceHash": "5b3c88f9abb7dee34500c4c365338d5c21e219e0bf4c93cb3d46c7d6f2be2f18"
+    "sourceHash": "277e5083a14def39377ec6715d2ad09c72c99a2179427dddb4c6a1492218e393"
   },
   "project": {
     "logicalProjectId": "softwear",
@@ -70,7 +70,26 @@
       "config": {}
     }
   ],
-  "d1Migrations": [],
+  "d1Migrations": [
+    {
+      "databaseLogicalId": "audit-db",
+      "path": "quickback/drizzle/audit/0000_bright_professor_monster.sql",
+      "order": 0,
+      "sha256": "4e769a5adfb98b30910aad672a9ac0460504a4880969b7ba1a39c2dd081951aa"
+    },
+    {
+      "databaseLogicalId": "auth-db",
+      "path": "quickback/drizzle/auth/0000_omniscient_snowbird.sql",
+      "order": 0,
+      "sha256": "4dec9875593be8fc3df38b6caa4c905f1def8f8bd85e9cd68fee93fa3c2953a3"
+    },
+    {
+      "databaseLogicalId": "features-db",
+      "path": "quickback/drizzle/features/0000_majestic_nomad.sql",
+      "order": 0,
+      "sha256": "ab589e991024e572fe8c07a72310b7b208f0fb6ce682b2c757898503256291be"
+    }
+  ],
   "durableObjectMigrations": [],
   "vars": {},
   "secrets": [

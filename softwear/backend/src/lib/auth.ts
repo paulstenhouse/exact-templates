@@ -269,6 +269,8 @@ function createAuth(env?: CloudflareBindings, cf?: IncomingRequestCfProperties, 
             },
         rateLimit: {
                 enabled: true,
+                window: 60,
+                max: 100,
                 storage: "database",
                 customRules: {
                   "/sign-in/email": { window: 60, max: 120 },

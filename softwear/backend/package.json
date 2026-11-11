@@ -9,11 +9,11 @@
     "db:migrate:auth:remote": "wrangler d1 migrations apply AUTH_DB --remote",
     "db:migrate:features:local": "wrangler d1 migrations apply DB --local",
     "db:migrate:features:remote": "wrangler d1 migrations apply DB --remote",
+    "db:migrate:audit:local": "wrangler d1 migrations apply AUDIT_DB --local",
+    "db:migrate:audit:remote": "wrangler d1 migrations apply AUDIT_DB --remote",
     "db:migrate:local": "npm run db:migrate:auth:local && npm run db:migrate:features:local && npm run db:migrate:audit:local",
     "db:migrate:remote": "npm run db:migrate:auth:remote && npm run db:migrate:features:remote && npm run db:migrate:audit:remote",
-    "deploy": "npm run db:migrate:remote && wrangler deploy",
-    "db:migrate:audit:local": "wrangler d1 migrations apply AUDIT_DB --local",
-    "db:migrate:audit:remote": "wrangler d1 migrations apply AUDIT_DB --remote"
+    "deploy": "npm run db:migrate:remote && wrangler deploy"
   },
   "dependencies": {
     "hono": "^4.13.13",
@@ -34,8 +34,5 @@
   },
   "overrides": {
     "lodash": "4.18.1"
-  },
-  "peerDependencies": {},
-  "optionalDependencies": {},
-  "engines": {}
+  }
 }

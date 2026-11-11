@@ -262,6 +262,13 @@ app.get('/', async (c) => {
     ? new Set<string>((view as any).query.sortable)
     : null;
   const sortOrders: { column: any; direction: typeof asc; field: string }[] = [];
+  // ?order= is the legacy direction for a single unprefixed ?sort= field. A
+  // value other than asc / desc is rejected rather than read as desc: the rows
+  // would come back in an order the caller did not ask for.
+  if (params.order !== undefined && params.order !== 'asc' && params.order !== 'desc') {
+    return problemJson(c, ValidationErrors.invalidInput([{ path: ['order'],
+      message: `Invalid sort order "${params.order}" — expected asc or desc` }]), 400);
+  }
   const sortParam = params.sort || (view as any).query?.defaultSort || 'createdAt';
   const isMultiSort = sortParam.includes(',') || sortParam.startsWith('-');
   // Masked columns are rejected from ?sort= — ordering by a masked column leaks
@@ -308,7 +315,14 @@ app.get('/', async (c) => {
       }
     }
   } else {
-    const sortOrder = params.order === 'asc' ? asc : desc;
+    // A field with no '-' prefix sorts ascending (docs: api/query-params) —
+    // from ?sort= and from a view's defaultSort alike. ?order= overrides it
+    // (legacy). Only the built-in createdAt fallback — no ?sort= and no
+    // defaultSort — is newest-first.
+    const isBuiltInSortFallback = !params.sort && !(view as any).query?.defaultSort;
+    const sortOrder = params.order === 'asc' ? asc
+      : params.order === 'desc' ? desc
+      : isBuiltInSortFallback ? desc : asc;
     if (acceptSort(sortParam)) {
       const col = bagItems[sortParam as keyof typeof bagItems] as any;
       if (typeof col === 'object' && col) {
@@ -413,8 +427,12 @@ app.get('/', async (c) => {
         message: `Unknown filter field "${field}"` }]), 400);
     }
     if (filterAllowlist !== null && !filterAllowlist.has(field)) {
+      // Name the remedy: an explicit view allowlist is edited on the view;
+      // the fallback set comes from the columns' .filterable() declarations.
       return problemJson(c, ValidationErrors.invalidInput([{ path: [key],
-        message: `Field "${field}" is not filterable on this view` }]), 400);
+        message: (view as any).query?.filterable
+          ? `Field "${field}" is not filterable on view "${String(viewName)}" — add it to the view's query.filterable`
+          : `Field "${field}" is not filterable — declare the column with .filterable() to filter on it` }]), 400);
     }
     // Masked columns are rejected from ?filter= unless THIS caller's roles may
     // query them (MASKED_QUERY_ROLES). Reject loudly (400) rather than silently

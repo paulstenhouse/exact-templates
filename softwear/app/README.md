@@ -90,7 +90,7 @@ database.
 |---|---|
 | `app.contract` | Every page and screen, the bag's arithmetic, the garment drawings |
 | `app.ts` | The data module: the API's reads and writes, and the session token it keeps in the secret store |
-| `quickback.client.ts` | The backend's generated fetch client, vendored with two Exact edits (its header names them); `app.json`'s `typescript.sources` and `tsconfig.json`'s `@backend` alias reach `../backend/quickback.gen.ts` |
+| `@backend/quickback.exact.ts` | Generated Exact adapter and typed client, mounted from `../backend` through `typescript.sources` and the dual `@backend` alias. No vendored client or transport/store glue. Keep app.ts’s literal grants equal to the adapter’s exported grants: Exact’s static admission reader does not follow re-exports. |
 | `catalog.ts` | The products, each naming its photos: what the backend is seeded from, and what a build renders ahead |
 | `photos/` | The photos as found, with where each came from; `assets/p` and `assets/t` are the sizes the site ships |
 | `server.ts` | Runs the API, `../backend`, for development |

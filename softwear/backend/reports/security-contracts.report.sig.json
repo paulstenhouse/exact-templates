@@ -1,0 +1,11 @@
+{
+  "schemaVersion": "1",
+  "kind": "quickback-security-contract-signature",
+  "generatedAt": "2026-11-11T14:43:17.580Z",
+  "reportPath": "reports/security-contracts.report.json",
+  "reportSha256": "023c4d04ee1fa2f4c85e979be8cbf514cce3016c9405a8a93c50f8afe391de2e",
+  "signatureAlgorithm": "sha256",
+  "signature": "023c4d04ee1fa2f4c85e979be8cbf514cce3016c9405a8a93c50f8afe391de2e",
+  "signed": false,
+  "warning": "No signing key configured; emitted SHA-256 integrity digest instead of keyed signature."
+}

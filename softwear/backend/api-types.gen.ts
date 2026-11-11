@@ -1331,8 +1331,8 @@ export interface components {
     schemas: {
         Error: {
             error: string;
-            /** @enum {string} */
-            code?: "AUTH_MISSING" | "AUTH_INVALID_TOKEN" | "AUTH_EXPIRED" | "AUTH_RATE_LIMITED" | "AUTH_REVOCATION_UNAVAILABLE" | "FIREWALL_NOT_FOUND" | "FIREWALL_ORG_ISOLATION" | "FIREWALL_USER_ISOLATION" | "FIREWALL_SOFT_DELETED" | "FIREWALL_WRITE_DENIED" | "ACCESS_ROLE_REQUIRED" | "ACCESS_CONDITION_FAILED" | "ACCESS_OWNERSHIP_REQUIRED" | "ACCESS_NO_ORG" | "ACCESS_ADMIN_REQUIRED" | "ACCESS_TENANT_SCOPE_REQUIRED" | "ACCESS_SCOPE_CLAIM_REQUIRED" | "ACCESS_KEY_SCOPE_REQUIRED" | "ACCESS_DENIED" | "ACCESS_CROSS_TENANT_FORBIDDEN" | "ACCESS_AUDIT_LOG_FAILED" | "ACCESS_ACTION_NOT_ALLOWED_FOR_STATE" | "ACCESS_TRANSITION_LOST" | "GUARD_FIELD_PROTECTED" | "GUARD_FIELD_IMMUTABLE" | "GUARD_FIELD_NOT_CREATEABLE" | "GUARD_FIELD_NOT_UPDATABLE" | "GUARD_SYSTEM_MANAGED" | "VALIDATION_FAILED" | "VALIDATION_INVALID_INPUT" | "VALIDATION_INVALID_JSON" | "MASKED_QUERY_FIELD" | "SEARCH_NOT_AVAILABLE" | "PAYLOAD_TOO_LARGE" | "INVALID_JSON" | "VALIDATION_ERROR" | "FK_NOT_FOUND" | "INVALID_ID" | "BATCH_SIZE_EXCEEDED" | "BATCH_FAIL_FAST_STOPPED" | "BATCH_MISSING_IDS" | "DB_NOT_NULL_VIOLATION" | "DB_UNIQUE_VIOLATION" | "DB_FOREIGN_KEY_VIOLATION" | "DB_CHECK_VIOLATION" | "DB_RELATIONSHIP_MISMATCH" | "DB_INSERT_FAILED" | "DB_UPDATE_FAILED" | "DB_DELETE_FAILED" | "DB_TIMEOUT" | "DB_WRITE_OUTCOME_UNKNOWN" | "ENCRYPTION_UNREADABLE" | "ACTION_EXECUTION_FAILED" | "PAGINATION_INVALID_CURSOR" | "PAGINATION_CURSOR_MISMATCH" | "PAGINATION_INVALID_SORT" | "PAGINATION_SORT_NOT_VISIBLE" | "TRIGGER_REJECTED" | "TRIGGER_AFTER_FAILED" | "TENANT_REQUIRED" | "TENANT_MISMATCH" | "TENANT_SCOPE_MISMATCH" | "TENANT_AMBIGUOUS" | "TENANT_UNAVAILABLE" | "TENANT_OVERLOADED" | "TENANT_DEPTH_EXCEEDED" | "TENANT_ADMISSION_UNAVAILABLE" | "TENANT_LOOKUP_UNAVAILABLE" | "TENANT_LOOKUP_PENDING" | "TENANT_NOT_PROVISIONED" | "TENANT_ARCHIVED" | "TENANT_PURGED" | "TENANT_MIGRATION_FAILED" | "TENANT_JURISDICTION_MISMATCH" | "TENANT_RPC_VERSION_MISMATCH" | "TENANT_AUTHORIZATION_EPOCH_CHANGED" | "TENANT_RESTORE_PENDING" | "TENANT_RESTORE_TOO_LARGE" | "TENANT_OPERATION_FAILED" | "TENANT_COMMAND_INVALID" | "TENANT_COMMAND_FINGERPRINT_MISMATCH" | "TENANT_COMMAND_REPLY_INVALID" | "TENANT_JOB_INVALID" | "TENANT_JOB_CALL_ONLY" | "TENANT_JOB_FAILED" | "TENANT_JOB_REPLY_INVALID" | "TENANT_JOB_RESULT_INVALID" | "TENANT_JOB_RESULT_TOO_LARGE" | "TENANT_TABLE_ON_EDGE" | "NOT_FOUND" | "RESOURCE_NOT_FOUND" | "ROUTE_NOT_FOUND" | "METHOD_NOT_ALLOWED" | "INTERNAL_ERROR" | "JSON_KEY_RESTRICTED" | "ENTITLEMENT_REQUIRED";
+            /** @description Machine-readable error code. One of the platform codes listed, or an application code thrown by an action (`ActionError`). */
+            code?: ("AUTH_MISSING" | "AUTH_INVALID_TOKEN" | "AUTH_EXPIRED" | "AUTH_RATE_LIMITED" | "AUTH_REVOCATION_UNAVAILABLE" | "FIREWALL_NOT_FOUND" | "FIREWALL_ORG_ISOLATION" | "FIREWALL_USER_ISOLATION" | "FIREWALL_SOFT_DELETED" | "FIREWALL_WRITE_DENIED" | "ACCESS_ROLE_REQUIRED" | "ACCESS_CONDITION_FAILED" | "ACCESS_OWNERSHIP_REQUIRED" | "ACCESS_NO_ORG" | "ACCESS_ADMIN_REQUIRED" | "ACCESS_TENANT_SCOPE_REQUIRED" | "ACCESS_SCOPE_CLAIM_REQUIRED" | "ACCESS_KEY_SCOPE_REQUIRED" | "ACCESS_DENIED" | "ACCESS_CROSS_TENANT_FORBIDDEN" | "ACCESS_AUDIT_LOG_FAILED" | "ACCESS_ACTION_NOT_ALLOWED_FOR_STATE" | "ACCESS_TRANSITION_LOST" | "GUARD_FIELD_PROTECTED" | "GUARD_FIELD_IMMUTABLE" | "GUARD_FIELD_NOT_CREATEABLE" | "GUARD_FIELD_NOT_UPDATABLE" | "GUARD_SYSTEM_MANAGED" | "VALIDATION_FAILED" | "VALIDATION_INVALID_INPUT" | "VALIDATION_INVALID_JSON" | "MASKED_QUERY_FIELD" | "SEARCH_NOT_AVAILABLE" | "PAYLOAD_TOO_LARGE" | "INVALID_JSON" | "VALIDATION_ERROR" | "FK_NOT_FOUND" | "INVALID_ID" | "BATCH_SIZE_EXCEEDED" | "BATCH_FAIL_FAST_STOPPED" | "BATCH_MISSING_IDS" | "DB_NOT_NULL_VIOLATION" | "DB_UNIQUE_VIOLATION" | "DB_FOREIGN_KEY_VIOLATION" | "DB_CHECK_VIOLATION" | "DB_RELATIONSHIP_MISMATCH" | "DB_INSERT_FAILED" | "DB_UPDATE_FAILED" | "DB_DELETE_FAILED" | "DB_TIMEOUT" | "DB_WRITE_OUTCOME_UNKNOWN" | "ENCRYPTION_UNREADABLE" | "ACTION_EXECUTION_FAILED" | "PAGINATION_INVALID_CURSOR" | "PAGINATION_CURSOR_MISMATCH" | "PAGINATION_INVALID_SORT" | "PAGINATION_SORT_NOT_VISIBLE" | "TRIGGER_REJECTED" | "TRIGGER_AFTER_FAILED" | "TENANT_REQUIRED" | "TENANT_MISMATCH" | "TENANT_SCOPE_MISMATCH" | "TENANT_AMBIGUOUS" | "TENANT_UNAVAILABLE" | "TENANT_OVERLOADED" | "TENANT_DEPTH_EXCEEDED" | "TENANT_ADMISSION_UNAVAILABLE" | "TENANT_LOOKUP_UNAVAILABLE" | "TENANT_LOOKUP_PENDING" | "TENANT_NOT_PROVISIONED" | "TENANT_ARCHIVED" | "TENANT_PURGED" | "TENANT_MIGRATION_FAILED" | "TENANT_JURISDICTION_MISMATCH" | "TENANT_RPC_VERSION_MISMATCH" | "TENANT_AUTHORIZATION_EPOCH_CHANGED" | "TENANT_RESTORE_PENDING" | "TENANT_RESTORE_TOO_LARGE" | "TENANT_OPERATION_FAILED" | "TENANT_COMMAND_INVALID" | "TENANT_COMMAND_FINGERPRINT_MISMATCH" | "TENANT_COMMAND_REPLY_INVALID" | "TENANT_JOB_INVALID" | "TENANT_JOB_CALL_ONLY" | "TENANT_JOB_FAILED" | "TENANT_JOB_REPLY_INVALID" | "TENANT_JOB_RESULT_INVALID" | "TENANT_JOB_RESULT_TOO_LARGE" | "TENANT_TABLE_ON_EDGE" | "NOT_FOUND" | "RESOURCE_NOT_FOUND" | "ROUTE_NOT_FOUND" | "METHOD_NOT_ALLOWED" | "INTERNAL_ERROR" | "JSON_KEY_RESTRICTED" | "ENTITLEMENT_REQUIRED") | string;
             /** @enum {string} */
             layer?: "auth" | "firewall" | "access" | "guards" | "validation" | "masking" | "database";
             hint?: string;
@@ -1373,8 +1373,8 @@ export interface components {
             status: number;
             detail?: string;
             instance?: string;
-            /** @enum {string} */
-            code?: "AUTH_MISSING" | "AUTH_INVALID_TOKEN" | "AUTH_EXPIRED" | "AUTH_RATE_LIMITED" | "AUTH_REVOCATION_UNAVAILABLE" | "FIREWALL_NOT_FOUND" | "FIREWALL_ORG_ISOLATION" | "FIREWALL_USER_ISOLATION" | "FIREWALL_SOFT_DELETED" | "FIREWALL_WRITE_DENIED" | "ACCESS_ROLE_REQUIRED" | "ACCESS_CONDITION_FAILED" | "ACCESS_OWNERSHIP_REQUIRED" | "ACCESS_NO_ORG" | "ACCESS_ADMIN_REQUIRED" | "ACCESS_TENANT_SCOPE_REQUIRED" | "ACCESS_SCOPE_CLAIM_REQUIRED" | "ACCESS_KEY_SCOPE_REQUIRED" | "ACCESS_DENIED" | "ACCESS_CROSS_TENANT_FORBIDDEN" | "ACCESS_AUDIT_LOG_FAILED" | "ACCESS_ACTION_NOT_ALLOWED_FOR_STATE" | "ACCESS_TRANSITION_LOST" | "GUARD_FIELD_PROTECTED" | "GUARD_FIELD_IMMUTABLE" | "GUARD_FIELD_NOT_CREATEABLE" | "GUARD_FIELD_NOT_UPDATABLE" | "GUARD_SYSTEM_MANAGED" | "VALIDATION_FAILED" | "VALIDATION_INVALID_INPUT" | "VALIDATION_INVALID_JSON" | "MASKED_QUERY_FIELD" | "SEARCH_NOT_AVAILABLE" | "PAYLOAD_TOO_LARGE" | "INVALID_JSON" | "VALIDATION_ERROR" | "FK_NOT_FOUND" | "INVALID_ID" | "BATCH_SIZE_EXCEEDED" | "BATCH_FAIL_FAST_STOPPED" | "BATCH_MISSING_IDS" | "DB_NOT_NULL_VIOLATION" | "DB_UNIQUE_VIOLATION" | "DB_FOREIGN_KEY_VIOLATION" | "DB_CHECK_VIOLATION" | "DB_RELATIONSHIP_MISMATCH" | "DB_INSERT_FAILED" | "DB_UPDATE_FAILED" | "DB_DELETE_FAILED" | "DB_TIMEOUT" | "DB_WRITE_OUTCOME_UNKNOWN" | "ENCRYPTION_UNREADABLE" | "ACTION_EXECUTION_FAILED" | "PAGINATION_INVALID_CURSOR" | "PAGINATION_CURSOR_MISMATCH" | "PAGINATION_INVALID_SORT" | "PAGINATION_SORT_NOT_VISIBLE" | "TRIGGER_REJECTED" | "TRIGGER_AFTER_FAILED" | "TENANT_REQUIRED" | "TENANT_MISMATCH" | "TENANT_SCOPE_MISMATCH" | "TENANT_AMBIGUOUS" | "TENANT_UNAVAILABLE" | "TENANT_OVERLOADED" | "TENANT_DEPTH_EXCEEDED" | "TENANT_ADMISSION_UNAVAILABLE" | "TENANT_LOOKUP_UNAVAILABLE" | "TENANT_LOOKUP_PENDING" | "TENANT_NOT_PROVISIONED" | "TENANT_ARCHIVED" | "TENANT_PURGED" | "TENANT_MIGRATION_FAILED" | "TENANT_JURISDICTION_MISMATCH" | "TENANT_RPC_VERSION_MISMATCH" | "TENANT_AUTHORIZATION_EPOCH_CHANGED" | "TENANT_RESTORE_PENDING" | "TENANT_RESTORE_TOO_LARGE" | "TENANT_OPERATION_FAILED" | "TENANT_COMMAND_INVALID" | "TENANT_COMMAND_FINGERPRINT_MISMATCH" | "TENANT_COMMAND_REPLY_INVALID" | "TENANT_JOB_INVALID" | "TENANT_JOB_CALL_ONLY" | "TENANT_JOB_FAILED" | "TENANT_JOB_REPLY_INVALID" | "TENANT_JOB_RESULT_INVALID" | "TENANT_JOB_RESULT_TOO_LARGE" | "TENANT_TABLE_ON_EDGE" | "NOT_FOUND" | "RESOURCE_NOT_FOUND" | "ROUTE_NOT_FOUND" | "METHOD_NOT_ALLOWED" | "INTERNAL_ERROR" | "JSON_KEY_RESTRICTED" | "ENTITLEMENT_REQUIRED";
+            /** @description Machine-readable error code. One of the platform codes listed, or an application code thrown by an action (`ActionError`). */
+            code?: ("AUTH_MISSING" | "AUTH_INVALID_TOKEN" | "AUTH_EXPIRED" | "AUTH_RATE_LIMITED" | "AUTH_REVOCATION_UNAVAILABLE" | "FIREWALL_NOT_FOUND" | "FIREWALL_ORG_ISOLATION" | "FIREWALL_USER_ISOLATION" | "FIREWALL_SOFT_DELETED" | "FIREWALL_WRITE_DENIED" | "ACCESS_ROLE_REQUIRED" | "ACCESS_CONDITION_FAILED" | "ACCESS_OWNERSHIP_REQUIRED" | "ACCESS_NO_ORG" | "ACCESS_ADMIN_REQUIRED" | "ACCESS_TENANT_SCOPE_REQUIRED" | "ACCESS_SCOPE_CLAIM_REQUIRED" | "ACCESS_KEY_SCOPE_REQUIRED" | "ACCESS_DENIED" | "ACCESS_CROSS_TENANT_FORBIDDEN" | "ACCESS_AUDIT_LOG_FAILED" | "ACCESS_ACTION_NOT_ALLOWED_FOR_STATE" | "ACCESS_TRANSITION_LOST" | "GUARD_FIELD_PROTECTED" | "GUARD_FIELD_IMMUTABLE" | "GUARD_FIELD_NOT_CREATEABLE" | "GUARD_FIELD_NOT_UPDATABLE" | "GUARD_SYSTEM_MANAGED" | "VALIDATION_FAILED" | "VALIDATION_INVALID_INPUT" | "VALIDATION_INVALID_JSON" | "MASKED_QUERY_FIELD" | "SEARCH_NOT_AVAILABLE" | "PAYLOAD_TOO_LARGE" | "INVALID_JSON" | "VALIDATION_ERROR" | "FK_NOT_FOUND" | "INVALID_ID" | "BATCH_SIZE_EXCEEDED" | "BATCH_FAIL_FAST_STOPPED" | "BATCH_MISSING_IDS" | "DB_NOT_NULL_VIOLATION" | "DB_UNIQUE_VIOLATION" | "DB_FOREIGN_KEY_VIOLATION" | "DB_CHECK_VIOLATION" | "DB_RELATIONSHIP_MISMATCH" | "DB_INSERT_FAILED" | "DB_UPDATE_FAILED" | "DB_DELETE_FAILED" | "DB_TIMEOUT" | "DB_WRITE_OUTCOME_UNKNOWN" | "ENCRYPTION_UNREADABLE" | "ACTION_EXECUTION_FAILED" | "PAGINATION_INVALID_CURSOR" | "PAGINATION_CURSOR_MISMATCH" | "PAGINATION_INVALID_SORT" | "PAGINATION_SORT_NOT_VISIBLE" | "TRIGGER_REJECTED" | "TRIGGER_AFTER_FAILED" | "TENANT_REQUIRED" | "TENANT_MISMATCH" | "TENANT_SCOPE_MISMATCH" | "TENANT_AMBIGUOUS" | "TENANT_UNAVAILABLE" | "TENANT_OVERLOADED" | "TENANT_DEPTH_EXCEEDED" | "TENANT_ADMISSION_UNAVAILABLE" | "TENANT_LOOKUP_UNAVAILABLE" | "TENANT_LOOKUP_PENDING" | "TENANT_NOT_PROVISIONED" | "TENANT_ARCHIVED" | "TENANT_PURGED" | "TENANT_MIGRATION_FAILED" | "TENANT_JURISDICTION_MISMATCH" | "TENANT_RPC_VERSION_MISMATCH" | "TENANT_AUTHORIZATION_EPOCH_CHANGED" | "TENANT_RESTORE_PENDING" | "TENANT_RESTORE_TOO_LARGE" | "TENANT_OPERATION_FAILED" | "TENANT_COMMAND_INVALID" | "TENANT_COMMAND_FINGERPRINT_MISMATCH" | "TENANT_COMMAND_REPLY_INVALID" | "TENANT_JOB_INVALID" | "TENANT_JOB_CALL_ONLY" | "TENANT_JOB_FAILED" | "TENANT_JOB_REPLY_INVALID" | "TENANT_JOB_RESULT_INVALID" | "TENANT_JOB_RESULT_TOO_LARGE" | "TENANT_TABLE_ON_EDGE" | "NOT_FOUND" | "RESOURCE_NOT_FOUND" | "ROUTE_NOT_FOUND" | "METHOD_NOT_ALLOWED" | "INTERNAL_ERROR" | "JSON_KEY_RESTRICTED" | "ENTITLEMENT_REQUIRED") | string;
             layer?: string;
             pointer?: string;
             details?: {
@@ -1749,9 +1749,9 @@ export interface components {
         limitParam: number;
         /** @description Number of items to skip */
         offsetParam: number;
-        /** @description Column to sort by */
+        /** @description Comma-separated sort fields. No prefix sorts ascending, a "-" prefix descending (e.g. "status,-createdAt"). Omitted: the view's defaultSort, else newest createdAt first. */
         sortParam: string;
-        /** @description Sort order */
+        /** @description Legacy direction for a single unprefixed sort field. Omitted: ascending. Ignored when sort has a comma or a "-" prefix. */
         orderParam: "asc" | "desc";
         /** @description Opaque keyset cursor — return rows strictly after this boundary (forward pagination). */
         startingAfterParam: string;
@@ -1901,9 +1901,9 @@ export interface operations {
                 limit?: number;
                 /** @description Number of items to skip */
                 offset?: components["parameters"]["offsetParam"];
-                /** @description Column to sort by */
+                /** @description Comma-separated sort fields. No prefix sorts ascending, a "-" prefix descending (e.g. "status,-createdAt"). Omitted: the view's defaultSort, else newest createdAt first. */
                 sort?: components["parameters"]["sortParam"];
-                /** @description Sort order */
+                /** @description Legacy direction for a single unprefixed sort field. Omitted: ascending. Ignored when sort has a comma or a "-" prefix. */
                 order?: components["parameters"]["orderParam"];
                 /** @description Opaque keyset cursor — return rows strictly after this boundary (forward pagination). */
                 starting_after?: components["parameters"]["startingAfterParam"];
@@ -2719,9 +2719,9 @@ export interface operations {
                 limit?: components["parameters"]["limitParam"];
                 /** @description Number of items to skip */
                 offset?: components["parameters"]["offsetParam"];
-                /** @description Column to sort by */
+                /** @description Comma-separated sort fields. No prefix sorts ascending, a "-" prefix descending (e.g. "status,-createdAt"). Omitted: the view's defaultSort, else newest createdAt first. */
                 sort?: components["parameters"]["sortParam"];
-                /** @description Sort order */
+                /** @description Legacy direction for a single unprefixed sort field. Omitted: ascending. Ignored when sort has a comma or a "-" prefix. */
                 order?: components["parameters"]["orderParam"];
                 /** @description Opaque keyset cursor — return rows strictly after this boundary (forward pagination). */
                 starting_after?: components["parameters"]["startingAfterParam"];
@@ -3586,9 +3586,9 @@ export interface operations {
                 limit?: number;
                 /** @description Number of items to skip */
                 offset?: components["parameters"]["offsetParam"];
-                /** @description Column to sort by */
+                /** @description Comma-separated sort fields. No prefix sorts ascending, a "-" prefix descending (e.g. "status,-createdAt"). Omitted: the view's defaultSort, else newest createdAt first. */
                 sort?: components["parameters"]["sortParam"];
-                /** @description Sort order */
+                /** @description Legacy direction for a single unprefixed sort field. Omitted: ascending. Ignored when sort has a comma or a "-" prefix. */
                 order?: components["parameters"]["orderParam"];
                 /** @description Opaque keyset cursor — return rows strictly after this boundary (forward pagination). */
                 starting_after?: components["parameters"]["startingAfterParam"];
@@ -3797,9 +3797,9 @@ export interface operations {
                 limit?: number;
                 /** @description Number of items to skip */
                 offset?: components["parameters"]["offsetParam"];
-                /** @description Column to sort by */
+                /** @description Comma-separated sort fields. No prefix sorts ascending, a "-" prefix descending (e.g. "status,-createdAt"). Omitted: the view's defaultSort, else newest createdAt first. */
                 sort?: components["parameters"]["sortParam"];
-                /** @description Sort order */
+                /** @description Legacy direction for a single unprefixed sort field. Omitted: ascending. Ignored when sort has a comma or a "-" prefix. */
                 order?: components["parameters"]["orderParam"];
                 /** @description Opaque keyset cursor — return rows strictly after this boundary (forward pagination). */
                 starting_after?: components["parameters"]["startingAfterParam"];
@@ -4325,9 +4325,9 @@ export interface operations {
                 limit?: number;
                 /** @description Number of items to skip */
                 offset?: components["parameters"]["offsetParam"];
-                /** @description Column to sort by */
+                /** @description Comma-separated sort fields. No prefix sorts ascending, a "-" prefix descending (e.g. "status,-createdAt"). Omitted: the view's defaultSort, else newest createdAt first. */
                 sort?: components["parameters"]["sortParam"];
-                /** @description Sort order */
+                /** @description Legacy direction for a single unprefixed sort field. Omitted: ascending. Ignored when sort has a comma or a "-" prefix. */
                 order?: components["parameters"]["orderParam"];
                 /** @description Opaque keyset cursor — return rows strictly after this boundary (forward pagination). */
                 starting_after?: components["parameters"]["startingAfterParam"];
@@ -5157,9 +5157,9 @@ export interface operations {
                 limit?: components["parameters"]["limitParam"];
                 /** @description Number of items to skip */
                 offset?: components["parameters"]["offsetParam"];
-                /** @description Column to sort by */
+                /** @description Comma-separated sort fields. No prefix sorts ascending, a "-" prefix descending (e.g. "status,-createdAt"). Omitted: the view's defaultSort, else newest createdAt first. */
                 sort?: components["parameters"]["sortParam"];
-                /** @description Sort order */
+                /** @description Legacy direction for a single unprefixed sort field. Omitted: ascending. Ignored when sort has a comma or a "-" prefix. */
                 order?: components["parameters"]["orderParam"];
                 /** @description Opaque keyset cursor — return rows strictly after this boundary (forward pagination). */
                 starting_after?: components["parameters"]["startingAfterParam"];
@@ -5705,9 +5705,9 @@ export interface operations {
                 limit?: components["parameters"]["limitParam"];
                 /** @description Number of items to skip */
                 offset?: components["parameters"]["offsetParam"];
-                /** @description Column to sort by */
+                /** @description Comma-separated sort fields. No prefix sorts ascending, a "-" prefix descending (e.g. "status,-createdAt"). Omitted: the view's defaultSort, else newest createdAt first. */
                 sort?: components["parameters"]["sortParam"];
-                /** @description Sort order */
+                /** @description Legacy direction for a single unprefixed sort field. Omitted: ascending. Ignored when sort has a comma or a "-" prefix. */
                 order?: components["parameters"]["orderParam"];
                 /** @description Opaque keyset cursor — return rows strictly after this boundary (forward pagination). */
                 starting_after?: components["parameters"]["startingAfterParam"];
@@ -5890,9 +5890,9 @@ export interface operations {
                 limit?: components["parameters"]["limitParam"];
                 /** @description Number of items to skip */
                 offset?: components["parameters"]["offsetParam"];
-                /** @description Column to sort by */
+                /** @description Comma-separated sort fields. No prefix sorts ascending, a "-" prefix descending (e.g. "status,-createdAt"). Omitted: the view's defaultSort, else newest createdAt first. */
                 sort?: components["parameters"]["sortParam"];
-                /** @description Sort order */
+                /** @description Legacy direction for a single unprefixed sort field. Omitted: ascending. Ignored when sort has a comma or a "-" prefix. */
                 order?: components["parameters"]["orderParam"];
                 /** @description Opaque keyset cursor — return rows strictly after this boundary (forward pagination). */
                 starting_after?: components["parameters"]["startingAfterParam"];
@@ -6073,9 +6073,9 @@ export interface operations {
                 limit?: number;
                 /** @description Number of items to skip */
                 offset?: components["parameters"]["offsetParam"];
-                /** @description Column to sort by */
+                /** @description Comma-separated sort fields. No prefix sorts ascending, a "-" prefix descending (e.g. "status,-createdAt"). Omitted: the view's defaultSort, else newest createdAt first. */
                 sort?: components["parameters"]["sortParam"];
-                /** @description Sort order */
+                /** @description Legacy direction for a single unprefixed sort field. Omitted: ascending. Ignored when sort has a comma or a "-" prefix. */
                 order?: components["parameters"]["orderParam"];
                 /** @description Opaque keyset cursor — return rows strictly after this boundary (forward pagination). */
                 starting_after?: components["parameters"]["startingAfterParam"];
@@ -6598,9 +6598,9 @@ export interface operations {
                 limit?: number;
                 /** @description Number of items to skip */
                 offset?: components["parameters"]["offsetParam"];
-                /** @description Column to sort by */
+                /** @description Comma-separated sort fields. No prefix sorts ascending, a "-" prefix descending (e.g. "status,-createdAt"). Omitted: the view's defaultSort, else newest createdAt first. */
                 sort?: components["parameters"]["sortParam"];
-                /** @description Sort order */
+                /** @description Legacy direction for a single unprefixed sort field. Omitted: ascending. Ignored when sort has a comma or a "-" prefix. */
                 order?: components["parameters"]["orderParam"];
                 /** @description Opaque keyset cursor — return rows strictly after this boundary (forward pagination). */
                 starting_after?: components["parameters"]["startingAfterParam"];
@@ -7231,9 +7231,9 @@ export interface operations {
                 limit?: components["parameters"]["limitParam"];
                 /** @description Number of items to skip */
                 offset?: components["parameters"]["offsetParam"];
-                /** @description Column to sort by */
+                /** @description Comma-separated sort fields. No prefix sorts ascending, a "-" prefix descending (e.g. "status,-createdAt"). Omitted: the view's defaultSort, else newest createdAt first. */
                 sort?: components["parameters"]["sortParam"];
-                /** @description Sort order */
+                /** @description Legacy direction for a single unprefixed sort field. Omitted: ascending. Ignored when sort has a comma or a "-" prefix. */
                 order?: components["parameters"]["orderParam"];
                 /** @description Opaque keyset cursor — return rows strictly after this boundary (forward pagination). */
                 starting_after?: components["parameters"]["startingAfterParam"];

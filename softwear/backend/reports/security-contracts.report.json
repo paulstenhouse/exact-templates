@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "1",
+  "kind": "quickback-security-contract-report",
+  "compilerVersion": "0.72.7",
+  "compilerBuildId": "0.72.7@unknown@unknown",
+  "generatedAt": "2026-11-11T14:43:17.579Z",
+  "failMode": "error",
+  "contractsEnabled": true,
+  "destinationConfig": {
+    "hono": {
+      "enabled": true,
+      "requireAuthGate": true,
+      "requireFirewallScope": true,
+      "requireGuardWiring": true,
+      "requireMaskingUsage": true,
+      "requireActionValidation": true,
+      "requireUnsafeAuditTrail": true
+    },
+    "rls": {
+      "enabled": true,
+      "requireDenyAnon": true,
+      "requireScopePolicy": true,
+      "requireTenantPredicate": true,
+      "requireAuditTriggers": true
+    }
+  },
+  "summary": {
+    "status": "pass",
+    "totalViolations": 0,
+    "violationsByDestination": {
+      "hono": 0,
+      "rls": 0
+    },
+    "filesChecked": {
+      "hono": 17,
+      "rls": 0
+    }
+  },
+  "violations": []
+}

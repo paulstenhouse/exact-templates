@@ -57,12 +57,14 @@ export function createAuditDb<T extends object>(
  * runs after the auth middleware sets ctx.userId, so a missing value here
  * means auth failed silently or the wrapper is being driven from an
  * unauthenticated path that should not be writing to features tables.
+ * The one anonymous exception is the PUBLIC write lane (null actor), which
+ * only a route whose own access admits PUBLIC can open.
  *
  * If you need to write outside a request (cron, queue handler, seed
  * script), use the unwrapped db (createDb) directly instead of routing
  * through createAuditDb with no context.
  */
-function resolveAuditUserId(getCtx: () => any, op: 'insert' | 'update'): string {
+function resolveAuditUserId(getCtx: () => any, op: 'insert' | 'update'): string | null {
   const ctx = getCtx();
   const userId = ctx?.userId;
   if (typeof userId === 'string' && userId.length > 0) return userId;
@@ -88,6 +90,13 @@ function resolveAuditUserId(getCtx: () => any, op: 'insert' | 'update'): string 
     // middleware always stamps it) — fall through to fail-closed rather than
     // silently write a null actor.
   }
+  // PUBLIC write lane: a route whose OWN access admits PUBLIC marks an
+  // anonymous request (`ctx.__qbPublicWrite`, worker-set after the auth
+  // gate, never request input). That caller has no actor, so the audit
+  // columns record none — null, never a synthesized id. An authenticated
+  // caller never takes this lane: a session with no resolvable identity
+  // still fails closed below, as does every route that does not admit PUBLIC.
+  if (ctx?.__qbPublicWrite === true && ctx?.authenticated !== true) return null;
   throw new Error(
     'audit-wrapper: ' + op + ' reached without ctx.userId. ' +
     'This indicates an unauthenticated write or auth-context loss. ' +
@@ -116,7 +125,8 @@ function resolveAuditUserId(getCtx: () => any, op: 'insert' | 'update'): string 
  * Same actor resolution as the wrapper, including the delegated-principal
  * and `scope:<kind>:<subjectId>` lanes, and the same fail-closed throw when
  * no identity is present — a raw-handle write is not a licence to write an
- * anonymous audit row. For genuinely context-free writes (cron, seed,
+ * anonymous audit row. (Inside an operation whose access admits PUBLIC, an
+ * anonymous caller stamps null actors here exactly as the wrapper does.) For genuinely context-free writes (cron, seed,
  * migration) pass your own values; do not reach for this.
  */
 export function auditStamp(ctx: any, op: 'insert' | 'update' = 'insert') {
@@ -170,7 +180,7 @@ function wrapInsertBuilder(builder: any, getCtx: () => any) {
  * forwarded untouched, so `.returning()`, `.onConflictDoNothing()`, thenable
  * adoption, and (when active) the result-tap re-wrapping all behave as before.
  */
-function wrapInsertConflict(builder: any, now: any, userId: string) {
+function wrapInsertConflict(builder: any, now: any, userId: string | null) {
   // Drizzle's insert chain (.returning(), .onConflictDoNothing(), …) returns
   // the builder itself. Hand back THIS proxy then, not the raw builder: a
   // wrapper above (the scoped db's firewall-on-write gate, realtime capture)

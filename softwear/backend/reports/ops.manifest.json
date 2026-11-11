@@ -3,7 +3,7 @@
   "version": 1,
   "compiler": {
     "version": "0.72.7",
-    "gitSha": "27f5025"
+    "gitSha": "unknown"
   },
   "targets": [
     {
