@@ -10,7 +10,8 @@
     "test:live": "bun smoke.mjs",
     "release": "node release.mjs",
     "test": "node prepare-demo.mjs && node --test demo.test.mjs",
-    "test:reset": "node reset-runtime.test.mjs"
+    "test:reset": "node reset-runtime.test.mjs",
+    "test:arrays": "bun array-smoke.mjs"
   },
   "devDependencies": {
     "@cloudflare/vite-plugin": "beta",

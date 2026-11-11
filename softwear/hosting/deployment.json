@@ -1,6 +1,6 @@
 {
   "site": "https://softwear.examples.quickback.dev",
-  "recordedAt": "2026-11-11T19:20:54.110963+00:00",
+  "recordedAt": "2026-11-11T19:54:15.507482+00:00",
   "accountId": "19cf1906ef35218176ea7a01fb1032f7",
   "zoneId": "c71a556b78630ce3ffb88f229ba11e75",
   "workers": {
@@ -10,7 +10,7 @@
     },
     "backend": {
       "name": "softwear",
-      "versionId": "cfd0adf4-fbf9-46a3-8fc4-1ac4b9444181",
+      "versionId": "3a2c2cbe-6087-470d-9583-8425b653932d",
       "ingress": "Service binding only; workers.dev and preview URLs disabled"
     }
   },
@@ -24,8 +24,8 @@
   },
   "compiler": {
     "version": "0.72.7",
-    "gitSha": "b06ac6314",
-    "image": "quickback-compiler:cms-login-redirect"
+    "gitSha": "347dcb0e5",
+    "image": "quickback-compiler:cms-array-editors"
   },
   "certificate": {
     "packId": "aaefaefa-5b62-46e9-b33a-caa2f87dc1d0",
@@ -63,7 +63,13 @@
     "prefilledCmsLoginRedirectsDirectly": true,
     "prefilledShopperLogin": true,
     "demoSessionDoesNotAuthenticateKardoeOs": true,
-    "kardoeOsContactsStatusWhileDemoSignedIn": 401
+    "kardoeOsContactsStatusWhileDemoSignedIn": 401,
+    "arrayHttpChecks": 3,
+    "structuredCmsControlsFromGeneratedMetadata": true,
+    "arrayColourPhotoOrderingRoundTrip": true,
+    "shopperArrayWriteDenied": true,
+    "invalidJsonItemsRejected": true,
+    "generatedExactContractUnchanged": true
   },
   "notes": [
     "Secrets are stored in Cloudflare and are not included here.",

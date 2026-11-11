@@ -57,6 +57,12 @@ Set `SOFTWEAR_RESET=1` for the first demo deployment or an intentional immediate
 
 The authored config records the deployed database/KV IDs. A fork targeting another account must provision its own resources and choose its own public domain; it must not reuse this flagship's resource IDs.
 
+## Structured product fields
+
+Product record forms use the typed JSON schemas already declared in Quickback. Tags, sizes and details use string chips; colours use repeatable rows for name, hexadecimal colour and photo path, with add/remove/reorder controls. Photo values remain filenames for the existing bundled assets. The product storage and generated Exact contract are unchanged.
+
+`npm run test:arrays` verifies the live schema metadata and creates a temporary product to check ordered colour/tag round trips, preserved photo properties, invalid-item rejection and denied shopper writes. It soft-deletes its own fixture and signs out. Run it only against this disposable demo.
+
 ## Verify
 
 ```sh
