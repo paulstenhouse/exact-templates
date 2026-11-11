@@ -32,7 +32,7 @@ cd softwear/backend && npm install
 cd ../hosting && npm ci
 ```
 
-The current prototype requires Quickback's Exact target, automatic grants and generated bindings (#836–#838), plus the Wrangler KV naming compatibility fix and CMS platform-role/edit-validation fixes (#840) and sidebar navigation groups (#841), plus the CMS callback/demo-prefill fix (#842) found during this deployment. Until those changes are released, build the CLI from the Quickback checkout and run its compiler with Docker. Never replace the Docker compiler with a host Bun server.
+The current prototype requires Quickback's Exact target, automatic grants and generated bindings (#836–#838), plus the Wrangler KV naming compatibility fix and CMS platform-role/edit-validation fixes (#840) and sidebar navigation groups (#841), plus the CMS callback/demo-prefill fix (#842) and structured CMS array editors (#843) found during this deployment. Until those changes are released, build the CLI from the Quickback checkout and run its compiler with Docker. Never replace the Docker compiler with a host Bun server.
 
 ```sh
 # In the Quickback checkout:
