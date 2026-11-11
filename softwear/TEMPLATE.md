@@ -44,7 +44,7 @@ Create a copy with `bun new.mjs softwear <path> --name <name> --bundle-id <id>`,
 - Take payment at checkout, verify a new account's address and send the list's emails before using real customers or orders.
 - Run `bun test tools/server.test.ts tools/data.test.ts` for isolated API tests; they start the backend themselves on a database of their own. For browser regressions, set `EXACT2` to your Exact checkout, run `bun exact.mjs web-build --out target/browser-test`, then `EXACT_WEB_DIST=target/browser-test bun test tools/browser.test.ts`.
 - `bun exact.mjs test` and `verify` start an isolated API themselves. If the default API port is already occupied, give them a free port, with the next one up free too: `API_BASE_URL=http://127.0.0.1:18789 bun exact.mjs verify`.
-- To put the app on someone's iPhone, deploy the backend to Cloudflare (`npx @quickback-dev/cli deploy` in `backend`, which has not been run for this template), add the site's origin to `trustedOrigins` in `backend/quickback/quickback.config.ts`, then run `API_BASE_URL=https://<your server> bun exact.mjs share`, which prints an AppDrop link. The build is a release, so it needs `deploy.signing.keys` in `app.json`, or `"deploy": { "store": { "ios": "0" } }` for a build that takes no over-the-air updates.
+- To put the app on someone's iPhone, deploy the backend to Cloudflare (`npx @quickback-dev/cli deploy` in `backend`, already deployed for the flagship; see `hosting/README.md`), add the site's origin to `trustedOrigins` in `backend/quickback/quickback.config.ts`, then run `API_BASE_URL=https://<your server> bun exact.mjs share`, which prints an AppDrop link. The build is a release, so it needs `deploy.signing.keys` in `app.json`, or `"deploy": { "store": { "ios": "0" } }` for a build that takes no over-the-air updates.
 
 ## Verified
 
@@ -55,7 +55,7 @@ With the Quickback backend, on the pinned Exact, in `softwear/app` made runnable
 - `bun test tools/server.test.ts tools/data.test.ts`: 8 tests pass. `tools/browser.test.ts`: 4 pass.
 - macOS (`bun exact.mjs mac`, then `bun exact.mjs agent macos …`): the same sign-up, bag, WELCOME15, checkout and order, driven by hand against the backend; `docs/macos-*.png`. Its test file has not been run there.
 
-Not run since the backend replaced the Bun server: `bun exact.mjs verify` and `verify ios`, the tests on macOS, Android, and an app made by `new.mjs` rather than `--develop`. The backend has been run only locally, under `wrangler dev`; it has not been deployed.
+Not run since the backend replaced the Bun server: `bun exact.mjs verify` and `verify ios`, the tests on macOS, Android, and an app made by `new.mjs` rather than `--develop`. The web flagship is deployed at https://softwear.examples.quickback.dev with its Quickback backend on Cloudflare. Nine live HTTP check groups cover pages, catalogue, accounts, bags, simulated checkout, private orders and persistence across login sessions. `hosting/README.md` describes the release workflow; `hosting/deployment.json` records the deployed versions. Native distribution has not been performed.
 
 ## Needs
 

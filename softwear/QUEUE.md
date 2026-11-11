@@ -5,7 +5,7 @@
 - `new.mjs` copies only `app/`, so an app made from the template has no backend: copy `softwear/backend` beside it (`server.ts` looks in `../backend` and `./backend`, or `SOFTWEAR_BACKEND`). Teach `new.mjs` to copy it.
 - Run `bun exact.mjs verify` and `verify ios` on the app with the Quickback backend; only `test web`, `test ios` and the `tools/` tests have been run since it replaced the Bun server.
 - Checkout's stock take and order insert are separate D1 statements, undone in code on failure. Move stock to a Quickback `ledger` so the reservation is one statement.
-- Deploy the backend (`npx @quickback-dev/cli deploy` in `backend/`) and point a release build's `API_BASE_URL` at it.
+- Web flagship deployed at https://softwear.examples.quickback.dev. Use `hosting/README.md` for subsequent releases. Native distribution remains separate.
 
 - Investigate the 12 largest-text overlap findings involving the bag toast and product content.
 - Investigate the web DOM adoption refusal on filtered catalogue pages. Distinguish expected stock/order network-failure diagnostics in regression tests from unexpected runtime refusals.

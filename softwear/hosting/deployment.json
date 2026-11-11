@@ -1,0 +1,53 @@
+{
+  "site": "https://softwear.examples.quickback.dev",
+  "recordedAt": "2026-11-11T16:27:39.713872+00:00",
+  "accountId": "19cf1906ef35218176ea7a01fb1032f7",
+  "zoneId": "c71a556b78630ce3ffb88f229ba11e75",
+  "workers": {
+    "frontend": {
+      "name": "softwear-flagship",
+      "versionId": "d5143c4b-e2bf-433a-9164-1dfd2887e069"
+    },
+    "backend": {
+      "name": "softwear",
+      "versionId": "fdcd503f-7ae1-4528-b4a7-8ebf3ddcdd14",
+      "url": "https://softwear.kardoe.workers.dev"
+    }
+  },
+  "d1": {
+    "softwear-auth": "0b9cb069-db7b-4341-b5b8-2c1542c308bf",
+    "softwear-features": "5cfbe925-33b1-45ef-8382-f147687aa37b",
+    "softwear-audit": "7014037f-e568-436f-95d9-5a98c7446fa4"
+  },
+  "kv": {
+    "softwear-KV": "296f3fdfb34e4669a68c93ad6a1483f4"
+  },
+  "compiler": {
+    "version": "0.72.7",
+    "gitSha": "13bd35443",
+    "image": "quickback-compiler:softwear-flagship"
+  },
+  "certificate": {
+    "packId": "aaefaefa-5b62-46e9-b33a-caa2f87dc1d0",
+    "status": "active",
+    "issuer": "GoogleTrustServices"
+  },
+  "zoneHold": {
+    "hold": true,
+    "include_subdomains": false,
+    "changed": false
+  },
+  "verification": {
+    "liveHttpChecks": 9,
+    "products": 46,
+    "simulatedCheckout": true,
+    "crossAccountAccessDenied": true,
+    "newSessionPersistence": true,
+    "publicDnsVerified": true
+  },
+  "notes": [
+    "Secrets are stored in Cloudflare and are not included here.",
+    "Request-time Bun SSR is not deployed; dynamic routes use the Exact shell and live browser data.",
+    "Live checks used public DNS because the build machine cached the hostname before its DNS record existed."
+  ]
+}
