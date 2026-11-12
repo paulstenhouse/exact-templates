@@ -32,6 +32,11 @@ export default feature("products", {
         ...q.softDelete(),
     },
 
+    inputHints: {
+        photo: "image:/assets/p/",
+        "colors.photo": "image:/assets/p/",
+    },
+
     // FIREWALL: no owner or tenant, since the catalogue is everyone's. Deleted styles stay hidden.
     firewall: { softDelete: {} },
 

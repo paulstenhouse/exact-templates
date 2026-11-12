@@ -1,6 +1,6 @@
 {
   "site": "https://softwear.examples.quickback.dev",
-  "recordedAt": "2026-11-11T19:54:15.507482+00:00",
+  "recordedAt": "2026-11-12T01:44:29.069346+00:00",
   "accountId": "19cf1906ef35218176ea7a01fb1032f7",
   "zoneId": "c71a556b78630ce3ffb88f229ba11e75",
   "workers": {
@@ -10,7 +10,7 @@
     },
     "backend": {
       "name": "softwear",
-      "versionId": "3a2c2cbe-6087-470d-9583-8425b653932d",
+      "versionId": "b737d93f-09cf-4da3-9c72-d3520883236a",
       "ingress": "Service binding only; workers.dev and preview URLs disabled"
     }
   },
@@ -24,8 +24,8 @@
   },
   "compiler": {
     "version": "0.72.7",
-    "gitSha": "347dcb0e5",
-    "image": "quickback-compiler:cms-array-editors"
+    "gitSha": "c67a1e54e",
+    "image": "quickback-compiler:cms-image-previews"
   },
   "certificate": {
     "packId": "aaefaefa-5b62-46e9-b33a-caa2f87dc1d0",
@@ -69,7 +69,10 @@
     "arrayColourPhotoOrderingRoundTrip": true,
     "shopperArrayWriteDenied": true,
     "invalidJsonItemsRejected": true,
-    "generatedExactContractUnchanged": true
+    "generatedExactContractUnchanged": true,
+    "cmsProductAndColourPhotoHints": true,
+    "liveProductAndColourJpegAssets": true,
+    "photoControlsFromGeneratedMetadata": true
   },
   "notes": [
     "Secrets are stored in Cloudflare and are not included here.",

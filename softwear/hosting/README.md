@@ -22,6 +22,8 @@ The public gateway permits sign-in, sign-out, session reads and the read-only or
 
 This is a demonstration. Orders are simulated; nothing is charged or shipped. Use fictitious details when trying checkout. The existing app displays this notice. Email and password accounts work without a real-store verification/fulfilment setup; this deployment is not a production shop.
 
+Product `photo` and `colors.photo` use `image:/assets/p/` input hints. The CMS previews existing storefront assets in record views and edit forms while preserving filenames in the generated API and Exact contract.
+
 ## Build and deploy again
 
 From the exact-templates root, first initialize the pinned Exact tooling if this is a fresh checkout:
@@ -32,7 +34,7 @@ cd softwear/backend && npm install
 cd ../hosting && npm ci
 ```
 
-The current prototype requires Quickback's Exact target, automatic grants and generated bindings (#836–#838), plus the Wrangler KV naming compatibility fix and CMS platform-role/edit-validation fixes (#840) and sidebar navigation groups (#841), plus the CMS callback/demo-prefill fix (#842) and structured CMS array editors (#843) found during this deployment. Until those changes are released, build the CLI from the Quickback checkout and run its compiler with Docker. Never replace the Docker compiler with a host Bun server.
+The current prototype requires Quickback's Exact target, automatic grants and generated bindings (#836–#838), plus the Wrangler KV naming compatibility fix and CMS platform-role/edit-validation fixes (#840) and sidebar navigation groups (#841), plus the CMS callback/demo-prefill fix (#842) and structured CMS array editors (#843) and CMS image previews (#844) found during this deployment. Until those changes are released, build the CLI from the Quickback checkout and run its compiler with Docker. Never replace the Docker compiler with a host Bun server.
 
 ```sh
 # In the Quickback checkout:
